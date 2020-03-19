@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProfileMenu = (props) => {
-    console.log(props.user);
+    // console.log(props.user);
 
     return (
         <div className="profile_menu">
