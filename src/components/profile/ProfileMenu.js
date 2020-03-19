@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const ProfileMenu = (props) => {
-    let [user, setUser] = useState(null);
+    console.log(props.user);
 
-    useEffect(() => {
-        setUser(props.user);
-        console.log(user);
-    }, []);
-    
     return (
         <div className="profile_menu">
-            {(user && user.displayName) ? <span>Hello {user.displayName}</span>:<span>Hello</span>}
+            {(props.user && props.user.displayName) ? <span>Hello {props.user.displayName}</span>:<span>Hello</span>}
             <button onClick={props.onLogoutClicked}>logout</button>
         </div>
     );
