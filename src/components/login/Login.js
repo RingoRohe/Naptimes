@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import firebase from '../../firebase/firebase';
 
-const LoginMethods = () => {
+const Login = (props) => {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     let [errorMessage, setErrorMessage] = useState('');
@@ -15,7 +14,7 @@ const LoginMethods = () => {
 
     const onSubmitLogin = (e) => {
         e.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        props.firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
 
             })
@@ -28,7 +27,7 @@ const LoginMethods = () => {
     }
 
     const onClickSignUp = () => {
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        props.firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
             // Handle Errors here.
             setErrorMessage(`${error.message}`);
         });
@@ -47,4 +46,4 @@ const LoginMethods = () => {
     );
 }
 
-export default LoginMethods;
+export default Login;
