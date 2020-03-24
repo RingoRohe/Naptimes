@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Loader from "libs/loading_overlay/js/loader";
 
 import ProfileMenu from 'components/profile/ProfileMenu';
-import Users from 'components/Users';
+import Users from 'components/dashboard/Users';
+import NapsController from 'components/naps/NapsController';
 
 const Dashboard = (props) => {
     // still for demo
@@ -9,7 +11,12 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         // get data from firestore
-        const unmountFirestore = props.firebase
+        let ldr = new Loader();
+        ldr.show({
+            elements: document.querySelector("#usersList")
+        });
+
+        const unmountUsersStore = props.firebase
             .firestore()
             .collection("users")
             .onSnapshot(querySnapshot => {
@@ -22,17 +29,23 @@ const Dashboard = (props) => {
                     });
                 });
                 setUsers(newUsers);
+                ldr.hide();
             });
         
         return () => {
             // component will unmount
-            unmountFirestore();
+            unmountUsersStore();
         };
     }, [props]);
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
     };
+
+    const napsButtonOnClick = (e) => {
+        const nc = new NapsController();
+        nc.createNewNap(props.user);
+    }
     
     return (
         <div className="wrapper">
@@ -40,7 +53,7 @@ const Dashboard = (props) => {
                 <nav className="card">
                     <ul className="mainMenu">
                         <li>
-                            <button>Naps</button>
+                            <button onClick={napsButtonOnClick}>Naps</button>
                         </li>
                         <li>
                             <button>Diapers</button>
@@ -63,7 +76,7 @@ const Dashboard = (props) => {
                 <aside className="card">
                     <p>bla</p>
                 </aside>
-                <article className="card">
+                <article className="card" id="usersList">
                     <Users users={users} />
                 </article>
                 <article className="card">

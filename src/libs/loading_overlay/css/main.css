@@ -1,0 +1,25 @@
+.loader_background {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.loader_inner {
+	padding: 10px;
+	width: 32px;
+	height: 32px;
+	background-color: #FFF;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -26px;
+	margin-left: -26px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 30px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 30px;
+	-o-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 30px;
+	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 30px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+}

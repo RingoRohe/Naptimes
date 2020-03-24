@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import firebase from './firebase/firebase';
 import 'App.scss';
+import 'libs/loading_overlay/css/main.css'
 
 import Login from 'components/login/Login';
-import Dashboard from 'components/Dashboard';
+import Dashboard from 'components/dashboard/Dashboard';
 
 function App() {
     let [user, setUser] = useState(null);
@@ -16,6 +17,7 @@ function App() {
             if (authUser) {
                 // User is signed in.
                 setUser(authUser);
+                createUserIfNotExists(authUser);
             } else {
                 setUser(null);
             }
@@ -26,6 +28,15 @@ function App() {
             unmountAuth();
         };
     }, []);
+
+    const createUserIfNotExists = (user) => {
+        const newUserData = {
+            email: user.email,
+            photoURL: user.photoURL,
+            displayName: user.displayName
+        };
+        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
+    }
 
     if (user) {
         return <Dashboard firebase={firebase} user={user} />;
