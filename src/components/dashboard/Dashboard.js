@@ -24,7 +24,7 @@ const Dashboard = (props) => {
                 querySnapshot.forEach(doc => {
                     newUsers.push({
                         id: doc.id,
-                        name: doc.data().name,
+                        displayName: doc.data().displayName,
                         email: doc.data().email
                     });
                 });
