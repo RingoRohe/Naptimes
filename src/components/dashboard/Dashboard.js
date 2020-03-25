@@ -68,17 +68,13 @@ const Dashboard = (props) => {
                         </li>
                     </ul>
                 </nav>
-                <div className="profile card">
-                    <ProfileMenu onLogoutClicked={onLogoutClicked} user={props.user} />
-                </div>
+                <ProfileMenu onLogoutClicked={onLogoutClicked} user={props.user} />
             </header>
             <section className="main">
                 <aside className="card">
                     <p>bla</p>
                 </aside>
-                <article className="card" id="usersList">
-                    <Users users={users} />
-                </article>
+                <Users users={users} />
                 <article className="card">
                     <p>
                         Lorem, ipsum dolor sit amet consectetur adipisicing

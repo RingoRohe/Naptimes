@@ -4,7 +4,7 @@ const ProfileMenu = (props) => {
     // console.log(props.user);
 
     return (
-        <div className="profile_menu">
+        <div className="profile card">
             {(props.user && props.user.displayName) ? <span>Hello {props.user.displayName}</span>:<span>Hello</span>}
             <button onClick={props.onLogoutClicked}>logout</button>
         </div>
