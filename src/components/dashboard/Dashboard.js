@@ -50,39 +50,50 @@ const Dashboard = (props) => {
     return (
         <div className="wrapper">
             <header>
-                <nav className="card">
-                    <ul className="mainMenu">
-                        <li>
-                            <button onClick={napsButtonOnClick}>Naps</button>
-                        </li>
-                        <li>
-                            <button>Diapers</button>
-                        </li>
-                        <li>
-                            <button>Pictures</button>
-                        </li>
-                    </ul>
-                    <ul className="settings_menu">
-                        <li>
-                            <button>Settings</button>
-                        </li>
-                    </ul>
-                </nav>
-                <ProfileMenu onLogoutClicked={onLogoutClicked} user={props.user} />
+                <h1>Naps - track your little buddy! <span role="img" aria-label="baby">👶🏻</span></h1>
             </header>
+            <nav className="card">
+                <ul className="mainMenu">
+                    <li>
+                        <button onClick={napsButtonOnClick}>Naps</button>
+                    </li>
+                    <li>
+                        <button>Diapers</button>
+                    </li>
+                    <li>
+                        <button>Pictures</button>
+                    </li>
+                </ul>
+                <ul className="settings_menu">
+                    <li>
+                        <button>Settings</button>
+                    </li>
+                </ul>
+            </nav>
+            <ProfileMenu onLogoutClicked={onLogoutClicked} user={props.user} />
+            <aside className="card">
+                <p>bla</p>
+            </aside>
             <section className="main">
-                <aside className="card">
-                    <p>bla</p>
-                </aside>
                 <Users users={users} />
                 <article className="card">
                     <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Architecto et quisquam quod dolorem quam voluptate
-                        debitis incidunt unde, recusandae labore sapiente
-                        repudiandae voluptas natus amet necessitatibus quas
-                        aperiam explicabo dicta nihil distinctio at quibusdam
-                        deserunt? Sit vel laboriosam temporibus earum?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!
+                    </p>
+                </article>
+                <article className="card">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!
+                    </p>
+                </article>
+                <article className="card">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, esse? Harum, asperiores.
+                    </p>
+                </article>
+                <article className="card">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!
                     </p>
                 </article>
             </section>
