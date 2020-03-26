@@ -1,42 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Loader from "libs/loading_overlay/js/loader";
+import React from 'react';
 
 import ProfileMenu from 'components/profile/ProfileMenu';
-import Users from 'components/dashboard/Users';
+// import Users from 'components/dashboard/Users';
 import NapsController from 'components/naps/NapsController';
 
 const Dashboard = (props) => {
-    // still for demo
-    let [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        // get data from firestore
-        let ldr = new Loader();
-        ldr.show({
-            elements: document.querySelector("#usersList")
-        });
-
-        const unmountUsersStore = props.firebase
-            .firestore()
-            .collection("users")
-            .onSnapshot(querySnapshot => {
-                let newUsers = [];
-                querySnapshot.forEach(doc => {
-                    newUsers.push({
-                        id: doc.id,
-                        displayName: doc.data().displayName,
-                        email: doc.data().email
-                    });
-                });
-                setUsers(newUsers);
-                ldr.hide();
-            });
-        
-        return () => {
-            // component will unmount
-            unmountUsersStore();
-        };
-    }, [props]);
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
@@ -75,7 +43,7 @@ const Dashboard = (props) => {
                 <p>bla</p>
             </aside>
             <section className="main">
-                <Users users={users} />
+                {/* <Users firebase={props.firebase} /> */}
                 <article className="card">
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!

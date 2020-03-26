@@ -8,7 +8,7 @@ class NapsController {
     
     createNewNap = (user) => {
         const db = firebase.firestore();
-        const ref = db.collection("users").doc(user.uid).collection('naps');
+        const ref = db.collection(`users/${user.uid}/naps`);
         ref.add(this.newNap.toObject())
         .then(function () {
             console.log("Document successfully written!");
