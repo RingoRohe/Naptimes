@@ -1,8 +1,10 @@
 import React from 'react';
 
-import ProfileMenu from 'components/profile/ProfileMenu';
+import ProfileMenu from 'components/profile/ProfileMenuView';
 // import Users from 'components/dashboard/Users';
 import NapsController from 'components/naps/NapsController';
+import MainMenu from 'components/menu/MainMenu';
+import SettingsMenu from 'components/menu/SettingsMenu';
 
 const Dashboard = (props) => {
 
@@ -11,8 +13,9 @@ const Dashboard = (props) => {
     };
 
     const napsButtonOnClick = (e) => {
+        e.preventDefault();
         const nc = new NapsController();
-        nc.createNewNap(props.user);
+        nc.createNewNap(props.currentUser);
     }
     
     return (
@@ -20,25 +23,11 @@ const Dashboard = (props) => {
             <header>
                 <h1>Naps - track your little buddy! <span role="img" aria-label="baby">👶🏻</span></h1>
             </header>
-            <nav className="card">
-                <ul className="mainMenu">
-                    <li>
-                        <button onClick={napsButtonOnClick}>Naps</button>
-                    </li>
-                    <li>
-                        <button>Diapers</button>
-                    </li>
-                    <li>
-                        <button>Pictures</button>
-                    </li>
-                </ul>
-                <ul className="settings_menu">
-                    <li>
-                        <button>Settings</button>
-                    </li>
-                </ul>
+            <nav className="mainMenu card">
+                <MainMenu napsButtonOnClick={napsButtonOnClick} />
+                <SettingsMenu />
             </nav>
-            <ProfileMenu onLogoutClicked={onLogoutClicked} user={props.user} />
+            <ProfileMenu onLogoutClicked={onLogoutClicked} currentUser={props.currentUser} />
             <aside className="card">
                 <p>bla</p>
             </aside>

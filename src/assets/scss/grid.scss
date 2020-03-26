@@ -1,0 +1,23 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 120px auto 120px;
+    grid-template-rows:repeat(4, auto);
+    grid-template-areas:
+        "header header header"
+        "nav nav nav"
+        "aside aside profile"
+        "main main main"
+        "footer footer footer";
+    gap: 1rem;
+    margin: 1rem;
+}
+
+@media (min-width: 960px) {
+    .wrapper {
+        grid-template-areas:
+            "header header header"
+            "nav nav profile"
+            "aside main main"
+            "footer footer footer";
+    }
+}
