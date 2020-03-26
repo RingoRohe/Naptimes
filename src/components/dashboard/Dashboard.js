@@ -5,8 +5,17 @@ import ProfileMenu from 'components/profile/ProfileMenuView';
 import NapsController from 'components/naps/NapsController';
 import MainMenu from 'components/menu/MainMenu';
 import SettingsMenu from 'components/menu/SettingsMenu';
+import Modal from 'components/modal/Modal';
+import { useState } from 'react';
 
 const Dashboard = (props) => {
+    let [modalContent, setModalContent] = useState(<p>default Content</p>);
+    let [modalVisibility, setModalVisibility] = useState(false);
+    const modal = {
+        setContent: (content) => setModalContent(content),
+        setVisibility: (visibility) => setModalVisibility(visibility),
+        toggleVisibility: () => setModalVisibility(!modalVisibility),
+    };
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
@@ -21,13 +30,22 @@ const Dashboard = (props) => {
     return (
         <div className="wrapper">
             <header>
-                <h1>Naps - track your little buddy! <span role="img" aria-label="baby">👶🏻</span></h1>
+                <h1>
+                    Naps - track your little buddy!{" "}
+                    <span role="img" aria-label="baby">
+                        👶🏻
+                    </span>
+                </h1>
             </header>
             <nav className="mainMenu card">
                 <MainMenu napsButtonOnClick={napsButtonOnClick} />
                 <SettingsMenu />
             </nav>
-            <ProfileMenu onLogoutClicked={onLogoutClicked} currentUser={props.currentUser} />
+            <ProfileMenu
+                onLogoutClicked={onLogoutClicked}
+                modal={modal}
+                currentUser={props.currentUser}
+            />
             <aside className="card">
                 <p>bla</p>
             </aside>
@@ -35,26 +53,31 @@ const Dashboard = (props) => {
                 {/* <Users firebase={props.firebase} /> */}
                 <article className="card">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Ea expedita animi perferendis dicta architecto!
                     </p>
                 </article>
                 <article className="card">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Ea expedita animi perferendis dicta architecto!
                     </p>
                 </article>
                 <article className="card">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, esse? Harum, asperiores.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Suscipit, esse? Harum, asperiores.
                     </p>
                 </article>
                 <article className="card">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea expedita animi perferendis dicta architecto!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Ea expedita animi perferendis dicta architecto!
                     </p>
                 </article>
             </section>
             <footer className="card">This is the footer</footer>
+            <Modal visibility={modalVisibility} modal={modal}>{modalContent}</Modal>
         </div>
     );
 }

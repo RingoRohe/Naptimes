@@ -33,8 +33,8 @@
 
         .profileSubmenu {
             display: flex;
-            justify-content: center;
-            align-items: flex-end;
+            justify-content: flex-end;
+            flex-direction: column;
         }
     }
 }
