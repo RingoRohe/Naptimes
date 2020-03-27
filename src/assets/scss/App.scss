@@ -5,29 +5,32 @@
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 
-body {
-    background-color: $dark;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    line-height: 1.3;
+html {
     font-size: 70%;
 }
 
 @media (min-width: 580px) {
-    body {
+    html {
         font-size: 80%;
     }
 }
 
 @media (min-width: 720px) {
-    body {
+    html {
         font-size: 90%;
     }
 }
 
 @media (min-width: 960px) {
-    body {
+    html {
         font-size: 100%;
     }
+}
+
+body {
+    background-color: $dark;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 1.3;
 }
 
 @import './globals.scss';
@@ -35,7 +38,6 @@ body {
 @import './header.scss';
 @import './mainMenu.scss';
 @import './profileMenu.scss';
-@import './aside.scss';
 @import './main.scss';
 @import './footer.scss';
 @import './modal.scss';

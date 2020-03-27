@@ -14,15 +14,22 @@
     align-items: center;
     flex-direction: column;
     cursor: pointer;
-    padding: 2rem;
+    padding: 1rem;
+    min-width: 6rem;
 
-    &:hover {
-        background: $dark;
-        color: $white;
+    .icon {
+        color: $highlight;
+        font-size: 3rem;
     }
-
+    
     .text {
         margin-top: .5rem;
         text-align: center;
+        color: $white;
+    }
+
+    &:hover {
+        background: $mid;
+        color: $white;
     }
 }

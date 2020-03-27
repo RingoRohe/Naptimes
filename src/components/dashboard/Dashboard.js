@@ -4,51 +4,46 @@ import ProfileMenu from 'components/profile/ProfileMenuView';
 // import Users from 'components/dashboard/Users';
 import NapsController from 'components/naps/NapsController';
 import MainMenu from 'components/menu/MainMenu';
-import SettingsMenu from 'components/menu/SettingsMenu';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 
 const Dashboard = (props) => {
+    // Modal
     let [modalContent, setModalContent] = useState(<p>default Content</p>);
     let [modalVisibility, setModalVisibility] = useState(false);
     const modal = {
         setContent: (content) => setModalContent(content),
         setVisibility: (visibility) => setModalVisibility(visibility),
         toggleVisibility: () => setModalVisibility(!modalVisibility),
+        modalVisibility,
+        modalContent
     };
+
+    // Naps
+    const napsController = new NapsController();
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
     };
-
-    const napsButtonOnClick = (e) => {
-        e.preventDefault();
-        const nc = new NapsController();
-        nc.createNewNap(props.currentUser);
-    }
     
     return (
         <div className="wrapper">
             <header>
                 <h1>
-                    Naps - track your little buddy!{" "}
+                    Naptimes{" "}
                     <span role="img" aria-label="baby">
                         👶🏻
                     </span>
                 </h1>
             </header>
-            <nav className="mainMenu card">
-                <MainMenu napsButtonOnClick={napsButtonOnClick} />
-                <SettingsMenu />
+            <nav className="mainMenu">
+                <MainMenu napsController={napsController} modal={modal} />
             </nav>
             <ProfileMenu
                 onLogoutClicked={onLogoutClicked}
                 modal={modal}
                 currentUser={props.currentUser}
             />
-            <aside className="card">
-                <p>bla</p>
-            </aside>
             <section className="main">
                 {/* <Users firebase={props.firebase} /> */}
                 <article className="card">
@@ -76,8 +71,10 @@ const Dashboard = (props) => {
                     </p>
                 </article>
             </section>
-            <footer className="card">This is the footer</footer>
-            <Modal visibility={modalVisibility} modal={modal}>{modalContent}</Modal>
+            <footer className="footer">This is the footer</footer>
+            <Modal modal={modal}>
+                {modalContent}
+            </Modal>
         </div>
     );
 }

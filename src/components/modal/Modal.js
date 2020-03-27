@@ -11,7 +11,7 @@ const Modal = props => {
     
     return (
         <div
-            className={props.visibility ? "backdrop" : "backdrop hidden"}
+            className={props.modal.modalVisibility ? "backdrop" : "backdrop hidden"}
             onClick={onBackdropClick}
         >
             <div className="modal card" onClick={onModalClick}>

@@ -1,8 +1,10 @@
 .main {
+    padding: 2rem;
+    background-color: $mid;
     grid-area: main;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
     grid-auto-rows: max-content;
 }
 
