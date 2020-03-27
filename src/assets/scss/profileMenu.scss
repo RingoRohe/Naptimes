@@ -1,7 +1,8 @@
 .profileMenu {
     position: relative;
     grid-area: profile;
-    max-width: 4rem;
+    width: 4rem;
+    min-width: 6rem;
 
     .picture {
         width: 4rem;

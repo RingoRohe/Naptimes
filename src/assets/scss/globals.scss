@@ -15,11 +15,11 @@
     flex-direction: column;
     cursor: pointer;
     padding: 1rem;
-    min-width: 6rem;
+    min-width: 4rem;
 
     .icon {
         color: $highlight;
-        font-size: 3rem;
+        font-size: 2rem;
     }
     
     .text {
@@ -31,5 +31,17 @@
     &:hover {
         background: $mid;
         color: $white;
+    }
+}
+
+button {
+    background-color: $dark;
+    color: $light;
+    border: none;
+    padding: .5em 1em;
+
+    &:hover {
+        color: $dark;
+        background-color: $highlight;
     }
 }

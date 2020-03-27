@@ -3,8 +3,8 @@ import NapsView from 'components/naps/NapsView';
 
 const MainMenu = (props) => {
     const showNapsMenu = () => {
-        props.modal.setContent(<NapsView />);
-        props.modal.setVisibility(true);
+        props.modal.setContent(<NapsView napsController={props.napsController} modal={props.modal} />);
+        props.modal.show();
     }
     
     return (

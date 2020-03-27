@@ -9,18 +9,21 @@ import { useState } from 'react';
 
 const Dashboard = (props) => {
     // Modal
-    let [modalContent, setModalContent] = useState(<p>default Content</p>);
+    let [modalContent, setModalContent] = useState("");
     let [modalVisibility, setModalVisibility] = useState(false);
     const modal = {
         setContent: (content) => setModalContent(content),
-        setVisibility: (visibility) => setModalVisibility(visibility),
         toggleVisibility: () => setModalVisibility(!modalVisibility),
+        hide: () => setModalVisibility(false),
+        show: () => setModalVisibility(true),
         modalVisibility,
         modalContent
     };
 
     // Naps
-    const napsController = new NapsController();
+    let [runningNap, setRunningNap] = useState(null);
+    const nc = new NapsController(props.firebase, props.currentUser, runningNap);
+    nc.listenforRunningNap(setRunningNap);
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
@@ -37,7 +40,7 @@ const Dashboard = (props) => {
                 </h1>
             </header>
             <nav className="mainMenu">
-                <MainMenu napsController={napsController} modal={modal} />
+                <MainMenu napsController={nc} modal={modal} />
             </nav>
             <ProfileMenu
                 onLogoutClicked={onLogoutClicked}
@@ -48,8 +51,7 @@ const Dashboard = (props) => {
                 {/* <Users firebase={props.firebase} /> */}
                 <article className="card">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Ea expedita animi perferendis dicta architecto!
+                        {runningNap ? 'Nap is running' : 'no Nap active'}
                     </p>
                 </article>
                 <article className="card">
