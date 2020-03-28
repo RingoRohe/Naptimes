@@ -6,6 +6,7 @@ import NapsController from 'components/naps/NapsController';
 import MainMenu from 'components/menu/MainMenu';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
+import RunningNapWidget from 'components/naps/RunningNapWidget';
 
 const Dashboard = (props) => {
     // Modal
@@ -21,9 +22,7 @@ const Dashboard = (props) => {
     };
 
     // Naps
-    let [runningNap, setRunningNap] = useState(null);
-    const nc = new NapsController(props.firebase, props.currentUser, runningNap);
-    nc.listenforRunningNap(setRunningNap);
+    const nc = new NapsController(props.firebase, props.currentUser);
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
@@ -49,17 +48,7 @@ const Dashboard = (props) => {
             />
             <section className="main">
                 {/* <Users firebase={props.firebase} /> */}
-                <article className="card">
-                    <p>
-                        {runningNap ? 'Nap is running' : 'no Nap active'}
-                    </p>
-                </article>
-                <article className="card">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Ea expedita animi perferendis dicta architecto!
-                    </p>
-                </article>
+                <RunningNapWidget firebase={props.firebase} currentUser={props.currentUser}/>
                 <article className="card">
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
