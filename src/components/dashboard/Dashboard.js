@@ -1,12 +1,18 @@
+// react stuff
 import React from 'react';
+import { useEffect } from "react";
+import { useState } from 'react';
 
+// models
+import Nap from "models/Nap";
+
+// components
 import ProfileMenu from 'components/profile/ProfileMenuView';
 // import Users from 'components/dashboard/Users';
 import NapsController from 'components/naps/NapsController';
 import MainMenu from 'components/menu/MainMenu';
 import Modal from 'components/modal/Modal';
-import { useState } from 'react';
-import RunningNapWidget from 'components/naps/RunningNapWidget';
+import NapsWidget from 'components/naps/NapsWidget';
 
 const Dashboard = (props) => {
     // Modal
@@ -22,7 +28,30 @@ const Dashboard = (props) => {
     };
 
     // Naps
-    const nc = new NapsController(props.firebase, props.currentUser);
+    let [runningNap, setRunningNap] = useState(null);
+    const nc = new NapsController(props.firebase, props.currentUser, runningNap);
+    useEffect(() => {
+        // console.log('useEffect in Dashboard.js');
+
+        // bind to running nap
+        const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
+        let last = ref.orderBy('start').where('start', '>', 0).where('end', '==', 0).limit(1);
+        const unmountRunningNapListener = last.onSnapshot(snapshot => {
+            if (snapshot.empty) {
+                setRunningNap(null);
+            } else {
+                const nap = new Nap();
+                nap.fromFirebaseDoc(snapshot.docs[0]);
+                setRunningNap(nap);
+            }
+        }, err => {
+            console.log(`Encountered error: ${err}`);
+        });
+
+        return () => {
+            unmountRunningNapListener();
+        };
+    }, [props.firebase, props.currentUser]);
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
@@ -48,7 +77,7 @@ const Dashboard = (props) => {
             />
             <section className="main">
                 {/* <Users firebase={props.firebase} /> */}
-                <RunningNapWidget firebase={props.firebase} currentUser={props.currentUser}/>
+                <NapsWidget napsController={nc} runningNap={runningNap}/>
                 <article className="card">
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.

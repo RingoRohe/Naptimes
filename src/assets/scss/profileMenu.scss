@@ -29,7 +29,7 @@
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         box-shadow: none;
 
         .profileSubmenu {

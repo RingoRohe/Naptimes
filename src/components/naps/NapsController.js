@@ -2,10 +2,10 @@ import Nap from 'models/Nap';
 
 class NapsController {
     constructor(firebase, currentUser, runningNap) {
+        this.runningNap = runningNap;
         this.firebase = firebase;
         this.currentUser = currentUser;
         this.db = this.firebase.firestore();
-        this.runningNapListener = null;
     }
     
     startNap = () => {
@@ -18,6 +18,15 @@ class NapsController {
         .catch(function (error) {
             console.error("Error writing document: ", error);
         });
+    }
+
+    finishNap = () => {
+        const ref = this.db.collection(`users/${this.currentUser.uid}/naps`);
+        ref.doc(this.runningNap.id).update({end: Date.now()});
+    }
+
+    getRunningNap = () => {
+        return this.runningNap;
     }
 }
 

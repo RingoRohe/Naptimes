@@ -28,7 +28,7 @@
         color: $white;
     }
 
-    &:hover {
+    &:hover, &:focus {
         background: $mid;
         color: $white;
     }
@@ -39,9 +39,26 @@ button {
     color: $light;
     border: none;
     padding: .5em 1em;
+    cursor: pointer;
 
-    &:hover {
+    .default {
+        display: inline;
+    }
+
+    .hover {
+        display: none;
+    }
+
+    &:hover, &:focus {
         color: $dark;
         background-color: $highlight;
+        
+        .default {
+            display: none;
+        }
+
+        .hover {
+            display: inline;
+        }
     }
 }

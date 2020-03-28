@@ -1,9 +1,9 @@
 import React from 'react';
-import NapsView from 'components/naps/NapsView';
+import NapsModalView from 'components/naps/NapsModalView';
 
 const MainMenu = (props) => {
     const showNapsMenu = () => {
-        props.modal.setContent(<NapsView napsController={props.napsController} modal={props.modal} />);
+        props.modal.setContent(<NapsModalView napsController={props.napsController} modal={props.modal} />);
         props.modal.show();
     }
     

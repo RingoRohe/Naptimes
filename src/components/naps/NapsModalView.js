@@ -1,13 +1,26 @@
 import React from 'react';
 
-const NapsView = (props) => {
+const NapsModalView = (props) => {
     const onStartNapButtonClick = (e) => {
         e.preventDefault();
-        props.napsController.startNap(props.currentUser);
+        props.napsController.startNap();
+        props.modal.hide();
+    }
+
+    const onFinishNapButtonClick = (e) => {
+        e.preventDefault();
+        props.napsController.finishNap();
         props.modal.hide();
     }
     
-    return (
+    return props.napsController.runningNap ? (
+        <form>
+            <fieldset>
+                <legend>Nap</legend>
+                <button onClick={onFinishNapButtonClick}>NAP FINISHED</button>
+            </fieldset>
+        </form>
+    ) : (
         <form>
             <fieldset>
                 <legend>start Nap</legend>
@@ -22,4 +35,4 @@ const NapsView = (props) => {
     );
 }
 
-export default NapsView;
+export default NapsModalView;
