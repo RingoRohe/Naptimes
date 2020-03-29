@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import firebase from './firebase/firebase';
-import 'App.scss';
+import 'assets/scss/App.scss';
 import 'libs/loading_overlay/css/main.css'
 
 import Login from 'components/login/Login';
 import Dashboard from 'components/dashboard/Dashboard';
 
 function App() {
-    let [user, setUser] = useState(null);
+    let [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
         // component did mount
@@ -16,10 +16,10 @@ function App() {
         const unmountAuth = firebase.auth().onAuthStateChanged(function(authUser) {
             if (authUser) {
                 // User is signed in.
-                setUser(authUser);
+                setCurrentUser(authUser);
                 createUserIfNotExists(authUser);
             } else {
-                setUser(null);
+                setCurrentUser(null);
             }
         });
 
@@ -38,8 +38,8 @@ function App() {
         firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
     }
 
-    if (user) {
-        return <Dashboard firebase={firebase} user={user} />;
+    if (currentUser) {
+        return <Dashboard firebase={firebase} currentUser={currentUser} />;
     } else {
         return <Login firebase={firebase} />
     }

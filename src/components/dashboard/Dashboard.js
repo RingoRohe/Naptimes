@@ -1,92 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import Loader from "libs/loading_overlay/js/loader";
+// react stuff
+import React from 'react';
+import { useEffect } from "react";
+import { useState } from 'react';
 
-import ProfileMenu from 'components/profile/ProfileMenu';
-import Users from 'components/dashboard/Users';
+// models
+import Nap from "models/Nap";
+
+// components
+import ProfileMenu from 'components/profile/ProfileMenuView';
+// import Users from 'components/dashboard/Users';
 import NapsController from 'components/naps/NapsController';
+import MainMenu from 'components/menu/MainMenu';
+import Modal from 'components/modal/Modal';
+import NapsWidget from 'components/naps/NapsWidget';
 
 const Dashboard = (props) => {
-    // still for demo
-    let [users, setUsers] = useState([]);
+    // Modal
+    let [modalContent, setModalContent] = useState("");
+    let [modalVisibility, setModalVisibility] = useState(false);
+    const modal = {
+        setContent: (content) => setModalContent(content),
+        toggleVisibility: () => setModalVisibility(!modalVisibility),
+        hide: () => setModalVisibility(false),
+        show: () => setModalVisibility(true),
+        modalVisibility,
+        modalContent
+    };
 
+    // Naps
+    let [runningNap, setRunningNap] = useState(null);
+    const nc = new NapsController(props.firebase, props.currentUser, runningNap);
     useEffect(() => {
-        // get data from firestore
-        let ldr = new Loader();
-        ldr.show({
-            elements: document.querySelector("#usersList")
+        // console.log('useEffect in Dashboard.js');
+
+        // bind to running nap
+        const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
+        let last = ref.orderBy('start').where('start', '>', 0).where('end', '==', 0).limit(1);
+        const unmountRunningNapListener = last.onSnapshot(snapshot => {
+            if (snapshot.empty) {
+                setRunningNap(null);
+            } else {
+                const nap = new Nap();
+                nap.fromFirebaseDoc(snapshot.docs[0]);
+                setRunningNap(nap);
+            }
+        }, err => {
+            console.log(`Encountered error: ${err}`);
         });
 
-        const unmountUsersStore = props.firebase
-            .firestore()
-            .collection("users")
-            .onSnapshot(querySnapshot => {
-                let newUsers = [];
-                querySnapshot.forEach(doc => {
-                    newUsers.push({
-                        id: doc.id,
-                        displayName: doc.data().displayName,
-                        email: doc.data().email
-                    });
-                });
-                setUsers(newUsers);
-                ldr.hide();
-            });
-        
         return () => {
-            // component will unmount
-            unmountUsersStore();
+            unmountRunningNapListener();
         };
-    }, [props]);
+    }, [props.firebase, props.currentUser]);
 
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
     };
-
-    const napsButtonOnClick = (e) => {
-        const nc = new NapsController();
-        nc.createNewNap(props.user);
-    }
     
     return (
         <div className="wrapper">
             <header>
-                <nav className="card">
-                    <ul className="mainMenu">
-                        <li>
-                            <button onClick={napsButtonOnClick}>Naps</button>
-                        </li>
-                        <li>
-                            <button>Diapers</button>
-                        </li>
-                        <li>
-                            <button>Pictures</button>
-                        </li>
-                    </ul>
-                    <ul className="settings_menu">
-                        <li>
-                            <button>Settings</button>
-                        </li>
-                    </ul>
-                </nav>
-                <ProfileMenu onLogoutClicked={onLogoutClicked} user={props.user} />
+                <h1>
+                    Naptimes{" "}
+                    <span role="img" aria-label="baby">
+                        👶🏻
+                    </span>
+                </h1>
             </header>
+            <nav className="mainMenu">
+                <MainMenu napsController={nc} modal={modal} />
+            </nav>
+            <ProfileMenu
+                onLogoutClicked={onLogoutClicked}
+                modal={modal}
+                currentUser={props.currentUser}
+            />
             <section className="main">
-                <aside className="card">
-                    <p>bla</p>
-                </aside>
-                <Users users={users} />
+                {/* <Users firebase={props.firebase} /> */}
+                <NapsWidget napsController={nc} runningNap={runningNap}/>
                 <article className="card">
                     <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Architecto et quisquam quod dolorem quam voluptate
-                        debitis incidunt unde, recusandae labore sapiente
-                        repudiandae voluptas natus amet necessitatibus quas
-                        aperiam explicabo dicta nihil distinctio at quibusdam
-                        deserunt? Sit vel laboriosam temporibus earum?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Suscipit, esse? Harum, asperiores.
+                    </p>
+                </article>
+                <article className="card">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Ea expedita animi perferendis dicta architecto!
                     </p>
                 </article>
             </section>
-            <footer className="card">This is the footer</footer>
+            <footer className="footer">This is the footer</footer>
+            <Modal modal={modal}>
+                {modalContent}
+            </Modal>
         </div>
     );
 }

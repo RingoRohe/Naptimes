@@ -1,0 +1,12 @@
+header {
+    grid-area: header;
+    background-color: $black;
+
+    h1 {
+        font-size: 3rem;
+        color: $light;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}

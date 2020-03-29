@@ -1,21 +1,32 @@
 import Nap from 'models/Nap';
-import firebase from '../../firebase/firebase';
 
 class NapsController {
-    constructor() {
-        this.newNap = new Nap(Math.floor(Date.now() / 1000));
+    constructor(firebase, currentUser, runningNap) {
+        this.runningNap = runningNap;
+        this.firebase = firebase;
+        this.currentUser = currentUser;
+        this.db = this.firebase.firestore();
     }
     
-    createNewNap = (user) => {
-        const db = firebase.firestore();
-        const ref = db.collection("users").doc(user.uid).collection('naps');
-        ref.add(this.newNap.toObject())
+    startNap = () => {
+        let newNap = new Nap(Date.now());
+        const ref = this.db.collection(`users/${this.currentUser.uid}/naps`);
+        ref.add(newNap.toObject())
         .then(function () {
             console.log("Document successfully written!");
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
         });
+    }
+
+    finishNap = () => {
+        const ref = this.db.collection(`users/${this.currentUser.uid}/naps`);
+        ref.doc(this.runningNap.id).update({end: Date.now()});
+    }
+
+    getRunningNap = () => {
+        return this.runningNap;
     }
 }
 
