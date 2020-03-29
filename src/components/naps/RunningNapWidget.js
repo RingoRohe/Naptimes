@@ -2,17 +2,17 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const NapsWidget = (props) => {
+const RunningNapWidget = (props) => {
     let [elapsedTime, setElapsedTime] = useState(0);
     
     useEffect(() => {
         // console.log('useEffect in RunningNapWidget.js');
         let interval = null;
         if (props.runningNap) {
-            var offset = new Date().getTimezoneOffset() * 60 * 1000;
-            setElapsedTime(Date.now() - props.runningNap.start + offset);
+            // offset = 0;
+            setElapsedTime(Date.now() - props.runningNap.start);
             interval = setInterval(() => {
-                setElapsedTime(Date.now() - props.runningNap.start + offset);
+                setElapsedTime(Date.now() - props.runningNap.start);
             }, 1000);
         } else {
             if (interval) {
@@ -32,19 +32,21 @@ const NapsWidget = (props) => {
         props.napsController.finishNap();
     };
 
-    return props.runningNap ? (
+    return (
         <article className="naps_widget running card">
-            <span className="icon fas fa-bed fa-3x"></span>
+            <span className="card_icon fas fa-bed fa-3x"></span>
             <p>Your Buddy is sleeping...</p>
-            <span className="timer">{new Date(elapsedTime).toLocaleTimeString()}</span>
-            <button onClick={onFinishNapButtonClick}>Nap finished<span className="default">?</span><span className="hover">!</span></button>
-        </article>
-    ) : (
-        <article className="naps_widget card">
-            <span className="icon fas fa-bed fa-3x"></span>
-            <p>no Nap running</p>
+            <span className="timer">
+                {new Date(elapsedTime).toLocaleTimeString([], {
+                    timeZone: "UTC"
+                })}
+            </span>
+            <button onClick={onFinishNapButtonClick}>
+                Nap finished<span className="default">?</span>
+                <span className="hover">!</span>
+            </button>
         </article>
     );
 }
 
-export default NapsWidget;
+export default RunningNapWidget;

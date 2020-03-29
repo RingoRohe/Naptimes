@@ -12,7 +12,8 @@ import ProfileMenu from 'components/profile/ProfileMenuView';
 import NapsController from 'components/naps/NapsController';
 import MainMenu from 'components/menu/MainMenu';
 import Modal from 'components/modal/Modal';
-import NapsWidget from 'components/naps/NapsWidget';
+import RunningNapWidget from 'components/naps/RunningNapWidget';
+import LastNapsWidget from 'components/naps/LastNapsWidget';
 
 const Dashboard = (props) => {
     // Modal
@@ -76,8 +77,8 @@ const Dashboard = (props) => {
                 currentUser={props.currentUser}
             />
             <section className="main">
-                {/* <Users firebase={props.firebase} /> */}
-                <NapsWidget napsController={nc} runningNap={runningNap}/>
+                {runningNap ? <RunningNapWidget napsController={nc} runningNap={runningNap} /> : null}
+                <LastNapsWidget napsController={nc} />
                 <article className="card">
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.

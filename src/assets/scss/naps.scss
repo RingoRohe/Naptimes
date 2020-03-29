@@ -2,7 +2,6 @@
     position: relative;
     overflow: hidden;
     padding: 0;
-    padding-top: 1rem;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
@@ -11,7 +10,7 @@
         padding: 0.5rem 1rem;
     }
 
-    .icon {
+    .card_icon {
         position: absolute;
         transform: rotate(25deg);
         top: -0.3rem;
@@ -19,16 +18,110 @@
         color: transparentize($highlight, 0.5);
     }
 
-    .timer {
-        padding: 1rem;
-        text-align: center;
-        font-weight: bold;
-        font-size: 1rem;
-        color: $white;
-        background-color: $highlight;
-    }
-
     button {
         font-size: 1rem;
+    }
+
+    &.running {
+        padding-top: 1rem;
+
+        .timer {
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: $white;
+            background-color: $highlight;
+        }
+    }
+
+    &.last {
+        min-width: 8rem;
+        h2 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: $light;
+            margin: 0.5rem;
+        }
+
+        ul.last_naps_list {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            
+            &>li {
+                position: relative;
+                flex: 1;
+                display: inline-grid;
+                grid-template-columns: auto auto minmax(1em, 1fr);
+                grid-template-rows: 1fr auto;
+                grid-template-areas:
+                    "date date actions"
+                    "start end actions"
+                    "duration duration actions";
+                padding-left: .5rem;
+                
+                .date {
+                    grid-area: date;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    color: $mid;
+                    padding-top: .5rem;
+                }
+                
+                .time_start {
+                    grid-area: start;
+                    margin-right: .2rem;
+                }
+                
+                .time_end {
+                    grid-area: end;
+                    margin-right: 2rem;
+                }
+                
+                .duration {
+                    grid-area: duration;
+                    margin-bottom: .5rem;
+                    font-size: 0.8rem;
+                }
+
+                .actions {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    grid-area: actions;
+                    opacity: 0;
+                    pointer-events: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    transform: translateX(100%);
+                    transition: all 200ms;
+
+                    li {
+                        height: 100%;
+
+                        button {
+                            height: 100%;
+                            color: $highlight;
+                            &:hover, &:focus {
+                                color: $dark;
+                            }
+                        }
+                    }
+
+                }
+
+                &:hover, &:focus {
+                    background-color: $light;
+                    .actions {
+                        opacity: 1;
+                        pointer-events: all;
+                        transform: translateX(0%);
+                    }
+                }
+            }
+        }
     }
 }
