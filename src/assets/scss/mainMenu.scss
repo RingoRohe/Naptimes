@@ -1,7 +1,7 @@
 .mainMenu {
     grid-area: nav;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 0 !important;
 
     ul {

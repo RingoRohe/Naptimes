@@ -1,25 +1,11 @@
 import React from 'react';
+import LoggedInProfileMenu from './LoggedInProfileMenu';
+import LoggedOutProfileMenu from './LoggedOutProfileMenu';
 
 const ProfileMenu = (props) => {
-    return (
-        <section className="profileMenu menuPoint">
-            {props.currentUser && props.currentUser.photoURL ? (
-                <img
-                    className="picture"
-                    src={props.currentUser.photoURL}
-                    alt="Profile"
-                />
-            ) : (
-                <span className="icon fas fa-user-circle fa-4x"></span>
-            )}
-            <span className="text username">
-                {props.currentUser.displayName}
-            </span>
-            <nav className="profileSubmenu">
-                <button onClick={props.onLogoutClicked}>logout</button>
-            </nav>
-        </section>
-    );
+    return props.currentUser
+        ? <LoggedInProfileMenu firebase={props.firebase} currentUser={props.currentUser} />
+        : <LoggedOutProfileMenu firebase={props.firebase} modal={props.modal} />;
 }
 
 export default ProfileMenu;

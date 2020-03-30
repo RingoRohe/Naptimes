@@ -9,13 +9,16 @@
 }
 
 .menuPoint {
+    height: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     cursor: pointer;
     padding: 1rem;
-    min-width: 4rem;
+    min-width: 6rem;
+    text-decoration: none;
 
     .icon {
         color: $highlight;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const LastNapsListItem = (props) => {
     const onDeleteNapButtonClicked = () => {
-        props.napsController.deleteNap(props.nap);
+        props.naps.deleteNap(props.nap);
     };
 
     return (

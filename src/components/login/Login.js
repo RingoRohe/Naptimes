@@ -10,7 +10,8 @@ const Login = (props) => {
                 credentialHelper: "none"
             },
             props.firebase.auth.GoogleAuthProvider.PROVIDER_ID
-        ]
+        ],
+        signInSuccessUrl: '/'
     };
 
     return (

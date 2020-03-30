@@ -1,19 +1,18 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const NapsModalView = (props) => {
-    const onStartNapButtonClick = (e) => {
+const Naps = props => {
+    const onStartNapButtonClick = e => {
         e.preventDefault();
-        props.napsController.startNap();
-        props.modal.hide();
-    }
+        props.naps.startNap();
+    };
 
-    const onFinishNapButtonClick = (e) => {
+    const onFinishNapButtonClick = e => {
         e.preventDefault();
-        props.napsController.finishNap();
-        props.modal.hide();
-    }
-    
-    return props.napsController.runningNap ? (
+        props.naps.finishNap();
+    };
+
+    return props.naps.isNapRunning() ? (
         <form>
             <fieldset>
                 <legend>Nap</legend>
@@ -30,4 +29,8 @@ const NapsModalView = (props) => {
     );
 }
 
-export default NapsModalView;
+Naps.propTypes = {
+
+}
+
+export default Naps
