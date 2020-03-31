@@ -31,14 +31,14 @@ const LastNapsWidget = (props) => {
                 unbindFirestore();
             };
         }
-    }, [props.currentUser]);
+    }, [props.currentUser, props.naps]);
 
     return (
         <article className="naps_widget last card">
             <h2>last Naps</h2>
             <ul className="last_naps_list">
                 {lastNaps.map(item => (
-                    <LastNapsListItem key={item.id} nap={item} naps={props.naps}/>
+                    <LastNapsListItem key={item.id} nap={item} naps={props.naps} modal={props.modal}/>
                 ))}
             </ul>
         </article>

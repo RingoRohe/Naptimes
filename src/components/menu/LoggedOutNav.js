@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function LoggedOutNav() {
+const LoggedOutNav = () => {
     return (
         <ul className="mainMenu">
             <li>

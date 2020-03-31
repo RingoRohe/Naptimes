@@ -30,7 +30,7 @@ const Naps = props => {
 }
 
 Naps.propTypes = {
-
+    naps: PropTypes.object
 }
 
 export default Naps

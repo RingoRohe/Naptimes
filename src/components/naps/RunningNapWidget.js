@@ -29,7 +29,7 @@ const RunningNapWidget = (props) => {
 
     const onFinishNapButtonClick = e => {
         e.preventDefault();
-        props.napsController.finishNap();
+        props.naps.finishNap();
     };
 
     return (

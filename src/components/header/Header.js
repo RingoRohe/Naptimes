@@ -1,16 +1,24 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
 
-function Header() {
+const Header = () => {
+    let history = useHistory();
+
+    const onHeaderClicked = e => {
+        history.push("/");
+    }
+
     return (
         <header>
-            <h1>
+            <h1 onClick={onHeaderClicked}>
                 Naptimes{" "}
                 <span role="img" aria-label="baby">
                     👶🏻
                 </span>
             </h1>
-        </header>
+        </header >
     );
+    
 }
 
 export default Header

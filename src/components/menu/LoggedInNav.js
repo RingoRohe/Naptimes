@@ -1,7 +1,9 @@
+// React
 import React from 'react'
+import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 
-function LoggedInNav(props) {
+const LoggedInNav = (props) => {
     return (
         <ul className="mainMenu">
             <li>
@@ -30,6 +32,10 @@ function LoggedInNav(props) {
             </li>
         </ul>
     );
+}
+
+LoggedInNav.propTypes = {
+    settings: PropTypes.any
 }
 
 export default LoggedInNav;

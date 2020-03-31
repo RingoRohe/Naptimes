@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Modal = props => {
     const onBackdropClick = (e) => {
@@ -20,5 +21,10 @@ const Modal = props => {
         </div>
     );
 };
+
+Modal.propTypes = {
+    modal: PropTypes.object,
+    children: PropTypes.any
+}
 
 export default Modal;

@@ -101,9 +101,7 @@ function App() {
             let newNap = new Nap(Date.now());
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.add(newNap.toObject())
-                .then(function() {
-                    console.log("Document successfully written!");
-                })
+                .then(function() {})
                 .catch(function(error) {
                     console.error("Error writing document: ", error);
                 });
@@ -128,7 +126,7 @@ function App() {
 
             if (!isNaN(args[0]) && parseInt(args[0]) < 100) {
                 // get last n Items
-                return ref.orderBy("start", "desc").limit(parseInt(args[0]));
+                return ref.where('end', '>', 0).orderBy('end', 'desc').limit(parseInt(args[0]));
             }
 
             if (args.length === 0) {
@@ -163,6 +161,7 @@ function App() {
                             currentUser={currentUser}
                             naps={naps}
                             runningNap={runningNap}
+                            modal={modal}
                         />
                     )}
                 />
