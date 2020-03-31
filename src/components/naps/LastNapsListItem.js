@@ -1,8 +1,35 @@
+// React
 import React from 'react';
 
+// Components
+import Prompt from "components/modal/Prompt";
+
 const LastNapsListItem = (props) => {
+    // const onDeleteNapButtonClicked = () => {
+    //     props.naps.deleteNap(props.nap);
+    // };
+
+    const deleteNap = () => {
+        props.naps.deleteNap(props.nap);
+        props.modal.hide();
+    };
+
+    const cancelDeletion = () => {
+        props.modal.hide();
+    };
+
     const onDeleteNapButtonClicked = () => {
-        props.napsController.deleteNap(props.nap);
+        //
+        // props.modal.setContent(<h1>Bla</h1>);
+        props.modal.setContent(
+            <Prompt
+                headline="Delete this Nap?"
+                text="Do you really want to delete this Nap?"
+                onConfirm={deleteNap}
+                onCancel={cancelDeletion}
+            />
+        );
+        props.modal.show();
     };
 
     return (

@@ -1,6 +1,7 @@
 header {
     grid-area: header;
     background-color: $black;
+    padding: 1rem;
 
     h1 {
         font-size: 3rem;
@@ -8,5 +9,6 @@ header {
         font-weight: 900;
         text-transform: uppercase;
         text-align: center;
+        cursor: pointer;
     }
 }
