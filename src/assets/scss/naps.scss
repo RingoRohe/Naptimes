@@ -1,3 +1,22 @@
+section.page_naps {
+    padding: 2rem;
+    background-color: $mid;
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    grid-auto-rows: max-content;
+
+    .startstop {
+        padding: 0;
+
+        button {
+            width: 100%;
+            font-size: 3rem;
+        }
+    }
+}
+
 .naps_widget {
     position: relative;
     overflow: hidden;

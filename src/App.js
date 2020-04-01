@@ -106,17 +106,14 @@ function App() {
                     console.error("Error writing document: ", error);
                 });
         },
-
         finishNap: () => {
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.doc(runningNap.id).update({ end: Date.now() });
         },
-
         deleteNap: nap => {
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.doc(nap.id).delete();
         },
-
         getNaps: (...args) => {
             if (!currentUser || !currentUser.uid) {
                 return false;
@@ -165,7 +162,7 @@ function App() {
                         />
                     )}
                 />
-                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} />} />
+                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} />} />
                 <Route
                     exact
                     path="/login"

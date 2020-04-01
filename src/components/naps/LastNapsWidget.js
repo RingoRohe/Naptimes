@@ -8,7 +8,7 @@ const LastNapsWidget = (props) => {
     let [lastNaps, setLastNaps] = useState([]);
     
     useEffect(() => {
-        console.log('useEffect in LastNapsWidget.js');
+        // console.log('useEffect in LastNapsWidget.js');
         if (props.currentUser && props.currentUser.uid) {
             let unbindFirestore = props.naps.getNaps(3)
                 .onSnapshot(snapshot => {
