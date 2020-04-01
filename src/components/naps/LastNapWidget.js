@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Nap from 'models/Nap';
-import Prompt from 'components/modal/Prompt';
+import Confirm from 'components/modal/Confirm';
 
 const LastNapWidget = (props) => {
     let [lastNap, setLastNap] = useState(null);
@@ -19,7 +19,7 @@ const LastNapWidget = (props) => {
     const onDeleteNapButtonClicked = () => {
         // 
         // props.modal.setContent(<h1>Bla</h1>);
-        props.modal.setContent(<Prompt
+        props.modal.setContent(<Confirm
             headline="Delete this Nap?"
             text="Do you really want to delete this Nap?"
             onConfirm={deleteNap}
@@ -85,6 +85,10 @@ const LastNapWidget = (props) => {
                     </span>
                     )
                 </span>
+                {lastNap.notes
+                    ? <span className="notes">"{lastNap.notes}"</span>
+                    : null
+                }
             </p>
             <ul className="actions">
                 <li>

@@ -1,31 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Prompt = props => {
+const Alert = props => {
+    const onConfirm = (e) => {
+        if (props.onConfirm) {
+            props.onConfirm();
+        }
+    }
+    
     return (
-        <div className="prompt">
-            <h1>{props.headline}</h1>
+        <div className="alert">
+            {props.headline ? <h1>{props.headline}</h1> : null}
             <p>{props.text}</p>
             <ul className="actions">
                 <li>
                     <button
                         className="confirm"
-                        onClick={props.onConfirm}
+                        onClick={onConfirm}
                     >OK</button>
-                </li>
-                <li>
-                    <button className="cancel" onClick={props.onCancel}>Cancel</button>
                 </li>
             </ul>
         </div>
     );
 }
 
-Prompt.propTypes = {
+Alert.propTypes = {
     headline: PropTypes.string,
     text: PropTypes.string,
-    onConfirm: PropTypes.func,
-    onCancel: PropTypes.func
+    onConfirm: PropTypes.func
 }
 
-export default Prompt
+export default Alert
