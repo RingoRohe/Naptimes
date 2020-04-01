@@ -3,9 +3,13 @@ section.page_naps {
     background-color: $mid;
     grid-area: main;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2rem;
     grid-auto-rows: max-content;
+
+    @media (min-width: $breakpoints_m) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .startstop {
         padding: 0;
