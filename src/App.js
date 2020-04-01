@@ -110,6 +110,16 @@ function App() {
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.doc(runningNap.id).update({ end: Date.now() });
         },
+        createNap: (nap, success) => {
+            const ref = firebase
+                .firestore()
+                .collection(`users/${currentUser.uid}/naps`);
+            ref.add(nap.toObject())
+                .then(function () { if (success) { success(); } })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+        },
         deleteNap: nap => {
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.doc(nap.id).delete();
@@ -162,7 +172,7 @@ function App() {
                         />
                     )}
                 />
-                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} />} />
+                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} modal={modal} />} />
                 <Route
                     exact
                     path="/login"

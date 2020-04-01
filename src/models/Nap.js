@@ -1,5 +1,5 @@
 class Nap {
-    constructor(start, end, id, notes) {
+    constructor(start, end, notes, id) {
         id ? this.id = id : this.id = null;
         start ? this.start = start : this.start = 0;
         end ? this.end = end : this.end = 0;

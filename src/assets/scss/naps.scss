@@ -16,6 +16,7 @@ section.page_naps {
 
         button {
             width: 100%;
+            height: 100%;
             font-size: 3rem;
         }
     }
@@ -121,6 +122,7 @@ section.page_naps {
                     display: flex;
                     align-items: center;
                     justify-content: flex-end;
+                    flex-direction: row-reverse;
                     transform: translateX(100%);
                     transition: all 200ms;
 
@@ -195,6 +197,11 @@ section.page_naps {
                     grid-area: end;
                 }
             }
+
+            .notes {
+                font-size: 1rem;
+                padding-top: .5rem;
+            }
         }
 
         .actions {
@@ -209,6 +216,59 @@ section.page_naps {
                     width: 100%;
                 }
             }
+        }
+    }
+}
+
+.naps_form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 0.5rem;
+    grid-template-areas:
+        "legend legend"
+        "start end"
+        "notes notes"
+        ". submit";
+
+    fieldset {
+        display: contents;
+
+        legend {
+            grid-area: legend;
+            font-size: 1.4rem;
+            color: $mid;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px solid $light;
+            color: $dark;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+
+            &:focus {
+                border-bottom: 1px solid $highlight;
+            }
+        }
+
+        .react-datepicker-wrapper:nth-of-type(1) {
+            grid-area: start;
+        }
+
+        .react-datepicker-wrapper:nth-of-type(2) {
+            grid-area: end;
+        }
+
+        .notes {
+            grid-area: notes;
+        }
+
+        input[type=submit] {
+            grid-area: submit;
         }
     }
 }

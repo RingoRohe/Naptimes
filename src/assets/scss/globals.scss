@@ -37,9 +37,9 @@
     }
 }
 
-button {
+button, .button {
     background-color: $dark;
-    color: $light;
+    color: $light !important;
     border: none;
     padding: .5em 1em;
     cursor: pointer;

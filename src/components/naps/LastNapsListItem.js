@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import Prompt from "components/modal/Prompt";
+import Confirm from "components/modal/Confirm";
 
 const LastNapsListItem = (props) => {
     // const onDeleteNapButtonClicked = () => {
@@ -22,7 +22,7 @@ const LastNapsListItem = (props) => {
         //
         // props.modal.setContent(<h1>Bla</h1>);
         props.modal.setContent(
-            <Prompt
+            <Confirm
                 headline="Delete this Nap?"
                 text="Do you really want to delete this Nap?"
                 onConfirm={deleteNap}

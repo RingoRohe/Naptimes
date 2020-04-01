@@ -7,6 +7,8 @@ import Nap from 'models/Nap';
 
 // Tools
 import Timer from 'components/tools/Timer';
+import NapsForm from './NapsForm';
+import Alert from 'components/modal/Alert';
 
 const Naps = props => {
     const onStartNapButtonClick = e => {
@@ -18,6 +20,16 @@ const Naps = props => {
         e.preventDefault();
         props.naps.finishNap();
     };
+
+    const onNapsFormSubmit = (start, end, notes) => {
+        const newNap = new Nap(start, end, notes);
+        props.naps.createNap(
+            newNap,
+            () => {
+                props.modal.setContent(<Alert text="New Nap created." onConfirm={props.modal.hide} />);
+                props.modal.show();
+            });
+    }
 
     const StartStopForm = () => {
         return props.runningNap ? (
@@ -34,22 +46,10 @@ const Naps = props => {
         );
     };
 
-    const CreatePreviousNapForm = () => {
-        return (
-            <form className="card">
-                <fieldset>
-                    <legend>create Nap</legend>
-                    <input type="text" id="notes" placeholder="notes" />
-                    <input type="submit" value="save"/>
-                </fieldset>
-            </form>
-        );
-    };
-
     return (
         <section className="page_naps">
             <StartStopForm />
-            <CreatePreviousNapForm />
+            <div className="card"><NapsForm onSubmit={onNapsFormSubmit} /></div>
         </section>
     );
 }

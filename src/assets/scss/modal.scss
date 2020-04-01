@@ -31,7 +31,31 @@
     }
 }
 
-.prompt {
+.alert {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    p {
+        margin-bottom: 1rem;;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+
+        li {
+            width: 45%;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.confirm {
     h1 {
         font-size: 2rem;
         margin-bottom: 1rem;
