@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import Confirm from "components/modal/Confirm";
+import { Confirm } from "components/modal/Modal";
 
 const LastNapsListItem = (props) => {
     // const onDeleteNapButtonClicked = () => {

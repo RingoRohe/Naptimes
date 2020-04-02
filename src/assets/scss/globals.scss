@@ -6,6 +6,17 @@
     background-color: $white;
     padding: 1rem;
     box-shadow: 0 0 5px $black;
+
+    h2 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: $light;
+        margin: 0.5rem 0;
+    }
+
+    p {
+        padding: 0.5rem 0;
+    }
 }
 
 .menuPoint {

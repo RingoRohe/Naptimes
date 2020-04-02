@@ -161,6 +161,7 @@ section.page_naps {
             font-weight: bold;
             color: $mid;
             padding: 0.5rem;
+            text-align: center;
         }
 
         p {
@@ -224,7 +225,7 @@ section.page_naps {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, auto);
-    gap: 0.5rem;
+    gap: 1rem;
     grid-template-areas:
         "legend legend"
         "start end"
@@ -249,6 +250,7 @@ section.page_naps {
             font-size: 1rem;
             outline: none;
             width: 100%;
+            font-size: 1.5rem;
 
             &:focus {
                 border-bottom: 1px solid $highlight;

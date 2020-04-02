@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Nap from 'models/Nap';
-import Confirm from 'components/modal/Confirm';
+import { Confirm } from 'components/modal/Modal';
 
 const LastNapWidget = (props) => {
     let [lastNap, setLastNap] = useState(null);

@@ -8,7 +8,7 @@ import Nap from 'models/Nap';
 // Tools
 import Timer from 'components/tools/Timer';
 import NapsForm from './NapsForm';
-import Alert from 'components/modal/Alert';
+import { Alert } from 'components/modal/Modal';
 
 const Naps = props => {
     const onStartNapButtonClick = e => {
@@ -35,8 +35,9 @@ const Naps = props => {
         return props.runningNap ? (
             <div className="card startstop">
                 <button onClick={onFinishNapButtonClick}>
-                    <Timer start={props.runningNap.start} class={'default'} />
-                    <span className="hover">Nap finished!</span>
+                    <Timer start={props.runningNap.start} /><br />
+                    <span className="default">finish Nap?</span>
+                    <span className="hover">finish Nap!</span>
                 </button>
             </div>
         ) : (
