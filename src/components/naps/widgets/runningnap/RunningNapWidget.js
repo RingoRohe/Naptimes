@@ -1,5 +1,12 @@
+// React
 import React from 'react';
-import Timer from 'components/tools/Timer';
+
+// Tools
+import Timer from 'components/shared/timer/Timer';
+
+// Styles
+import "../napswidget.scss";
+import "./runningnap.scss";
 
 const RunningNapWidget = (props) => {
     const onFinishNapButtonClick = e => {

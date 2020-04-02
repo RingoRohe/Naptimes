@@ -1,7 +1,7 @@
 // React stuff
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import firebase from './firebase/firebase';
+import firebase from './libs/firebase/firebase';
 
 // CSS and Libs
 import 'assets/scss/App.scss';
@@ -11,14 +11,14 @@ import 'libs/loading_overlay/css/main.css'
 import Nap from 'models/Nap';
 
 // Components
-import Login from 'components/login/Login';
-import Dashboard from 'components/dashboard/Dashboard';
+import Login from 'pages/login/Login';
+import Dashboard from 'pages/dashboard/Dashboard';
 import NavBar from 'components/menu/NavBar';
 import Header from 'components/header/Header';
 import Footer from 'components/footer/Footer';
 import ProfileMenu from 'components/profile/ProfileMenuView';
-import Modal from "components/modal/Modal";
-import Naps from 'components/naps/Naps';
+import Modal from "components/shared/modal/Modal";
+import Naps from 'pages/naps/Naps';
 
 function App() {
     // Authentication

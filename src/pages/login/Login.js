@@ -1,5 +1,11 @@
+// React
 import React from 'react';
+
+// Libs
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+// Styles
+import './login.scss';
 
 const Login = (props) => {
     const uiConfig = {

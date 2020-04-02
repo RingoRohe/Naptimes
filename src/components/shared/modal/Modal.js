@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import './modal.scss';
+
 const Modal = props => {
     const onBackdropClick = (e) => {
         props.modal.toggleVisibility()

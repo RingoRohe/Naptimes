@@ -6,6 +6,9 @@ import PropTypes from 'prop-types'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Styles
+import './naps.scss';
+
 const NapsForm = props => {
     const start = props.start ? props.start : Date.now();
     const end = props.end ? props.end : Date.now();

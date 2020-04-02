@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import LoggedInNav from './LoggedInNav';
 import LoggedOutNav from './LoggedOutNav';
 
+// Styles
+import './menu.scss';
+
 const NavBar = (props) => {
 
     return (

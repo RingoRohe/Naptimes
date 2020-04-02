@@ -1,4 +1,8 @@
+// React
 import React from 'react'
+
+// Styles
+import './onboarding.scss';
 
 const Onboarding = props => {
     return (

@@ -1,0 +1,17 @@
+@import '../../../../assets/scss/breakpoints';
+@import '../../../../assets/scss/colors';
+
+.naps_widget {
+    &.running {
+        padding-top: 1rem;
+
+        .timer {
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: $white;
+            background-color: $highlight;
+        }
+    }
+}
