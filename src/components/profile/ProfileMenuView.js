@@ -1,6 +1,12 @@
+// React
 import React from 'react';
+
+// Components
 import LoggedInProfileMenu from './LoggedInProfileMenu';
 import LoggedOutProfileMenu from './LoggedOutProfileMenu';
+
+// Styles
+import './profileMenu.scss';
 
 const ProfileMenu = (props) => {
     return props.currentUser

@@ -1,0 +1,56 @@
+@import '../../../assets/scss/breakpoints';
+@import '../../../assets/scss/colors';
+
+.naps_form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 1rem;
+    grid-template-areas:
+        "legend legend"
+        "start end"
+        "notes notes"
+        ". submit";
+
+    fieldset {
+        display: contents;
+
+        legend {
+            grid-area: legend;
+            font-size: 1.4rem;
+            color: $mid;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px solid $light;
+            color: $dark;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            font-size: 1.5rem;
+
+            &:focus {
+                border-bottom: 1px solid $highlight;
+            }
+        }
+
+        .react-datepicker-wrapper:nth-of-type(1) {
+            grid-area: start;
+        }
+
+        .react-datepicker-wrapper:nth-of-type(2) {
+            grid-area: end;
+        }
+
+        .notes {
+            grid-area: notes;
+        }
+
+        input[type=submit] {
+            grid-area: submit;
+        }
+    }
+}

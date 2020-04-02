@@ -1,8 +1,17 @@
+// React
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+
+// Models
 import Nap from 'models/Nap';
+
+// Components
 import LastNapsListItem from './LastNapsListItem';
+
+// Styles
+import '../napswidget.scss';
+import './lastnaps.scss';
 
 const LastNapsWidget = (props) => {
     let [lastNaps, setLastNaps] = useState([]);

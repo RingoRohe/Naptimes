@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 import Nap from 'models/Nap';
 
 // Tools
-import Timer from 'components/tools/Timer';
-import NapsForm from './NapsForm';
-import { Alert } from 'components/modal/Modal';
+import Timer from 'components/shared/timer/Timer';
+import NapsForm from '../../components/naps/napsform/NapsForm';
+import { Alert } from 'components/shared/modal/Modal';
+
+// Styles
+import './naps.scss';
 
 const Naps = props => {
     const onStartNapButtonClick = e => {

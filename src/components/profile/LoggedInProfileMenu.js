@@ -1,8 +1,13 @@
+// React
 import React from 'react'
+import { useHistory } from "react-router-dom";
 
 function LoggedInProfileMenu(props) {
+    let history = useHistory();
+
     const onLogoutClicked = () => {
         props.firebase.auth().signOut();
+        history.push("/");
     };
 
     return (

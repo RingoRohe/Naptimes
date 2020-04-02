@@ -1,8 +1,17 @@
+// React
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+
+// Models
 import Nap from 'models/Nap';
-import { Confirm } from 'components/modal/Modal';
+
+// Tools
+import { Confirm } from 'components/shared/modal/Modal';
+
+// Styles
+import "../napswidget.scss";
+import "./lastnap.scss";
 
 const LastNapWidget = (props) => {
     let [lastNap, setLastNap] = useState(null);

@@ -1,5 +1,9 @@
+// React
 import React from 'react'
 import { useHistory } from "react-router-dom";
+
+// Style
+import './header.scss';
 
 const Header = () => {
     let history = useHistory();

@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import Nap from 'models/Nap';
 
 // components
-import RunningNapWidget from 'components/naps/RunningNapWidget';
-import LastNapsWidget from 'components/naps/LastNapsWidget';
-import LastNapWidget from 'components/naps/LastNapWidget';
-import Onboarding from './Onboarding';
+import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
+import LastNapsWidget from 'components/naps/widgets/lastnaps/LastNapsWidget';
+import LastNapWidget from 'components/naps/widgets/lastnap/LastNapWidget';
+import Onboarding from '../onboarding/Onboarding';
 
 const Dashboard = (props) => {
     return (
