@@ -95,7 +95,7 @@ const LastNapsListItem = (props) => {
                     ></button>
                 </li>
             </ul>
-            (// TODO: prevent Modal from jaumping-CSS-Thingy bug)
+            {/* TODO: prevent Modal from jaumping-CSS-Thingy bug */}
             <Modal
                 isOpen={alertIsOpen}
                 shouldCloseOnOverlayClick={true}
