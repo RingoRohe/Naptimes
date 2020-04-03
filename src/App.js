@@ -52,9 +52,6 @@ function App() {
         firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
     }
 
-    // Modal View
-    // TODO: Replace this with https://tingle.robinparisi.com/
-
     // Naps
     let [runningNap, setRunningNap] = useState(null);
     // const nc = new NapsController(props.firebase, props.currentUser, runningNap);
