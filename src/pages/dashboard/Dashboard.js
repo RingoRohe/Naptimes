@@ -16,8 +16,8 @@ const Dashboard = (props) => {
         props.currentUser
         ? (<section className="main">
             {props.runningNap? <RunningNapWidget naps={props.naps} runningNap={props.runningNap} /> : null}
-            <LastNapsWidget firebase={props.firebase} currentUser={props.currentUser} naps={props.naps} modal={props.modal} />
-            <LastNapWidget firebase={props.firebase} currentUser={props.currentUser} naps={props.naps} modal={props.modal} />
+            <LastNapsWidget firebase={props.firebase} currentUser={props.currentUser} naps={props.naps} />
+            <LastNapWidget firebase={props.firebase} currentUser={props.currentUser} naps={props.naps} />
             <article className="card">
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum amet iure enim fugiat dolorum unde commodi adipisci eaque minima ex tempore facere reprehenderit, facilis ipsam, repellendus illum. Odit, accusamus delectus!

@@ -17,7 +17,6 @@ import NavBar from 'components/menu/NavBar';
 import Header from 'components/header/Header';
 import Footer from 'components/footer/Footer';
 import ProfileMenu from 'components/profile/ProfileMenuView';
-import Modal from "components/shared/modal/Modal";
 import Naps from 'pages/naps/Naps';
 
 function App() {
@@ -55,16 +54,6 @@ function App() {
 
     // Modal View
     // TODO: Replace this with https://tingle.robinparisi.com/
-    let [modalContent, setModalContent] = useState("");
-    let [modalVisibility, setModalVisibility] = useState(false);
-    const modal = {
-        setContent: (content) => setModalContent(content),
-        toggleVisibility: () => setModalVisibility(!modalVisibility),
-        hide: () => setModalVisibility(false),
-        show: () => setModalVisibility(true),
-        modalVisibility,
-        modalContent
-    };
 
     // Naps
     let [runningNap, setRunningNap] = useState(null);
@@ -170,7 +159,6 @@ function App() {
                 <ProfileMenu
                     currentUser={currentUser}
                     firebase={firebase}
-                    modal={modal}
                 />
                 <Route
                     exact
@@ -182,18 +170,16 @@ function App() {
                             currentUser={currentUser}
                             naps={naps}
                             runningNap={runningNap}
-                            modal={modal}
                         />
                     )}
                 />
-                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} modal={modal} />} />
+                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} />} />
                 <Route
                     exact
                     path="/login"
                     render={props => <Login {...props} firebase={firebase} />}
                 />
                 <Footer />
-                <Modal modal={modal}>{modalContent}</Modal>
             </div>
         </BrowserRouter>
     );

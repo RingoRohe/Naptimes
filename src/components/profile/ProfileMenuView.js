@@ -11,7 +11,7 @@ import './profileMenu.scss';
 const ProfileMenu = (props) => {
     return props.currentUser
         ? <LoggedInProfileMenu firebase={props.firebase} currentUser={props.currentUser} />
-        : <LoggedOutProfileMenu firebase={props.firebase} modal={props.modal} />;
+        : <LoggedOutProfileMenu firebase={props.firebase} />;
 }
 
 export default ProfileMenu;

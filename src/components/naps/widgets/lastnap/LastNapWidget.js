@@ -6,9 +6,6 @@ import { useState } from 'react';
 // Models
 import Nap from 'models/Nap';
 
-// Tools
-import { Alert, Confirm } from 'components/shared/modal/Modal';
-
 // Components
 import NapsForm from 'components/naps/napsform/NapsForm';
 
@@ -21,47 +18,47 @@ const LastNapWidget = (props) => {
 
     const deleteNap = () => {
         props.naps.deleteNap(lastNap);
-        props.modal.hide();
+        // props.modal.hide();
     }
 
     const cancelDeletion = () => {
-        props.modal.hide();
+        // props.modal.hide();
     }
 
     const onDeleteNapButtonClicked = () => {
-        props.modal.setContent(<Confirm
-            headline="Delete this Nap?"
-            text="Do you really want to delete this Nap?"
-            onConfirm={deleteNap}
-            onCancel={cancelDeletion}
-        />);
-        props.modal.show();
+        // props.modal.setContent(<Confirm
+        //     headline="Delete this Nap?"
+        //     text="Do you really want to delete this Nap?"
+        //     onConfirm={deleteNap}
+        //     onCancel={cancelDeletion}
+        // />);
+        // props.modal.show();
     };
 
     const editNap = (start, end, notes) => {
         lastNap.start = start;
         lastNap.end = end;
         lastNap.notes = notes;
-        props.naps.updateNap(lastNap,
-            () => {
-                props.modal.setContent(
-                    <Alert text="Nap updated." onConfirm={props.modal.hide} />
-                );
-                props.modal.show();
-            }
-        );
-        props.modal.hide();
+        // props.naps.updateNap(lastNap,
+        //     () => {
+        //         props.modal.setContent(
+        //             <Alert text="Nap updated." onConfirm={props.modal.hide} />
+        //         );
+        //         props.modal.show();
+        //     }
+        // );
+        // props.modal.hide();
     }
 
     const onEditNapButtonClicked = () => {
-        props.modal.setContent(
-            <NapsForm
-                start={lastNap.start}
-                end={lastNap.end}
-                notes={lastNap.notes}
-                onSubmit={editNap} />
-        );
-        props.modal.show();
+        // props.modal.setContent(
+        //     <NapsForm
+        //         start={lastNap.start}
+        //         end={lastNap.end}
+        //         notes={lastNap.notes}
+        //         onSubmit={editNap} />
+        // );
+        // props.modal.show();
     }
 
     useEffect(() => {
