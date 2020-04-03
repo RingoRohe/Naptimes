@@ -1,4 +1,5 @@
-@import '../../../assets/scss/colors';
+@import './colors';
+@import './variables';
 
 .backdrop {
     position: fixed;
@@ -10,8 +11,8 @@
     justify-content: center;
     align-items: center;
     background-color: transparentize($black, 0.5);
-    opacity: 1;
-    pointer-events: all;
+    opacity: 0;
+    pointer-events: none;
     transition: all 0.3s ease-out;
     
     .modal {
@@ -19,11 +20,23 @@
         z-index: 500;
         width: auto;
         padding: 2rem;
-        transform: scale(1);
+        transform: scale(0);
         transition: all 0.2s ease-out;
+        background-color: $white;
+        box-shadow: $baseShadow;
+        outline: none;
     }
 
-    &.hidden {
+    &.open {
+        opacity: 1;
+        pointer-events: all;
+
+        .modal {
+            transform: scale(1);
+        }
+    }
+
+    &.closed {
         opacity: 0;
         pointer-events: none;
 
@@ -52,6 +65,7 @@
 
             button {
                 width: 100%;
+                outline: none;
             }
         }
     }
@@ -76,6 +90,7 @@
 
             button {
                 width: 100%;
+                outline: none;
             }
         }
     }

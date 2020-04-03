@@ -1,63 +1,56 @@
 // React
 import React from 'react';
+import { useState } from "react";
+
+// Libs
+import Modal from 'react-modal';
 
 // Components
-import { Alert, Confirm } from "components/shared/modal/Modal";
 import NapsForm from 'components/naps/napsform/NapsForm';
+import Confirm from "components/shared/modal/Confirm";
+import Alert from "components/shared/modal/Alert";
 
 const LastNapsListItem = (props) => {
-    // const onDeleteNapButtonClicked = () => {
-    //     props.naps.deleteNap(props.nap);
-    // };
+    Modal.setAppElement("#root");
+    let [editNapModalIsOpen, setEditNapModalIsOpen] = useState(false);
+    let [deleteNapPromptIsOpen, setDeleteNapPromptIsOpen] = useState(false);
+    let [alertIsOpen, setAlertIsOpen] = useState(false);
+    let [alertContent, setAlertContent] = useState("");
 
     const deleteNap = () => {
         props.naps.deleteNap(props.nap);
-        props.modal.hide();
+        setDeleteNapPromptIsOpen(false);
     };
 
     const cancelDeletion = () => {
-        props.modal.hide();
+        setDeleteNapPromptIsOpen(false);
     };
 
     const onDeleteNapButtonClicked = () => {
-        //
-        // props.modal.setContent(<h1>Bla</h1>);
-        props.modal.setContent(
-            <Confirm
-                headline="Delete this Nap?"
-                text="Do you really want to delete this Nap?"
-                onConfirm={deleteNap}
-                onCancel={cancelDeletion}
-            />
-        );
-        props.modal.show();
+        setDeleteNapPromptIsOpen(true);
     };
 
     const editNap = (start, end, notes) => {
         props.nap.start = start;
         props.nap.end = end;
         props.nap.notes = notes;
-        props.naps.updateNap(props.nap,
-            () => {
-                props.modal.setContent(
-                    <Alert text="Nap updated." onConfirm={props.modal.hide} />
-                );
-                props.modal.show();
-            }
-        );
-        props.modal.hide();
-    }
+        props.naps.updateNap(props.nap, () => {
+            setAlertContent(
+                <Alert
+                    text="Nap updated."
+                    onConfirm={() => {
+                        setAlertIsOpen(false);
+                    }}
+                />
+            );
+            setAlertIsOpen(true);
+        });
+        setEditNapModalIsOpen(false);
+    };
 
     const onEditNapButtonClicked = () => {
-        props.modal.setContent(
-            <NapsForm
-                start={props.nap.start}
-                end={props.nap.end}
-                notes={props.nap.notes}
-                onSubmit={editNap} />
-        );
-        props.modal.show();
-    }
+        setEditNapModalIsOpen(true);
+    };
 
     return (
         <li>
@@ -102,6 +95,68 @@ const LastNapsListItem = (props) => {
                     ></button>
                 </li>
             </ul>
+            (// TODO: prevent Modal from jaumping-CSS-Thingy bug)
+            <Modal
+                isOpen={alertIsOpen}
+                shouldCloseOnOverlayClick={true}
+                shouldCloseOnEsc={true}
+                onRequestClose={() => {
+                    setEditNapModalIsOpen(false);
+                }}
+                overlayClassName={{
+                    base: "backdrop",
+                    afterOpen: "open",
+                    beforeClose: "closed"
+                }}
+                className="modal"
+                closeTimeoutMS={100}
+            >
+                {alertContent}
+            </Modal>
+            <Modal
+                isOpen={editNapModalIsOpen}
+                shouldCloseOnOverlayClick={true}
+                shouldCloseOnEsc={true}
+                onRequestClose={() => {
+                    setEditNapModalIsOpen(false);
+                }}
+                overlayClassName={{
+                    base: "backdrop",
+                    afterOpen: "open",
+                    beforeClose: "closed"
+                }}
+                className="modal"
+                closeTimeoutMS={100}
+            >
+                <NapsForm
+                    start={props.nap.start}
+                    end={props.nap.end}
+                    notes={props.nap.notes}
+                    onSubmit={editNap}
+                />
+            </Modal>
+            <Modal
+                isOpen={deleteNapPromptIsOpen}
+                shouldCloseOnOverlayClick={true}
+                shouldCloseOnEsc={true}
+                onRequestClose={() => {
+                    setDeleteNapPromptIsOpen(false);
+                }}
+                className="modal"
+                overlayClassName={{
+                    base: "backdrop",
+                    afterOpen: "open",
+                    beforeClose: "closed"
+                }}
+                closeTimeoutMS={100}
+            >
+                <Confirm
+                    headline="Delete?"
+                    text="Do you really want to delete this Nap?"
+                    onConfirm={deleteNap}
+                    onCancel={cancelDeletion}
+                />
+            </Modal>
         </li>
     );
 }

@@ -8,7 +8,6 @@ import Nap from 'models/Nap';
 // Tools
 import Timer from 'components/shared/timer/Timer';
 import NapsForm from '../../components/naps/napsform/NapsForm';
-import { Alert } from 'components/shared/modal/Modal';
 
 // Styles
 import './naps.scss';
@@ -29,8 +28,8 @@ const Naps = props => {
         props.naps.createNap(
             newNap,
             () => {
-                props.modal.setContent(<Alert text="New Nap created." onConfirm={props.modal.hide} />);
-                props.modal.show();
+                // props.modal.setContent(<Alert text="New Nap created." onConfirm={props.modal.hide} />);
+                // props.modal.show();
             });
     }
 

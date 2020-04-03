@@ -6,6 +6,10 @@
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 
+* {
+    outline: none;
+}
+
 html {
     font-size: 100%;
 }
@@ -20,3 +24,4 @@ body {
 @import './globals.scss';
 @import './grid.scss';
 @import './main.scss';
+@import './modal.scss';

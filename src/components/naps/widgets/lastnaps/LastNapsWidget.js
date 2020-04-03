@@ -47,7 +47,7 @@ const LastNapsWidget = (props) => {
             <h2>last Naps</h2>
             <ul className="last_naps_list">
                 {lastNaps.map(item => (
-                    <LastNapsListItem key={item.id} nap={item} naps={props.naps} modal={props.modal}/>
+                    <LastNapsListItem key={item.id} nap={item} naps={props.naps}/>
                 ))}
             </ul>
         </article>
