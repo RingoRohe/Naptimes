@@ -54,6 +54,7 @@ function App() {
     }
 
     // Modal View
+    // TODO: Replace this with https://tingle.robinparisi.com/
     let [modalContent, setModalContent] = useState("");
     let [modalVisibility, setModalVisibility] = useState(false);
     const modal = {
@@ -118,6 +119,19 @@ function App() {
                 .then(function () { if (success) { success(); } })
                 .catch(function(error) {
                     console.error("Error writing document: ", error);
+                });
+        },
+        updateNap: (nap, success) => {
+            const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
+            ref.doc(nap.id)
+                .update(nap.toObject())
+                .then(function() {
+                    if (success) {
+                        success();
+                    }
+                })
+                .catch(function(error) {
+                    console.error("Error updating document: ", error);
                 });
         },
         deleteNap: nap => {

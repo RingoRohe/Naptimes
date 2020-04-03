@@ -12,10 +12,11 @@ import './naps.scss';
 const NapsForm = props => {
     const start = props.start ? props.start : Date.now();
     const end = props.end ? props.end : Date.now();
+    const propnotes = props.notes ? props.notes : "";
 
     let [startDate, setStartDate] = useState(start);
     let [endDate, setEndDate] = useState(end);
-    let [notes, setNotes] = useState("");
+    let [notes, setNotes] = useState(propnotes);
 
     const onSubmit = e => {
         e.preventDefault();
@@ -47,7 +48,7 @@ const NapsForm = props => {
                     dateFormat="d. MMMM yyyy HH:mm"
                 />
                 <input type="text" className="notes" placeholder="notes" value={notes} onChange={e => {setNotes(e.target.value)}} />
-                <input type="submit" value="create" className="button" />
+                <input type="submit" value="save" className="button" />
             </fieldset>
         </form>
     );
@@ -56,6 +57,7 @@ const NapsForm = props => {
 NapsForm.propTypes = {
     start: PropTypes.number,
     end: PropTypes.number,
+    notes: PropTypes.string,
     onSubmit: PropTypes.func
 }
 

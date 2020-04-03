@@ -7,7 +7,10 @@ import { useState } from 'react';
 import Nap from 'models/Nap';
 
 // Tools
-import { Confirm } from 'components/shared/modal/Modal';
+import { Alert, Confirm } from 'components/shared/modal/Modal';
+
+// Components
+import NapsForm from 'components/naps/napsform/NapsForm';
 
 // Styles
 import "../napswidget.scss";
@@ -26,8 +29,6 @@ const LastNapWidget = (props) => {
     }
 
     const onDeleteNapButtonClicked = () => {
-        // 
-        // props.modal.setContent(<h1>Bla</h1>);
         props.modal.setContent(<Confirm
             headline="Delete this Nap?"
             text="Do you really want to delete this Nap?"
@@ -36,6 +37,32 @@ const LastNapWidget = (props) => {
         />);
         props.modal.show();
     };
+
+    const editNap = (start, end, notes) => {
+        lastNap.start = start;
+        lastNap.end = end;
+        lastNap.notes = notes;
+        props.naps.updateNap(lastNap,
+            () => {
+                props.modal.setContent(
+                    <Alert text="Nap updated." onConfirm={props.modal.hide} />
+                );
+                props.modal.show();
+            }
+        );
+        props.modal.hide();
+    }
+
+    const onEditNapButtonClicked = () => {
+        props.modal.setContent(
+            <NapsForm
+                start={lastNap.start}
+                end={lastNap.end}
+                notes={lastNap.notes}
+                onSubmit={editNap} />
+        );
+        props.modal.show();
+    }
 
     useEffect(() => {
         // console.log('useEffect in LastNapWidget.js');
@@ -94,10 +121,9 @@ const LastNapWidget = (props) => {
                     </span>
                     )
                 </span>
-                {lastNap.notes
-                    ? <span className="notes">"{lastNap.notes}"</span>
-                    : null
-                }
+                {lastNap.notes ? (
+                    <span className="notes">"{lastNap.notes}"</span>
+                ) : null}
             </p>
             <ul className="actions">
                 <li>
@@ -107,7 +133,10 @@ const LastNapWidget = (props) => {
                     ></button>
                 </li>
                 <li>
-                    <button className="icon fas fa-pen fa-1x"></button>
+                    <button
+                        className="icon fas fa-pen fa-1x"
+                        onClick={onEditNapButtonClicked}
+                    ></button>
                 </li>
             </ul>
         </article>

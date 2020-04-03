@@ -2,7 +2,8 @@
 import React from 'react';
 
 // Components
-import { Confirm } from "components/shared/modal/Modal";
+import { Alert, Confirm } from "components/shared/modal/Modal";
+import NapsForm from 'components/naps/napsform/NapsForm';
 
 const LastNapsListItem = (props) => {
     // const onDeleteNapButtonClicked = () => {
@@ -31,6 +32,32 @@ const LastNapsListItem = (props) => {
         );
         props.modal.show();
     };
+
+    const editNap = (start, end, notes) => {
+        props.nap.start = start;
+        props.nap.end = end;
+        props.nap.notes = notes;
+        props.naps.updateNap(props.nap,
+            () => {
+                props.modal.setContent(
+                    <Alert text="Nap updated." onConfirm={props.modal.hide} />
+                );
+                props.modal.show();
+            }
+        );
+        props.modal.hide();
+    }
+
+    const onEditNapButtonClicked = () => {
+        props.modal.setContent(
+            <NapsForm
+                start={props.nap.start}
+                end={props.nap.end}
+                notes={props.nap.notes}
+                onSubmit={editNap} />
+        );
+        props.modal.show();
+    }
 
     return (
         <li>
@@ -63,10 +90,16 @@ const LastNapsListItem = (props) => {
             </span>
             <ul className="actions">
                 <li>
-                    <button className="icon fas fa-trash fa-1x" onClick={onDeleteNapButtonClicked}></button>
+                    <button
+                        className="icon fas fa-trash fa-1x"
+                        onClick={onDeleteNapButtonClicked}
+                    ></button>
                 </li>
                 <li>
-                    <button className="icon fas fa-pen fa-1x"></button>
+                    <button
+                        className="icon fas fa-pen fa-1x"
+                        onClick={onEditNapButtonClicked}
+                    ></button>
                 </li>
             </ul>
         </li>

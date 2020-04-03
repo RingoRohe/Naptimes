@@ -3,23 +3,7 @@
     background-color: $mid;
     grid-area: main;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     gap: 2rem;
     grid-auto-rows: max-content;
-
-    @media (min-width: $breakpoints_m) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @media (min-width: $breakpoints_l) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    @media (min-width: $breakpoints_xl) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    
-    @media (min-width: $breakpoints_xxl) {
-        grid-template-columns: repeat(5, 1fr);
-    }
 }
