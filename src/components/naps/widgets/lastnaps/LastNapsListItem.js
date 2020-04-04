@@ -1,21 +1,18 @@
 // React
 import React from 'react';
 import { useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 // Libs
 import Modal from 'react-modal';
 
 // Components
-import NapsForm from 'components/naps/napsform/NapsForm';
 import Confirm from "components/shared/modal/Confirm";
-import Alert from "components/shared/modal/Alert";
 
 const LastNapsListItem = (props) => {
     Modal.setAppElement("#root");
-    let [editNapModalIsOpen, setEditNapModalIsOpen] = useState(false);
+    const history = useHistory();
     let [deleteNapPromptIsOpen, setDeleteNapPromptIsOpen] = useState(false);
-    let [alertIsOpen, setAlertIsOpen] = useState(false);
-    let [alertContent, setAlertContent] = useState("");
 
     const deleteNap = () => {
         props.naps.deleteNap(props.nap);
@@ -30,26 +27,8 @@ const LastNapsListItem = (props) => {
         setDeleteNapPromptIsOpen(true);
     };
 
-    const editNap = (start, end, notes) => {
-        props.nap.start = start;
-        props.nap.end = end;
-        props.nap.notes = notes;
-        props.naps.updateNap(props.nap, () => {
-            setAlertContent(
-                <Alert
-                    text="Nap updated."
-                    onConfirm={() => {
-                        setAlertIsOpen(false);
-                    }}
-                />
-            );
-            setAlertIsOpen(true);
-        });
-        setEditNapModalIsOpen(false);
-    };
-
     const onEditNapButtonClicked = () => {
-        setEditNapModalIsOpen(true);
+        history.push(`/naps/edit/${props.nap.id}`);
     };
 
     return (
@@ -95,46 +74,6 @@ const LastNapsListItem = (props) => {
                     ></button>
                 </li>
             </ul>
-            {/* TODO: prevent Modal from jaumping-CSS-Thingy bug */}
-            <Modal
-                isOpen={alertIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    setEditNapModalIsOpen(false);
-                }}
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed"
-                }}
-                className="modal"
-                closeTimeoutMS={100}
-            >
-                {alertContent}
-            </Modal>
-            <Modal
-                isOpen={editNapModalIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    setEditNapModalIsOpen(false);
-                }}
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed"
-                }}
-                className="modal"
-                closeTimeoutMS={100}
-            >
-                <NapsForm
-                    start={props.nap.start}
-                    end={props.nap.end}
-                    notes={props.nap.notes}
-                    onSubmit={editNap}
-                />
-            </Modal>
             <Modal
                 isOpen={deleteNapPromptIsOpen}
                 shouldCloseOnOverlayClick={true}

@@ -13,11 +13,13 @@ import Nap from 'models/Nap';
 // Components
 import Login from 'pages/login/Login';
 import Dashboard from 'pages/dashboard/Dashboard';
+import Onboarding from "pages/onboarding/Onboarding";
 import NavBar from 'components/menu/NavBar';
 import Header from 'components/header/Header';
 import Footer from 'components/footer/Footer';
 import ProfileMenu from 'components/profile/ProfileMenuView';
-import Naps from 'pages/naps/Naps';
+import Naps from 'pages/naps/naps/Naps';
+import EditNap from 'pages/naps/edit/EditNap';
 
 function App() {
     // Authentication
@@ -107,7 +109,7 @@ function App() {
                     console.error("Error writing document: ", error);
                 });
         },
-        updateNap: (nap, success) => {
+        updateNap: (nap, success, error) => {
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.doc(nap.id)
                 .update(nap.toObject())
@@ -118,11 +120,40 @@ function App() {
                 })
                 .catch(function(error) {
                     console.error("Error updating document: ", error);
+                    if (error) {
+                        error();
+                    }
                 });
         },
         deleteNap: nap => {
             const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
             ref.doc(nap.id).delete();
+        },
+        getNapById: (id, success, error) => {
+            const doc = firebase
+                .firestore()
+                .collection(`users/${currentUser.uid}/naps/`)
+                .doc(id)
+                .get()
+                .then(doc => {
+                    if (!doc.exists) {
+                        console.log("No such document!");
+                        if (error) {
+                            error();
+                        }
+                    } else {
+                        if (success) {
+                            success(doc);
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log("Error getting document", err);
+                    if (error) {
+                        error();
+                    }
+                });;
+            return (doc);
         },
         getNaps: (...args) => {
             if (!currentUser || !currentUser.uid) {
@@ -150,7 +181,8 @@ function App() {
 
     return (
         <BrowserRouter>
-            <div className="wrapper">
+        {currentUser
+            ? <div className="wrapper">
                 <Header />
                 <NavBar currentUser={currentUser} />
                 <ProfileMenu
@@ -158,19 +190,20 @@ function App() {
                     firebase={firebase}
                 />
                 <Route
-                    exact
-                    path="/"
-                    render={props => (
-                        <Dashboard
-                            {...props}
-                            firebase={firebase}
-                            currentUser={currentUser}
-                            naps={naps}
-                            runningNap={runningNap}
-                        />
-                    )}
-                />
-                <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} />} />
+                        exact
+                        path="/"
+                        render={props => (
+                            <Dashboard
+                                {...props}
+                                firebase={firebase}
+                                currentUser={currentUser}
+                                naps={naps}
+                                runningNap={runningNap}
+                            />
+                        )}
+                    />
+                    <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} />} />
+                    <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} naps={naps} />} />
                 <Route
                     exact
                     path="/login"
@@ -178,6 +211,22 @@ function App() {
                 />
                 <Footer />
             </div>
+            : <div className="wrapper">
+                <Header />
+                <NavBar currentUser={currentUser} />
+                <ProfileMenu
+                    currentUser={currentUser}
+                    firebase={firebase}
+                />
+                <Onboarding />
+                <Route
+                    exact
+                    path="/login"
+                    render={props => <Login {...props} firebase={firebase} />}
+                />
+                <Footer />
+            </div>
+            }
         </BrowserRouter>
     );
 

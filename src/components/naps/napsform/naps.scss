@@ -27,10 +27,10 @@
             border: none;
             border-bottom: 1px solid $light;
             color: $dark;
-            font-size: 1rem;
             outline: none;
+            margin-bottom: 0.5rem;
             width: 100%;
-            font-size: 1.5rem;
+            font-size: 1rem;
 
             &:focus {
                 border-bottom: 1px solid $highlight;
@@ -51,6 +51,7 @@
 
         input[type=submit] {
             grid-area: submit;
+            border: none;
         }
     }
 }

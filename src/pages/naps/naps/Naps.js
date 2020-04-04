@@ -1,18 +1,26 @@
 // React
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 // Models
 import Nap from 'models/Nap';
 
+// Libs
+import Modal from 'react-modal';
+
 // Tools
 import Timer from 'components/shared/timer/Timer';
-import NapsForm from '../../components/naps/napsform/NapsForm';
+import NapsForm from '../../../components/naps/napsform/NapsForm';
+
+// Components
+import Alert from 'components/shared/modal/Alert';
 
 // Styles
 import './naps.scss';
 
 const Naps = props => {
+    let [napCreatedAlertIsOpen, setNapCreatedAlertIsOpen] = useState(false);
+
     const onStartNapButtonClick = e => {
         e.preventDefault();
         props.naps.startNap();
@@ -28,8 +36,7 @@ const Naps = props => {
         props.naps.createNap(
             newNap,
             () => {
-                // props.modal.setContent(<Alert text="New Nap created." onConfirm={props.modal.hide} />);
-                // props.modal.show();
+                setNapCreatedAlertIsOpen(true);
             });
     }
 
@@ -52,7 +59,29 @@ const Naps = props => {
     return (
         <section className="page_naps">
             <StartStopForm />
-            <div className="card"><NapsForm onSubmit={onNapsFormSubmit} /></div>
+            <div className="card">
+                <NapsForm onSubmit={onNapsFormSubmit} />
+            </div>
+            <Modal
+                isOpen={napCreatedAlertIsOpen}
+                shouldCloseOnOverlayClick={true}
+                shouldCloseOnEsc={true}
+                onRequestClose={() => {
+                    setNapCreatedAlertIsOpen(false);
+                }}
+                className="modal"
+                overlayClassName={{
+                    base: "backdrop",
+                    afterOpen: "open",
+                    beforeClose: "closed"
+                }}
+                closeTimeoutMS={100}
+            >
+                <Alert
+                    text="Nap created" 
+                    onConfirm={() => {setNapCreatedAlertIsOpen(false);}}
+                />
+            </Modal>
         </section>
     );
 }
