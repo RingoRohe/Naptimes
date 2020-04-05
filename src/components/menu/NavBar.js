@@ -8,7 +8,6 @@ import LoggedOutNav from './LoggedOutNav';
 
 // Styles
 import './menu.scss';
-import MenuToggle from './MenuToggle';
 
 const NavBar = (props) => {
 
