@@ -8,11 +8,23 @@ import LoggedOutNav from './LoggedOutNav';
 
 // Styles
 import './menu.scss';
+import MenuToggle from './MenuToggle';
 
 const NavBar = (props) => {
 
     return (
-        props.currentUser ? <LoggedInNav /> : <LoggedOutNav />
+        <nav>
+            <input type="checkbox" name="toggle" id="toggle" />
+            <ul className="menu_toggle">
+                <li>
+                    <label className="menuPoint" htmlFor="toggle">
+                        <span className="icon fas fa-bars fa-3x"></span>
+                        <span className="text">Menu</span>
+                    </label>
+                </li>
+            </ul>
+            {props.currentUser ? <LoggedInNav /> : <LoggedOutNav />}
+        </nav>
     );
 }
 

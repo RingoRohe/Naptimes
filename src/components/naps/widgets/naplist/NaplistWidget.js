@@ -7,17 +7,16 @@ import { useState } from 'react';
 import Nap from 'models/Nap';
 
 // Components
-import LastNapsListItem from './LastNapsListItem';
+import LastNapsListItem from './NaplistListItem';
 
 // Styles
-import '../napswidget.scss';
-import './lastnaps.scss';
+import './naplist.scss';
 
-const LastNapsWidget = (props) => {
-    let [lastNaps, setLastNaps] = useState([]);
+const NaplistWidget = (props) => {
+    let [naps, setNaps] = useState([]);
     
     useEffect(() => {
-        // console.log('useEffect in LastNapsWidget.js');
+        // console.log('useEffect in NaplistWidget.js');
         let unbindFirestore = props.naps.getNaps(3)
             .onSnapshot(snapshot => {
                 let naps = [];
@@ -29,9 +28,9 @@ const LastNapsWidget = (props) => {
                             naps.push(nap);
                         }
                     })
-                    setLastNaps(naps);
+                    setNaps(naps);
                 } else {
-                    setLastNaps([]);
+                    setNaps([]);
                 }
             });
         
@@ -44,7 +43,7 @@ const LastNapsWidget = (props) => {
         <article className={props.className}>
             <h2>last Naps</h2>
             <ul className="last_naps_list">
-                {lastNaps.map(item => (
+                {naps.map(item => (
                     <LastNapsListItem key={item.id} nap={item} naps={props.naps}/>
                 ))}
             </ul>
@@ -52,4 +51,4 @@ const LastNapsWidget = (props) => {
     );
 }
 
-export default LastNapsWidget;
+export default NaplistWidget;

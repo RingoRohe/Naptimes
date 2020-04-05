@@ -1,20 +1,73 @@
 @import '../../assets/scss/colors';
+@import '../../assets/scss/breakpoints';
+@import '../../assets/scss/variables';
 
-.mainMenu {
+nav {
+    position: relative;
+}
+
+.menu_toggle {
     grid-area: nav;
     display: flex;
     justify-content: flex-start;
-    padding: 0 !important;
+    height: 100%;
 
-    ul {
+    @media (min-width: $breakpoints_m) {
+        display: none;
+    }
+}
+
+#toggle {
+    display: none;
+}
+
+.main_menu {
+    @media screen and (max-width: $breakpoints_m) {
+        grid-area: nav;
+        display: none;
+        flex-direction: column;
+        z-index: 10;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right:0;
+        width: 100vw;
+        background-color: $dark;
+
+        .menuPoint {
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+
+            .icon {
+                margin-right: 1rem;
+                width: 4rem;
+                text-align: center;
+            }
+            
+            .text {
+                width: auto;
+                font-size: 2rem;
+                margin: 0;
+                text-align: left;
+            }
+        }
+    }
+
+    @media (min-width: $breakpoints_m) {
         display: flex;
-    }
-
-    .main_menu {
+        position: relative;
         justify-content: flex-start;
+        height: 100%;
+
+        .settings_menu {
+            justify-content: flex-end;
+        }
     }
 
-    .settings_menu {
-        justify-content: flex-end;
-    }
+
+}
+
+#toggle:checked ~ .main_menu {
+    display: flex;
 }

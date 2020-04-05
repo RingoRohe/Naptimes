@@ -23,4 +23,8 @@ section.page_naps {
             font-size: 3rem;
         }
     }
+
+    .naplist {
+        grid-row: 1 / span 2;
+    }
 }

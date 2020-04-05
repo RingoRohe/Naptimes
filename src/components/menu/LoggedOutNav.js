@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const LoggedOutNav = () => {
     return (
-        <ul className="mainMenu">
+        <ul className="main_menu">
             <li>
                 <Link className="menuPoint" to="/info">
                     <span className="icon fas fa-info fa-3x"></span>

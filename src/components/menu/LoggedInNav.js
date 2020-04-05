@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const LoggedInNav = (props) => {
     return (
-        <ul className="mainMenu">
+        <ul className="main_menu">
             <li>
                 <Link className="menuPoint" to="/naps">
                     <span className="icon fas fa-bed fa-3x"></span>

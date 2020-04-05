@@ -1,4 +1,5 @@
 @import '../../assets/scss/colors';
+@import '../../assets/scss/breakpoints';
 
 header {
     grid-area: header;
@@ -6,11 +7,15 @@ header {
     padding: 1rem;
 
     h1 {
-        font-size: 3rem;
+        font-size: 2rem;
         color: $light;
         font-weight: 900;
         text-transform: uppercase;
         text-align: center;
         cursor: pointer;
+
+        @media (min-width: $breakpoints_m) {
+            font-size: 3rem;
+        }
     }
 }

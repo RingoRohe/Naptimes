@@ -1,0 +1,91 @@
+@import '../../../../assets/scss/breakpoints';
+@import '../../../../assets/scss/colors';
+
+.naplist {
+    padding: 0;
+
+    h2 {
+        margin: 1rem;
+    }
+
+    ul.last_naps_list {
+        overflow: hidden;
+        
+        &>li {
+            position: relative;
+            width: 100%;
+            
+            .info {
+                padding: 0 1rem;
+                display: inline-grid;
+                grid-template-columns: auto auto;
+                grid-template-rows: auto auto 1fr;
+                grid-template-areas:
+                    "date date"
+                    "start end"
+                    "duration duration";
+                
+                .date {
+                    grid-area: date;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    color: $mid;
+                    padding-top: .5rem;
+                }
+                
+                .time_start {
+                    grid-area: start;
+                    margin-right: .2rem;
+                }
+                
+                .time_end {
+                    grid-area: end;
+                    margin-right: 2rem;
+                }
+                
+                .duration {
+                    grid-area: duration;
+                    margin-bottom: .5rem;
+                    font-size: 0.8rem;
+                }
+            }
+
+            .actions {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                pointer-events: none;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                flex-direction: row-reverse;
+                transform: translateX(100%);
+                transition: all 200ms;
+
+                li {
+                    height: 100%;
+
+                    button {
+                        height: 100%;
+                        color: $highlight;
+                        &:hover, &:focus {
+                            color: $dark;
+                        }
+                    }
+                }
+
+            }
+
+            &:hover, &:focus {
+                background-color: $light;
+                .actions {
+                    opacity: 1;
+                    pointer-events: all;
+                    transform: translateX(0%);
+                }
+            }
+        }
+    }
+}

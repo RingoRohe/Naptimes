@@ -14,6 +14,7 @@ import NapsForm from '../../../components/naps/napsform/NapsForm';
 
 // Components
 import Alert from 'components/shared/modal/Alert';
+import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
 
 // Styles
 import './naps.scss';
@@ -62,6 +63,7 @@ const Naps = props => {
             <div className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </div>
+            <NaplistWidget className="naplist card" naps={props.naps} />
             <Modal
                 isOpen={napCreatedAlertIsOpen}
                 shouldCloseOnOverlayClick={true}
