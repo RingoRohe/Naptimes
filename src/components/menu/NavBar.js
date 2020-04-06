@@ -11,13 +11,23 @@ import './menu.scss';
 
 const NavBar = (props) => {
 
-    // TODO: Close mobile NavBar when Item is selected
+    const hideMenu = (e) => {
+        const isToggleActive = document.querySelector('#toggle').checked;
+        if (isToggleActive && e.target.getAttribute("type") !== 'checkbox') {
+            document.querySelector("#toggle").checked = false;
+        }
+    }
+
+    const onToggleClicked = (e) => {
+        e.stopPropagation();
+    }
+
     return (
-        <nav>
+        <nav onClick={hideMenu}>
             <input type="checkbox" name="toggle" id="toggle" />
             <ul className="menu_toggle">
                 <li>
-                    <label className="menuPoint" htmlFor="toggle">
+                    <label className="menuPoint" htmlFor="toggle" onClick={onToggleClicked}>
                         <span className="icon fas fa-bars fa-3x"></span>
                         <span className="text">Menu</span>
                     </label>
