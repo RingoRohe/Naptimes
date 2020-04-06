@@ -34,6 +34,7 @@ const Duration = props => {
         return '';
     }
     
+    // TODO: Hide Times when 0
     return (
         <span>
             {showHours ? getHours() + 'h' : ''}
