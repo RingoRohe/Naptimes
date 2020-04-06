@@ -11,6 +11,7 @@ import './menu.scss';
 
 const NavBar = (props) => {
 
+    // TODO: Close mobile NavBar when Item is selected
     return (
         <nav>
             <input type="checkbox" name="toggle" id="toggle" />

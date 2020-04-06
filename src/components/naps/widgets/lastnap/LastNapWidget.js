@@ -17,6 +17,7 @@ import Alert from 'components/shared/modal/Alert';
 // Styles
 import "../napswidget.scss";
 import "./lastnap.scss";
+import Duration from 'components/shared/duration/Duration';
 
 const LastNapWidget = (props) => {
     Modal.setAppElement('body');
@@ -84,21 +85,14 @@ const LastNapWidget = (props) => {
     return lastNap ? (
         <article className="naps_widget single card">
             <h2>last Nap</h2>
-            <h3 className="date">
-                {new Date(lastNap.start).toLocaleDateString()}
-            </h3>
             <p>
-                <span className="duration">
-                    {new Date(lastNap.end - lastNap.start).toLocaleTimeString(
-                        [],
-                        {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            timeZone: "UTC"
-                        }
-                    )}
+                <span className="date">
+                    {new Date(lastNap.start).toLocaleDateString([], {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric"
+                    })}
                 </span>
-                <span>hours sleep</span>
                 <span className="times">
                     (
                     <span className="time_start">
@@ -115,6 +109,12 @@ const LastNapWidget = (props) => {
                         })}
                     </span>
                     )
+                </span>
+                <span className="duration">
+                    <Duration
+                        milliseconds={lastNap.end - lastNap.start}
+                        showSeconds={false}
+                    />
                 </span>
                 {lastNap.notes ? (
                     <span className="notes">"{lastNap.notes}"</span>

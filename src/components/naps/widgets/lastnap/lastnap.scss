@@ -5,15 +5,6 @@
     &.single {
         justify-content: flex-start;
 
-        .date {
-            grid-area: date;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: $mid;
-            padding: 0.5rem;
-            text-align: center;
-        }
-
         p {
             font-size: 0.9rem;
             padding: 0.5rem;
@@ -28,25 +19,23 @@
             &>span {
                 display: block;
             }
+
+            .date {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: $mid;
+                text-align: center;
+            }
             
             .duration {
-                grid-area: duration;
                 font-size: 1.8rem;
                 color: $dark;
                 font-weight: bold;
+                margin-top: 1rem;
             }
     
             .times {
                 font-size: 0.8rem;
-                padding-top: .5rem;
-    
-                .time_start {
-                    grid-area: start;
-                }
-                
-                .time_end {
-                    grid-area: end;
-                }
             }
 
             .notes {

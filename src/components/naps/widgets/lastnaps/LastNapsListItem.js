@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 
 // Components
 import Confirm from "components/shared/modal/Confirm";
+import Duration from 'components/shared/duration/Duration';
 
 const LastNapsListItem = (props) => {
     Modal.setAppElement("#root");
@@ -34,31 +35,23 @@ const LastNapsListItem = (props) => {
     return (
         <li>
             <span className="date">
-                {new Date(props.nap.start).toLocaleDateString()}
+                {new Date(props.nap.start).toLocaleDateString([], {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                })}
             </span>
-            <span className="time_start">
+            <span className="times">
                 {new Date(props.nap.start).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit"
-                })}{" "}
-                -
-            </span>
-            <span className="time_end">
-                {new Date(props.nap.end).toLocaleTimeString([], {
+                })} - {new Date(props.nap.end).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit"
                 })}
             </span>
             <span className="duration">
-                {new Date(props.nap.end - props.nap.start).toLocaleTimeString(
-                    [],
-                    {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        timeZone: "UTC"
-                    }
-                )}{" "}
-                hours
+                <Duration milliseconds={props.nap.end - props.nap.start} showSeconds={false} />
             </span>
             <ul className="actions">
                 <li>

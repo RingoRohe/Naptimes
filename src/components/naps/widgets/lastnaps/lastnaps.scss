@@ -13,36 +13,20 @@
             &>li {
                 position: relative;
                 flex: 1;
-                display: inline-grid;
-                grid-template-columns: auto auto minmax(1em, 1fr);
-                grid-template-rows: auto auto 1fr;
-                grid-template-areas:
-                    "date date actions"
-                    "start end actions"
-                    "duration duration actions";
-                padding-left: .5rem;
+                padding: .5rem;
+
+                span {
+                    display: block;
+                }
                 
                 .date {
-                    grid-area: date;
                     font-size: 0.8rem;
                     font-weight: bold;
                     color: $mid;
-                    padding-top: .5rem;
-                }
-                
-                .time_start {
-                    grid-area: start;
-                    margin-right: .2rem;
-                }
-                
-                .time_end {
-                    grid-area: end;
-                    margin-right: 2rem;
                 }
                 
                 .duration {
                     grid-area: duration;
-                    margin-bottom: .5rem;
                     font-size: 0.8rem;
                 }
 
