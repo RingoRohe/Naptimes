@@ -15,33 +15,32 @@ const Duration = props => {
     const getHours = () => {
         if (h > 0) {
             h < 10 ? (h = `0${h}`) : (h = `${h}`);
-            return h;
+            return h + 'h';
         }
-        return '';
+        return false;
     }
     const getMinutes = () => {
         if (m > 0) {
             m < 10 ? (m = `0${m}`) : (m = `${m}`);
-            return m;
+            return m + 'm';
         }
-        return '';
+        return false;
     }
     const getSeconds = () => {
         if (s > 0) {
             s < 10 ? (s = `0${s}`) : (s = `${s}`);
-            return s;
+            return s + 's';
         }
-        return '';
+        return false;
     }
-    
-    // TODO: Hide Times when 0
+
     return (
         <span>
-            {showHours ? getHours() + 'h' : ''}
+            {showHours ? getHours() : ''}
             {showHours && showMinutes ? ' ' : ''}
-            {showMinutes ? getMinutes() + 'm' : ''}
+            {showMinutes ? getMinutes() : ''}
             {showMinutes && showSeconds ? ' ' : ''}
-            {showSeconds ? getSeconds() + 's' : ''}
+            {showSeconds ? getSeconds() : ''}
         </span>
     );
 }
