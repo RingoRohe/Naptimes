@@ -1,0 +1,12 @@
+@import '../../../assets/scss/colors';
+
+div.google-visualization-tooltip {
+    background-color: $dark;
+    padding: 1rem;
+    color: $white;
+
+    h3 {
+        font-size: 1.2rem;
+        color: $light;
+    }
+}
