@@ -27,4 +27,12 @@ section.page_naps {
     .naplist {
         grid-row: 1 / span 2;
     }
+
+    .chart {
+        grid-column: 1 / 1;
+
+        @media (min-width: $breakpoints_m) {
+            grid-column: 1 / span2;
+        }
+    }
 }

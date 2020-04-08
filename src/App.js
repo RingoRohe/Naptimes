@@ -169,11 +169,13 @@ function App() {
 
             if (args.length === 0) {
                 // get all Items of today
-                let from = Date.now() - 1 * 24 * 60 * 60 * 1000; // - 1 day
-                let to = Date.now();
+                let todayMorning = new Date();
+                todayMorning.setHours(0, 0, 0, 0);
+                let todayEvening = new Date();
+                todayEvening.setHours(23, 59, 59, 999);
                 return ref
-                    .where("start", ">=", from)
-                    .where("start", "<=", to)
+                    .where("start", ">=", todayMorning.getTime())
+                    .where("start", "<=", todayEvening.getTime())
                     .orderBy("start", "desc");
             }
         }

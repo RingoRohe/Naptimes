@@ -1,5 +1,5 @@
 // React
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 // Models
@@ -15,12 +15,37 @@ import NapsForm from '../../../components/naps/napsform/NapsForm';
 // Components
 import Alert from 'components/shared/modal/Alert';
 import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
+import ChartToday from 'components/naps/charts/today/ChartToday';
 
 // Styles
 import './naps.scss';
 
 const Naps = props => {
     let [napCreatedAlertIsOpen, setNapCreatedAlertIsOpen] = useState(false);
+    let [todayNaps, setTodayNaps] = useState([]);
+
+    useEffect(() => {
+        let unbindFirestore = props.naps.getNaps()
+            .onSnapshot(snapshot => {
+                let naps = [];
+                if (!snapshot.empty) {
+                    snapshot.forEach((doc) => {
+                        if (doc.data().end > 0) {
+                            let nap = new Nap();
+                            nap.fromFirebaseDoc(doc);
+                            naps.push(nap);
+                        }
+                    })
+                    setTodayNaps(naps);
+                } else {
+                    setTodayNaps([]);
+                }
+            });
+        
+        return () => {
+            unbindFirestore();
+        };
+    }, [props.naps])
 
     const onStartNapButtonClick = e => {
         e.preventDefault();
@@ -64,6 +89,7 @@ const Naps = props => {
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </div>
             <NaplistWidget className="naplist card" naps={props.naps} />
+            <ChartToday className="chart" naps={todayNaps} />
             <Modal
                 isOpen={napCreatedAlertIsOpen}
                 shouldCloseOnOverlayClick={true}
