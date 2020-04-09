@@ -18,7 +18,7 @@ const LastNapsWidget = (props) => {
     
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
-        let unbindFirestore = props.naps.getNaps(3)
+        let unbindFirestore = props.napsFunctions.getNaps(3)
             .onSnapshot(snapshot => {
                 let naps = [];
                 if (!snapshot.empty) {
@@ -38,14 +38,14 @@ const LastNapsWidget = (props) => {
         return () => {
             unbindFirestore();
         };
-    }, [props.naps]);
+    }, [props.napsFunctions]);
 
     return (
         <article className={props.className}>
             <h2>last Naps</h2>
             <ul className="last_naps_list">
                 {lastNaps.map(item => (
-                    <LastNapsListItem key={item.id} nap={item} naps={props.naps}/>
+                    <LastNapsListItem key={item.id} nap={item} naps={props.napsFunctions}/>
                 ))}
             </ul>
         </article>

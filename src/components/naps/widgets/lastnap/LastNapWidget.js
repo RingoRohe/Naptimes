@@ -29,7 +29,7 @@ const LastNapWidget = (props) => {
     let [alertContent, setAlertContent] = useState("");
 
     const deleteNap = () => {
-        props.naps.deleteNap(lastNap);
+        props.napsFunctions.deleteNap(lastNap);
         setDeleteNapPromptIsOpen(false);
     }
 
@@ -45,7 +45,7 @@ const LastNapWidget = (props) => {
         lastNap.start = start;
         lastNap.end = end;
         lastNap.notes = notes;
-        props.naps.updateNap(lastNap,
+        props.napsFunctions.updateNap(lastNap,
             () => {
                 setAlertContent(<Alert text="Nap updated." onConfirm={() => {
                     setAlertIsOpen(false);
@@ -63,7 +63,7 @@ const LastNapWidget = (props) => {
     useEffect(() => {
         // console.log('useEffect in LastNapWidget.js');
         if (props.currentUser && props.currentUser.uid) {
-            let unbindFirestore = props.naps.getNaps(1)
+            let unbindFirestore = props.napsFunctions.getNaps(1)
                 .onSnapshot(snapshot => {
                     if (!snapshot.empty) {
                         if (snapshot.docs[0].data().end > 0) {
@@ -80,7 +80,7 @@ const LastNapWidget = (props) => {
                 unbindFirestore();
             };
         }
-    }, [props.currentUser, props.naps]);
+    }, [props.currentUser, props.napsFunctions]);
 
     return lastNap ? (
         <article className="naps_widget single card">
