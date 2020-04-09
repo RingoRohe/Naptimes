@@ -47,8 +47,7 @@ const EditNap = props => {
         nap.end = end;
         nap.notes = notes;
         setNap(nap);
-        // TODO: replace Alert with something better
-        props.napsFunctions.updateNap(nap, () => {alert('yeah!')});
+        props.napsFunctions.updateNap(nap, () => { history.goBack();});
     }
     
     return (
