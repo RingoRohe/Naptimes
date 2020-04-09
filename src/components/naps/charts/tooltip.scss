@@ -4,6 +4,8 @@ div.google-visualization-tooltip {
     background-color: $dark;
     padding: 1rem;
     color: $white;
+    box-shadow: none;
+    border: 1px solid $white;
 
     h3 {
         font-size: 1.2rem;

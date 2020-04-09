@@ -82,7 +82,7 @@ function App() {
 
     }, [currentUser]);
     
-    const naps = {
+    const napsFunctions = {
         isNapRunning: () => {
             return runningNap ? true : false;
         },
@@ -178,6 +178,14 @@ function App() {
                     .where("start", "<=", todayEvening.getTime())
                     .orderBy("start", "desc");
             }
+
+            if (parseInt(args[0]) > 100 && parseInt(args[1]) > 100) {
+                // get all Items between given timestamps
+                return ref
+                    .where("start", ">=", parseInt(args[0]))
+                    .where("start", "<=", parseInt(args[1]))
+                    .orderBy("start", "desc");
+            }
         }
     };
 
@@ -199,13 +207,13 @@ function App() {
                                 {...props}
                                 firebase={firebase}
                                 currentUser={currentUser}
-                                naps={naps}
+                                napsFunctions={napsFunctions}
                                 runningNap={runningNap}
                             />
                         )}
                     />
-                    <Route exact path="/naps" render={props => <Naps {...props} naps={naps} runningNap={runningNap} />} />
-                    <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} naps={naps} />} />
+                    <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} />} />
+                    <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} napsFunctions={napsFunctions} />} />
                 <Route
                     exact
                     path="/login"

@@ -14,10 +14,10 @@ import StartNapButton from 'components/naps/widgets/startnap/StartNapButton';
 const Dashboard = (props) => {
     return (
         <section className="main">
-            {props.runningNap ? null : <StartNapButton naps={props.naps} />}
-            {props.runningNap ? <RunningNapWidget naps={props.naps} runningNap={props.runningNap} /> : null}
-            <LastNapWidget firebase={props.firebase} currentUser={props.currentUser} naps={props.naps} />
-            <LastNapsWidget className="naps_widget last card" naps={props.naps} />
+            {props.runningNap ? null : <StartNapButton napsFunctions={props.napsFunctions} />}
+            {props.runningNap ? <RunningNapWidget napsFunctions={props.napsFunctions} runningNap={props.runningNap} /> : null}
+            <LastNapWidget firebase={props.firebase} currentUser={props.currentUser} napsFunctions={props.napsFunctions} />
+            <LastNapsWidget className="naps_widget last card" napsFunctions={props.napsFunctions} />
             <article className="card">
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum amet iure enim fugiat dolorum unde commodi adipisci eaque minima ex tempore facere reprehenderit, facilis ipsam, repellendus illum. Odit, accusamus delectus!
@@ -30,7 +30,7 @@ const Dashboard = (props) => {
 Dashboard.propTypes = {
     currentUser: PropTypes.object,
     runningNap: PropTypes.instanceOf(Nap),
-    naps: PropTypes.object
-}
+    napsFunctions: PropTypes.object
+};
 
 export default Dashboard;

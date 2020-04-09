@@ -25,7 +25,7 @@ const EditNap = props => {
     const history = useHistory();
 
     useEffect(() => {
-        props.naps.getNapById(
+        props.napsFunctions.getNapById(
             props.match.params.id,
             (fbNap) => {
                 const nap = new Nap();
@@ -36,7 +36,7 @@ const EditNap = props => {
                 setAlertIsOpen(true);
             }
         );
-    }, [props.naps, props.match.params.id]);
+    }, [props.napsFunctions, props.match.params.id]);
 
     const goBack = () => {
         history.push('/');
@@ -48,7 +48,7 @@ const EditNap = props => {
         nap.notes = notes;
         setNap(nap);
         // TODO: replace Alert with something better
-        props.naps.updateNap(nap, () => {alert('yeah!')});
+        props.napsFunctions.updateNap(nap, () => {alert('yeah!')});
     }
     
     return (
@@ -86,7 +86,8 @@ const EditNap = props => {
 }
 
 EditNap.propTypes = {
-    nap: PropTypes.objectOf(Nap)
-}
+    nap: PropTypes.objectOf(Nap),
+    napsFunctions: PropTypes.object
+};
 
 export default EditNap;

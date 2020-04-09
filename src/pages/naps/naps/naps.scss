@@ -32,7 +32,7 @@ section.page_naps {
         grid-column: 1 / 1;
 
         @media (min-width: $breakpoints_m) {
-            grid-column: 1 / span2;
+            grid-column: 1 / span 2;
         }
     }
 }

@@ -15,7 +15,7 @@ import NapsForm from '../../../components/naps/napsform/NapsForm';
 // Components
 import Alert from 'components/shared/modal/Alert';
 import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
-import ChartToday from 'components/naps/charts/today/ChartToday';
+import ChartDaily from 'components/naps/charts/today/ChartDaily';
 
 // Styles
 import './naps.scss';
@@ -25,45 +25,51 @@ const Naps = props => {
     let [todayNaps, setTodayNaps] = useState([]);
 
     useEffect(() => {
-        let unbindFirestore = props.naps.getNaps()
+        let dateOffset = 24 * 60 * 60 * 1000 * 7; // 7 days
+        let firstDayStart = new Date();
+        firstDayStart.setHours(0, 0, 0, 0);
+        firstDayStart.setTime(firstDayStart.getTime() - dateOffset);
+        let lastDayEnd = new Date();
+        lastDayEnd.setHours(23, 59, 59, 999);
+
+        let unbindFirestore = props.napsFunctions
+            .getNaps(firstDayStart.getTime(), lastDayEnd.getTime())
             .onSnapshot(snapshot => {
                 let naps = [];
                 if (!snapshot.empty) {
-                    snapshot.forEach((doc) => {
+                    snapshot.forEach(doc => {
                         if (doc.data().end > 0) {
                             let nap = new Nap();
                             nap.fromFirebaseDoc(doc);
                             naps.push(nap);
                         }
-                    })
+                    });
                     setTodayNaps(naps);
                 } else {
                     setTodayNaps([]);
                 }
             });
-        
+
         return () => {
             unbindFirestore();
         };
-    }, [props.naps])
+    }, [props.napsFunctions]);
 
     const onStartNapButtonClick = e => {
         e.preventDefault();
-        props.naps.startNap();
+        props.napsFunctions.startNap();
     };
 
     const onFinishNapButtonClick = e => {
         e.preventDefault();
-        props.naps.finishNap();
+        props.napsFunctions.finishNap();
     };
 
     const onNapsFormSubmit = (start, end, notes) => {
         const newNap = new Nap(start, end, notes);
-        props.naps.createNap(
-            newNap,
-            () => {
-                setNapCreatedAlertIsOpen(true);
-            });
+        props.napsFunctions.createNap(newNap, () => {
+            setNapCreatedAlertIsOpen(true);
+        });
     }
 
     const StartStopForm = () => {
@@ -88,8 +94,12 @@ const Naps = props => {
             <div className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </div>
-            <NaplistWidget className="naplist card" naps={props.naps} />
-            <ChartToday className="chart" naps={todayNaps} />
+            <NaplistWidget
+                className="naplist card"
+                napsFunctions={props.napsFunctions}
+                naps={todayNaps}
+            />
+            <ChartDaily className="chart" naps={todayNaps} />
             <Modal
                 isOpen={napCreatedAlertIsOpen}
                 shouldCloseOnOverlayClick={true}
@@ -106,8 +116,10 @@ const Naps = props => {
                 closeTimeoutMS={100}
             >
                 <Alert
-                    text="Nap created" 
-                    onConfirm={() => {setNapCreatedAlertIsOpen(false);}}
+                    text="Nap created"
+                    onConfirm={() => {
+                        setNapCreatedAlertIsOpen(false);
+                    }}
                 />
             </Modal>
         </section>
@@ -115,7 +127,7 @@ const Naps = props => {
 }
 
 Naps.propTypes = {
-    naps: PropTypes.object,
+    napsFunctions: PropTypes.object,
     runningNap: PropTypes.instanceOf(Nap)
 };
 

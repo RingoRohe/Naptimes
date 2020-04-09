@@ -3,6 +3,8 @@
 
 .naplist {
     padding: 0;
+    max-height: 25rem;
+    overflow: scroll;
 
     h2 {
         margin: 1rem;

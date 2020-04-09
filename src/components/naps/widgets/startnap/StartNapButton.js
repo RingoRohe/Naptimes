@@ -6,7 +6,7 @@ import './startnapbutton.scss';
 const StartNapButton = props => {
     const onStartNapButtonClick = e => {
         e.preventDefault();
-        props.naps.startNap();
+        props.napsFunctions.startNap();
     };
 
     return (
@@ -17,7 +17,7 @@ const StartNapButton = props => {
 }
 
 StartNapButton.propTypes = {
-    naps: PropTypes.object
+    napsFunctions: PropTypes.object
 };
 
 export default StartNapButton
