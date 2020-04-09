@@ -16,7 +16,7 @@ const LastNapsListItem = (props) => {
     let [deleteNapPromptIsOpen, setDeleteNapPromptIsOpen] = useState(false);
 
     const deleteNap = () => {
-        props.naps.deleteNap(props.nap);
+        props.napsFunctions.deleteNap(props.nap);
         setDeleteNapPromptIsOpen(false);
     };
 

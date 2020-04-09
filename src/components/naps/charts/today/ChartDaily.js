@@ -68,7 +68,7 @@ const ChartDaily = props => {
 
                 return [
                     "naps",
-                    nap.notes ? nap.notes : "no notes",
+                    nap.notes ? nap.notes : "",
                     tooltip(nap),
                     newStartDate,
                     newEndDate

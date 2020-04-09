@@ -11,7 +11,7 @@ import "./runningnap.scss";
 const RunningNapWidget = (props) => {
     const onFinishNapButtonClick = e => {
         e.preventDefault();
-        props.naps.finishNap();
+        props.napsFunctions.finishNap();
     };
 
     return (
