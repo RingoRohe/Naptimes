@@ -7,6 +7,7 @@ import { GoogleCharts } from 'google-charts';
 // Styles
 import styles from './chartToday.scss';
 import '../tooltip.scss';
+import Duration from 'components/shared/duration/Duration';
 
 const ChartDaily = props => {
     let data = [];
@@ -129,7 +130,7 @@ const ChartDaily = props => {
         
         const headline = () => {
             if (props.d["naps"].length > 0) {
-                if (props.i === 1) return 'Today'; 
+                if (props.i === 1) return ("Today"); 
                 if (props.i === 2) return 'Yesterday';
                 return props.d.startDate.toLocaleDateString([], {
                     day: "2-digit",
@@ -140,9 +141,26 @@ const ChartDaily = props => {
                 return null;
             }
         };
+        const duration = () => {
+            if (props.d["naps"].length > 0) {
+                let duration = props.d["naps"].reduce((acc, cur) => {
+                    return acc + cur[4].getTime() - cur[3].getTime();
+                }, 0);
+                // console.log(<Duration milliseconds={duration} />);
+                return duration;
+            } else {
+                return null;
+            }
+        };
+        const durtionValue = duration();
         return (
             <div>
-                <h2>{headline()}</h2>
+                <h2>
+                    {headline()}
+                    {durtionValue ? " (" : null}
+                    {durtionValue ? <Duration milliseconds={durtionValue} showSeconds={false} /> : null}
+                    {durtionValue ? ")" : null}
+                </h2>
                 {props.d['naps'].length > 0 ? <div id={"day_chart_" + props.i}></div> : null}
             </div>
         );
