@@ -22,7 +22,7 @@ import './naps.scss';
 
 const Naps = props => {
     let [napCreatedAlertIsOpen, setNapCreatedAlertIsOpen] = useState(false);
-    let [todayNaps, setTodayNaps] = useState([]);
+    let [naps, setNaps] = useState([]);
 
     useEffect(() => {
         let dateOffset = 24 * 60 * 60 * 1000 * 7; // 7 days
@@ -44,9 +44,9 @@ const Naps = props => {
                             naps.push(nap);
                         }
                     });
-                    setTodayNaps(naps);
+                    setNaps(naps);
                 } else {
-                    setTodayNaps([]);
+                    setNaps([]);
                 }
             });
 
@@ -97,9 +97,9 @@ const Naps = props => {
             <NaplistWidget
                 className="naplist card"
                 napsFunctions={props.napsFunctions}
-                naps={todayNaps}
+                naps={naps}
             />
-            <ChartDaily className="chart" naps={todayNaps} />
+            <ChartDaily className="chart" naps={naps} />
             <Modal
                 isOpen={napCreatedAlertIsOpen}
                 shouldCloseOnOverlayClick={true}

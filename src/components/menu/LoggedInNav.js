@@ -18,7 +18,7 @@ const LoggedInNav = (props) => {
                     <span className="text">Diapers</span>
                 </Link>
             </li>
-            <li>
+            {/* <li>
                 <Link className="menuPoint" to="/photos">
                     <span className="icon fas fa-camera-retro fa-3x"></span>
                     <span className="text">Photos</span>
@@ -29,7 +29,7 @@ const LoggedInNav = (props) => {
                     <span className="icon fas fa-sliders-h fa-3x"></span>
                     <span className="text">Settings</span>
                 </Link>
-            </li>
+            </li> */}
         </ul>
     );
 }

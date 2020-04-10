@@ -61,6 +61,7 @@ const LastNapsListItem = (props) => {
                         showSeconds={false}
                     />
                 </span>
+                {props.nap.notes ? <span className="notes">{props.nap.notes}</span> : null}
             </div>
             <ul className="actions">
                 <li>

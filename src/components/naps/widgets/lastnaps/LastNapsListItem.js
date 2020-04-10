@@ -53,6 +53,7 @@ const LastNapsListItem = (props) => {
             <span className="duration">
                 <Duration milliseconds={props.nap.end - props.nap.start} showSeconds={false} />
             </span>
+            {props.nap.notes ? <span className="notes">{props.nap.notes}</span> : null}
             <ul className="actions">
                 <li>
                     <button
