@@ -20,6 +20,7 @@ import Footer from 'components/footer/Footer';
 import ProfileMenu from 'components/profile/ProfileMenuView';
 import Naps from 'pages/naps/naps/Naps';
 import EditNap from 'pages/naps/edit/EditNap';
+import User from 'models/User';
 
 function App() {
     // Authentication
@@ -32,7 +33,6 @@ function App() {
         const unmountAuth = firebase.auth().onAuthStateChanged(function(authUser) {
             if (authUser) {
                 // User is signed in.
-                setCurrentUser(authUser);
                 createUserIfNotExists(authUser);
             } else {
                 setCurrentUser(null);
@@ -47,11 +47,26 @@ function App() {
 
     const createUserIfNotExists = (user) => {
         const newUserData = {
+            uid: user.uid,
             email: user.email,
             photoURL: user.photoURL,
             displayName: user.displayName
         };
         firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
+
+        // get Userdata
+        firebase.firestore().collection('users').doc(user.uid).get()
+            .then(doc => {
+                if (!doc.exists) {
+                    console.log("No such User!");
+                } else {
+                    let newUser = new User();
+                    newUser.fromFirebaseDoc(doc);
+                    setCurrentUser(newUser.asObject);
+                    console.log(newUser.asObject);
+                }
+            })
+            .catch(err => { console.log("Error getting document", err); });
     }
 
     // Naps
@@ -152,7 +167,7 @@ function App() {
                     if (error) {
                         error();
                     }
-                });;
+                });
             return (doc);
         },
         getNaps: (...args) => {
