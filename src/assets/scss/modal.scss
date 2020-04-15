@@ -20,8 +20,8 @@
         z-index: 500;
         width: auto;
         padding: 2rem;
-        transform: scale(0);
-        transition: all 0.2s ease-out;
+        transform: scale(0) rotate(-400deg);
+        transition: all 0.4s ease-out;
         background-color: $white;
         box-shadow: $baseShadow;
         outline: none;
@@ -32,7 +32,7 @@
         pointer-events: all;
 
         .modal {
-            transform: scale(1);
+            transform: scale(1) rotate(0);
         }
     }
 
@@ -41,7 +41,7 @@
         pointer-events: none;
 
         .modal {
-            transform: scale(0);
+            transform: scale(0) rotate(-400deg);
         }
     }
 }
