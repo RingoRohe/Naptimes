@@ -63,7 +63,6 @@ function App() {
                     let newUser = new User();
                     newUser.fromFirebaseDoc(doc);
                     setCurrentUser(newUser.asObject);
-                    console.log(newUser.asObject);
                 }
             })
             .catch(err => { console.log("Error getting document", err); });

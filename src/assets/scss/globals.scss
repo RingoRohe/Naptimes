@@ -3,6 +3,8 @@
 }
 
 .card {
+    position: relative;
+    overflow: hidden;
     background-color: $white;
     padding: 1rem;
     box-shadow: 0 0 5px $black;
@@ -16,6 +18,14 @@
 
     p {
         padding: 0.5rem 0;
+    }
+
+    .card_icon {
+        position: absolute;
+        transform: rotate(25deg);
+        top: -0.3rem;
+        right: -0.3rem;
+        color: transparentize($highlight, 0.5);
     }
 }
 
@@ -43,7 +53,7 @@
         color: $white;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus, &.active {
         background: $mid;
         color: $white;
     }

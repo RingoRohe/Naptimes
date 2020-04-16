@@ -74,32 +74,32 @@ const Naps = props => {
 
     const StartStopForm = () => {
         return props.runningNap ? (
-            <div className="card startstop">
+            <article className="card startstop">
                 <button onClick={onFinishNapButtonClick}>
                     <Timer start={props.runningNap.start} /><br />
                     <span className="default">finish Nap?</span>
                     <span className="hover">finish Nap!</span>
                 </button>
-            </div>
+            </article>
         ) : (
-            <div className="card startstop">
+            <article className="card startstop">
                 <button onClick={onStartNapButtonClick}>START NAP</button>
-            </div>
+            </article>
         );
     };
 
     return (
         <section className="page_naps">
             <StartStopForm />
-            <div className="card">
+            <article className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
-            </div>
+            </article>
+            <ChartDaily className="chart" naps={naps} />
             <NaplistWidget
                 className="naplist card"
                 napsFunctions={props.napsFunctions}
                 naps={naps}
             />
-            <ChartDaily className="chart" naps={naps} />
             <Modal
                 isOpen={napCreatedAlertIsOpen}
                 shouldCloseOnOverlayClick={true}

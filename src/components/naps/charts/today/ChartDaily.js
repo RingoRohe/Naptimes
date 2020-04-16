@@ -168,6 +168,7 @@ const ChartDaily = props => {
 
     return (
         <article className={props.className + " card"}>
+            <span class="card_icon fas fa-chart-line fa-3x"></span>
             {data.map((d, i) => (
                 <ChartContainer key={i} d={d} i={i + 1} />
             ))}

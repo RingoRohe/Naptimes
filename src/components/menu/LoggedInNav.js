@@ -1,34 +1,45 @@
 // React
 import React from 'react'
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import MenuPoint from './MenuPoint';
 
 const LoggedInNav = (props) => {
     return (
         <ul className="main_menu">
             <li>
-                <Link className="menuPoint" to="/naps">
-                    <span className="icon fas fa-bed fa-3x"></span>
-                    <span className="text">Naps</span>
-                </Link>
+                <MenuPoint
+                    to="/"
+                    iconClasses="icon fas fa-columns fa-3x"
+                    title="Dashboard"
+                />
             </li>
             <li>
-                <Link className="menuPoint" to="/diapers">
-                    <span className="icon fas fa-baby fa-3x"></span>
-                    <span className="text">Diapers</span>
-                </Link>
+                <MenuPoint
+                    to="/naps"
+                    iconClasses="icon fas fa-bed fa-3x"
+                    title="Naps"
+                />
             </li>
             {/* <li>
-                <Link className="menuPoint" to="/photos">
-                    <span className="icon fas fa-camera-retro fa-3x"></span>
-                    <span className="text">Photos</span>
-                </Link>
+                <MenuPoint
+                    to="/diapers"
+                    iconClasses="icon fas fa-baby fa-3x"
+                    title="Diapers"
+                />
             </li>
             <li>
-                <Link className="menuPoint" to="/settings">
-                    <span className="icon fas fa-sliders-h fa-3x"></span>
-                    <span className="text">Settings</span>
-                </Link>
+                <MenuPoint
+                    to="/photos"
+                    iconClasses="icon fas fa-camera-retro fa-3x"
+                    title="Photos"
+                />
+            </li>
+            <li>
+                <MenuPoint
+                    to="/settings"
+                    iconClasses="icon fas fa-sliders-h fa-3x"
+                    title="Settings"
+                />
             </li> */}
         </ul>
     );

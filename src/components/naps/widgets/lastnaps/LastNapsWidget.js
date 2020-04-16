@@ -42,10 +42,15 @@ const LastNapsWidget = (props) => {
 
     return (
         <article className={props.className}>
+            <span class="card_icon fas fa-chart-line fa-3x"></span>
             <h2>last Naps</h2>
             <ul className="last_naps_list">
-                {lastNaps.map(item => (
-                    <LastNapsListItem key={item.id} nap={item} naps={props.napsFunctions}/>
+                {lastNaps.map((item) => (
+                    <LastNapsListItem
+                        key={item.id}
+                        nap={item}
+                        naps={props.napsFunctions}
+                    />
                 ))}
             </ul>
         </article>

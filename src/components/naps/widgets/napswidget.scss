@@ -2,8 +2,6 @@
 @import '../../../assets/scss/colors';
 
 .naps_widget {
-    position: relative;
-    overflow: hidden;
     padding: 0;
     display: flex;
     justify-content: flex-end;
@@ -19,14 +17,6 @@
     p {
         padding: 0.5rem 1rem;
         flex-grow: 1;
-    }
-
-    .card_icon {
-        position: absolute;
-        transform: rotate(25deg);
-        top: -0.3rem;
-        right: -0.3rem;
-        color: transparentize($highlight, 0.5);
     }
 
     button {

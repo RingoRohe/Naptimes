@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import MenuPoint from "./MenuPoint";
 
 const LoggedOutNav = () => {
     return (
         <ul className="main_menu">
             <li>
-                <Link className="menuPoint" to="/onboarding">
-                    <span className="icon fas fa-info fa-3x"></span>
-                    <span className="text">Info</span>
-                </Link>
+                <MenuPoint
+                    to="/onboarding"
+                    iconClasses="icon fas fa-info fa-3x"
+                    title="Info"
+                />
             </li>
         </ul>
     );

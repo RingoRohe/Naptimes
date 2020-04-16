@@ -10,9 +10,9 @@ const StartNapButton = props => {
     };
 
     return (
-        <div className="card startstop">
+        <article className="card startstop">
             <button onClick={onStartNapButtonClick}>START NAP</button>
-        </div>
+        </article>
     );
 }
 
