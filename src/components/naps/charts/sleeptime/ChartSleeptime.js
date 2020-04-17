@@ -6,25 +6,9 @@ import { GoogleCharts } from 'google-charts';
 
 // Styles
 import styles from './chartSleeptime.scss';
-import '../tooltip.scss';
 
 const ChartSleeptime = props => {
     let data = [];
-
-    const tooltip = (nap) => {
-        let startDate = new Date(nap.start);
-        let endDate = new Date(nap.end);
-        return `<div class="tootltip">
-            <h3>${nap.notes ? nap.notes : "no notes"}</h3>
-            <p class="duration">${startDate.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    })} - ${endDate.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    })}</p>
-            </div>`;
-    }
 
     const sortNapsIntoDays = (naps) => {
         let sortedNaps = [];
@@ -112,7 +96,10 @@ const ChartSleeptime = props => {
             h = Math.floor(dates[date] / 1000 / 60 / 60);
             m = Math.floor((dates[date] / 1000 / 60 / 60 - h) * 60);
 
-            data.push([date, timeToDecimal(`${h}:${m}`)]);
+            data.push([
+                date,
+                timeToDecimal(`${h}:${m}`)
+            ]);
         }
 
         data.reverse();
@@ -122,11 +109,11 @@ const ChartSleeptime = props => {
         const container = document.getElementById("sleeptimechart");
         const chart = new GoogleCharts.api.visualization.AreaChart(container);
         const dataTable = new GoogleCharts.api.visualization.DataTable();
-        const date_formatter = new GoogleCharts.api.visualization.DateFormat({
-            pattern: "HH:MM",
-        });
         
-        var chartData = GoogleCharts.api.visualization.arrayToDataTable([["Date", "Hours of Sleep"]].concat(data));
+        dataTable.addColumn("string", "Date");
+        dataTable.addColumn("number", "Hours of Sleep");
+        dataTable.addRows(data);
+        // var chartData = GoogleCharts.api.visualization.arrayToDataTable([["Date", "Hours of Sleep"]].concat(data));
 
         var options = {
             hAxis: { title: "Date" },
@@ -134,7 +121,7 @@ const ChartSleeptime = props => {
             colors: [styles.timelineSingleColor]
         };
 
-        chart.draw(chartData, options);
+        chart.draw(dataTable, options);
     };
 
     const timeToDecimal = (t) => {
