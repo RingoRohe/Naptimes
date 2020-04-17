@@ -21,15 +21,15 @@ import ProfileMenu from 'components/profile/ProfileMenuView';
 import Naps from 'pages/naps/naps/Naps';
 import EditNap from 'pages/naps/edit/EditNap';
 import User from 'models/User';
+import NapsController from 'controllers/NapsController';
 
 function App() {
-    // Authentication
     let [currentUser, setCurrentUser] = useState(null);
 
+    /*
+    * ============================== Authentication
+    */
     useEffect(() => {
-        // component did mount
-
-        // Authentication
         const unmountAuth = firebase.auth().onAuthStateChanged(function(authUser) {
             if (authUser) {
                 // User is signed in.
@@ -40,7 +40,6 @@ function App() {
         });
 
         return () => {
-            // component will unmount
             unmountAuth();
         };
     }, []);
@@ -68,9 +67,20 @@ function App() {
             .catch(err => { console.log("Error getting document", err); });
     }
 
-    // Naps
+    /*
+    * ============================== Naps
+    */
     let [runningNap, setRunningNap] = useState(null);
-    // const nc = new NapsController(props.firebase, props.currentUser, runningNap);
+    let [naps, setNaps] = useState([]);
+
+    const napsFunctions = NapsController({
+        setNaps,
+        firebase,
+        currentUser,
+        runningNap,
+        setRunningNap
+    });
+
     useEffect(() => {
         // console.log('useEffect in Dashboard.js');
 
@@ -95,118 +105,11 @@ function App() {
         }
 
     }, [currentUser]);
-    
-    const napsFunctions = {
-        isNapRunning: () => {
-            return runningNap ? true : false;
-        },
-        startNap: () => {
-            let newNap = new Nap(Date.now());
-            const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
-            ref.add(newNap.toObject())
-                .then(function() {})
-                .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
-        },
-        finishNap: () => {
-            const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
-            ref.doc(runningNap.id).update({ end: Date.now() });
-        },
-        createNap: (nap, success) => {
-            const ref = firebase
-                .firestore()
-                .collection(`users/${currentUser.uid}/naps`);
-            ref.add(nap.toObject())
-                .then(function () { if (success) { success(); } })
-                .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
-        },
-        updateNap: (nap, success, error) => {
-            const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
-            ref.doc(nap.id)
-                .update(nap.toObject())
-                .then(function() {
-                    if (success) {
-                        success();
-                    }
-                })
-                .catch(function(error) {
-                    console.error("Error updating document: ", error);
-                    if (error) {
-                        error();
-                    }
-                });
-        },
-        deleteNap: nap => {
-            const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
-            ref.doc(nap.id).delete();
-        },
-        getNapById: (id, success, error) => {
-            const doc = firebase
-                .firestore()
-                .collection(`users/${currentUser.uid}/naps/`)
-                .doc(id)
-                .get()
-                .then(doc => {
-                    if (!doc.exists) {
-                        console.log("No such document!");
-                        if (error) {
-                            error();
-                        }
-                    } else {
-                        if (success) {
-                            success(doc);
-                        }
-                    }
-                })
-                .catch(err => {
-                    console.log("Error getting document", err);
-                    if (error) {
-                        error();
-                    }
-                });
-            return (doc);
-        },
-        getNaps: (...args) => {
-            if (!currentUser || !currentUser.uid) {
-                return false;
-            }
-
-            let ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
-
-            if (!isNaN(args[0]) && parseInt(args[0]) < 100) {
-                // get last n Items
-                return ref.where('end', '>', 0).orderBy('end', 'desc').limit(parseInt(args[0]));
-            }
-
-            if (args.length === 0) {
-                // get all Items of today
-                let todayMorning = new Date();
-                todayMorning.setHours(0, 0, 0, 0);
-                let todayEvening = new Date();
-                todayEvening.setHours(23, 59, 59, 999);
-                return ref
-                    .where("start", ">=", todayMorning.getTime())
-                    .where("start", "<=", todayEvening.getTime())
-                    .orderBy("start", "desc");
-            }
-
-            if (parseInt(args[0]) > 100 && parseInt(args[1]) > 100) {
-                // get all Items between given timestamps
-                return ref
-                    .where("start", ">=", parseInt(args[0]))
-                    .where("start", "<=", parseInt(args[1]))
-                    .orderBy("start", "desc");
-            }
-        }
-    };
 
     return (
         <BrowserRouter>
         {currentUser
-            ? <div className="wrapper">
+                ? <div className="wrapper">
                 <Header />
                 <NavBar currentUser={currentUser} />
                 <ProfileMenu
@@ -223,10 +126,11 @@ function App() {
                                 currentUser={currentUser}
                                 napsFunctions={napsFunctions}
                                 runningNap={runningNap}
+                                naps={naps}
                             />
                         )}
                     />
-                    <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} />} />
+                    <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} naps={naps} />} />
                     <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} napsFunctions={napsFunctions} />} />
                 <Route
                     exact

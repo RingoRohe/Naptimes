@@ -1,5 +1,5 @@
 // React
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 // Models
@@ -15,45 +15,14 @@ import NapsForm from '../../../components/naps/napsform/NapsForm';
 // Components
 import Alert from 'components/shared/modal/Alert';
 import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
-import ChartDaily from 'components/naps/charts/today/ChartDaily';
+import ChartDaily from 'components/naps/charts/daily/ChartDaily';
 
 // Styles
 import './naps.scss';
+import ChartSleeptime from 'components/naps/charts/sleeptime/ChartSleeptime';
 
 const Naps = props => {
     let [napCreatedAlertIsOpen, setNapCreatedAlertIsOpen] = useState(false);
-    let [naps, setNaps] = useState([]);
-
-    useEffect(() => {
-        let dateOffset = 24 * 60 * 60 * 1000 * 7; // 7 days
-        let firstDayStart = new Date();
-        firstDayStart.setHours(0, 0, 0, 0);
-        firstDayStart.setTime(firstDayStart.getTime() - dateOffset);
-        let lastDayEnd = new Date();
-        lastDayEnd.setHours(23, 59, 59, 999);
-
-        let unbindFirestore = props.napsFunctions
-            .getNaps(firstDayStart.getTime(), lastDayEnd.getTime())
-            .onSnapshot(snapshot => {
-                let naps = [];
-                if (!snapshot.empty) {
-                    snapshot.forEach(doc => {
-                        if (doc.data().end > 0) {
-                            let nap = new Nap();
-                            nap.fromFirebaseDoc(doc);
-                            naps.push(nap);
-                        }
-                    });
-                    setNaps(naps);
-                } else {
-                    setNaps([]);
-                }
-            });
-
-        return () => {
-            unbindFirestore();
-        };
-    }, [props.napsFunctions]);
 
     const onStartNapButtonClick = e => {
         e.preventDefault();
@@ -94,12 +63,15 @@ const Naps = props => {
             <article className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </article>
-            <ChartDaily className="chart" naps={naps} />
-            <NaplistWidget
-                className="naplist card"
-                napsFunctions={props.napsFunctions}
-                naps={naps}
-            />
+            {props.naps ? <ChartDaily className="chart" naps={props.naps} /> : null}
+            {props.naps ? <ChartSleeptime className="chart" naps={props.naps} /> : null}
+            {props.naps ? (
+                <NaplistWidget
+                    className="naplist card"
+                    napsFunctions={props.napsFunctions}
+                    naps={props.naps}
+                />
+            ) : null}
             <Modal
                 isOpen={napCreatedAlertIsOpen}
                 shouldCloseOnOverlayClick={true}
@@ -111,7 +83,7 @@ const Naps = props => {
                 overlayClassName={{
                     base: "backdrop",
                     afterOpen: "open",
-                    beforeClose: "closed"
+                    beforeClose: "closed",
                 }}
                 closeTimeoutMS={100}
             >
@@ -127,7 +99,7 @@ const Naps = props => {
 }
 
 Naps.propTypes = {
-    napsFunctions: PropTypes.object,
+    napsFunctions: PropTypes.object.isRequired,
     runningNap: PropTypes.instanceOf(Nap)
 };
 

@@ -10,7 +10,7 @@ import './naplist.scss';
 const NaplistWidget = (props) => {
     return (
         <article className={props.className}>
-            <span class="card_icon fas fa-list fa-3x"></span>
+            <span className="card_icon fas fa-list fa-3x"></span>
             <h2>last Naps</h2>
             <ul className="last_naps_list">
                 {props.naps.map((item) => (

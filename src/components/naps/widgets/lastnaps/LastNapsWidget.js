@@ -1,10 +1,6 @@
 // React
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-
-// Models
-import Nap from 'models/Nap';
+import { useEffect, useState } from 'react';
 
 // Components
 import LastNapsListItem from './LastNapsListItem';
@@ -18,31 +14,18 @@ const LastNapsWidget = (props) => {
     
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
-        let unbindFirestore = props.napsFunctions.getNaps(3)
-            .onSnapshot(snapshot => {
-                let naps = [];
-                if (!snapshot.empty) {
-                    snapshot.forEach((doc) => {
-                        if (doc.data().end > 0) {
-                            let nap = new Nap();
-                            nap.fromFirebaseDoc(doc);
-                            naps.push(nap);
-                        }
-                    })
-                    setLastNaps(naps);
-                } else {
-                    setLastNaps([]);
-                }
-            });
-        
-        return () => {
-            unbindFirestore();
-        };
-    }, [props.napsFunctions]);
+        let tempNaps = [];
+        props.naps.forEach((nap, index) => {
+            if (index < 3) {
+                tempNaps.push(nap);
+            }
+        });
+        setLastNaps(tempNaps);
+    }, [props.naps]);
 
     return (
         <article className={props.className}>
-            <span class="card_icon fas fa-list fa-3x"></span>
+            <span className="card_icon fas fa-list fa-3x"></span>
             <h2>last Naps</h2>
             <ul className="last_naps_list">
                 {lastNaps.map((item) => (

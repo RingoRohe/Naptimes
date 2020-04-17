@@ -17,7 +17,7 @@ const Dashboard = (props) => {
             {props.runningNap ? null : <StartNapButton napsFunctions={props.napsFunctions} />}
             {props.runningNap ? <RunningNapWidget napsFunctions={props.napsFunctions} runningNap={props.runningNap} /> : null}
             <LastNapWidget firebase={props.firebase} currentUser={props.currentUser} napsFunctions={props.napsFunctions} />
-            <LastNapsWidget className="naps_widget last card" napsFunctions={props.napsFunctions} />
+            <LastNapsWidget className="naps_widget last card" napsFunctions={props.napsFunctions} naps={props.naps} />
         </section>
     );
 }

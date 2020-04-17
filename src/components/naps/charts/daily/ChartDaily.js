@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { GoogleCharts } from 'google-charts';
 
 // Styles
-import styles from './chartToday.scss';
+import styles from './chartDaily.scss';
 import '../tooltip.scss';
 import Duration from 'components/shared/duration/Duration';
 
@@ -168,7 +168,7 @@ const ChartDaily = props => {
 
     return (
         <article className={props.className + " card"}>
-            <span class="card_icon fas fa-chart-line fa-3x"></span>
+            <span className="card_icon fas fa-chart-line fa-3x"></span>
             {data.map((d, i) => (
                 <ChartContainer key={i} d={d} i={i + 1} />
             ))}
