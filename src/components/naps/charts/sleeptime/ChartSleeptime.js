@@ -79,6 +79,7 @@ const ChartSleeptime = props => {
 
     function prepareChartData() {
         const sortedNaps = sortNapsIntoDays(props.naps);
+        sortedNaps.sort((a, b) => a.day - b.day);
         // console.log(sortedNaps);
         
         let dates = {};
@@ -102,7 +103,7 @@ const ChartSleeptime = props => {
             ]);
         }
 
-        data.reverse();
+        // data.reverse();
     }
 
     function drawCharts() {
