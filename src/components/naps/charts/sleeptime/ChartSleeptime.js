@@ -80,7 +80,6 @@ const ChartSleeptime = props => {
     function prepareChartData() {
         const sortedNaps = sortNapsIntoDays(props.naps);
         sortedNaps.sort((a, b) => a.day - b.day);
-        // console.log(sortedNaps);
         
         let dates = {};
         sortedNaps.forEach((napObject) => {
@@ -102,27 +101,34 @@ const ChartSleeptime = props => {
                 timeToDecimal(`${h}:${m}`)
             ]);
         }
-
-        // data.reverse();
     }
 
     function drawCharts() {
-        const container = document.getElementById("sleeptimechart");
-        const chart = new GoogleCharts.api.visualization.AreaChart(container);
-        const dataTable = new GoogleCharts.api.visualization.DataTable();
-        
-        dataTable.addColumn("string", "Date");
-        dataTable.addColumn("number", "Hours of Sleep");
-        dataTable.addRows(data);
-        // var chartData = GoogleCharts.api.visualization.arrayToDataTable([["Date", "Hours of Sleep"]].concat(data));
+        if (data.length > 0) {
+            const container = document.getElementById("sleeptimechart");
+            const chart = new GoogleCharts.api.visualization.AreaChart(container);
+            const dataTable = new GoogleCharts.api.visualization.DataTable();
 
-        var options = {
-            hAxis: { title: "Date" },
-            vAxis: { minValue: 0, maxValue: 20 },
-            colors: [styles.timelineSingleColor]
-        };
+            dataTable.addColumn("string", "Date");
+            dataTable.addColumn("number", "Hours of Sleep");
+            dataTable.addRows(data);
 
-        chart.draw(dataTable, options);
+            const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;
+            const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 2;
+
+            var options = {
+                vAxis: {
+                    title: "Hours",
+                    viewWindow: {
+                        min: min,
+                        max: max
+                    }
+                },
+                colors: [styles.timelineSingleColor]
+            };
+
+            chart.draw(dataTable, options);
+        }
     };
 
     const timeToDecimal = (t) => {
