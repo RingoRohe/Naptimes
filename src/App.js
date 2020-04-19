@@ -7,9 +7,6 @@ import firebase from './libs/firebase/firebase';
 import 'assets/scss/App.scss';
 import 'libs/loading_overlay/css/main.css'
 
-// Models
-import Nap from 'models/Nap';
-
 // Components
 import Login from 'pages/login/Login';
 import Dashboard from 'pages/dashboard/Dashboard';
@@ -80,31 +77,6 @@ function App() {
         runningNap,
         setRunningNap
     });
-
-    useEffect(() => {
-        // console.log('useEffect in Dashboard.js');
-
-        // bind to running nap
-        if (currentUser && currentUser.uid) {
-            const ref = firebase.firestore().collection(`users/${currentUser.uid}/naps`);
-            let last = ref.orderBy('start').where('start', '>', 0).where('end', '==', 0).limit(1);
-            const unmountRunningNapListener = last.onSnapshot(snapshot => {
-                if (snapshot.empty) {
-                    setRunningNap(null);
-                } else {
-                    const nap = new Nap();
-                    nap.fromFirebaseDoc(snapshot.docs[0]);
-                    setRunningNap(nap);
-                }
-            }, err => {
-                console.log(`Encountered error: ${err}`);
-            });
-            return () => {
-                unmountRunningNapListener();
-            };
-        }
-
-    }, [currentUser]);
 
     return (
         <BrowserRouter>

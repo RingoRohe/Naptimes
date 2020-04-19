@@ -1,9 +1,9 @@
 class User {
     constructor(uid, email, photoURL, displayName) {
-        uid ? this.uid = uid : this.uid = "";
-        email ? this.email = email : this.email = "";
-        photoURL ? this.photoURL = photoURL : this.photoURL = "";
-        displayName ? this.displayName = displayName : this.displayName = "";
+        this.uid = uid ? uid : "";
+        this.email = email ? email : "";
+        this.photoURL = photoURL ? photoURL : "";
+        this.displayName = displayName ? displayName : "";
         this.delegateId = null;
     }
 
@@ -12,12 +12,13 @@ class User {
         this.email = object.data().email;
         this.photoURL = object.data().photoURL;
         this.displayName = object.data().displayName;
-        object.data().delegateId ? this.delegateId = object.data().delegateId : this.delegateId = null;
+        this.delegateId = object.data().delegateId ? object.data().delegateId : null;
     }
 
     get asObject() {
         return ({
             uid: this.delegateId ? this.delegateId : this.uid,
+            realUid: this.uid,
             email: this.email,
             photoURL: this.photoURL,
             displayName: this.displayName,
