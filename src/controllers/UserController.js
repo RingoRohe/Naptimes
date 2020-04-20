@@ -1,0 +1,57 @@
+import PropTypes from 'prop-types'
+import { useEffect } from 'react';
+import User from 'models/User';
+
+const UserController = props => {
+    const { setCurrentUser, firebase } = props;
+
+    const createUserIfNotExists = (user) => {
+        const newUserData = {
+            uid: user.uid,
+            email: user.email,
+            photoURL: user.photoURL,
+            displayName: user.displayName
+        };
+        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
+
+        // get Userdata
+        firebase.firestore().collection('users').doc(user.uid).get()
+            .then(doc => {
+                if (!doc.exists) {
+                    console.log("No such User!");
+                } else {
+                    let newUser = new User();
+                    newUser.fromFirebaseDoc(doc);
+                    setCurrentUser(newUser.asObject);
+                }
+            })
+            .catch(err => { console.log("Error getting document", err); });
+    }
+
+    useEffect(() => {
+        // console.log('UseEffect Hook in UserController called');
+        const unmountAuth = firebase.auth().onAuthStateChanged(function (authUser) {
+            if (authUser) {
+                // User is signed in.
+                createUserIfNotExists(authUser);
+            } else {
+                setCurrentUser(null);
+            }
+        });
+
+        return () => {
+            unmountAuth();
+        };
+    // eslint-disable-next-line
+    }, [firebase, setCurrentUser]);
+
+    return {};
+}
+
+UserController.propTypes = {
+    setNaps: PropTypes.func.isRequired,
+    setRunningNap: PropTypes.func.isRequired,
+    currentUser: PropTypes.objectOf(User).isRequired
+}
+
+export default UserController
