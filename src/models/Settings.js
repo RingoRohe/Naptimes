@@ -5,11 +5,13 @@ class Settings {
 
     fromFirebaseDoc(object) {
         this.childName = object.data().childName;
+        this.childBirthday = object.data().childBirthday;
     }
 
     get asObject() {
         return ({
-            childName: this.childName
+            childName: this.childName,
+            childBirthday: this.childBirthday
         });
     }
 }

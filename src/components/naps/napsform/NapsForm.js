@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import './naps.scss';
 
 const NapsForm = props => {
-    const start = props.start ? props.start : Date.now();
+    const start = props.start ? props.start : Date.now() - (60 * 60 * 1000);
     const end = props.end ? props.end : Date.now();
     const propnotes = props.notes ? props.notes : "";
     const headline = props.headline ? props.headline : "create Nap";
@@ -33,21 +33,20 @@ const NapsForm = props => {
                 <legend>{headline}</legend>
                 <DatePicker
                     selected={startDate}
-                    maxDate={endDate}
                     onChange={date => setStartDate(date.getTime())}
-                    showTimeSelect
+                    showTimeInput
                     timeFormat="HH:mm"
-                    timeIntervals={5}
                     dateFormat="dd.MM.yyyy HH:mm"
+                    withPortal
                 />
                 <DatePicker
                     selected={endDate}
                     minDate={startDate}
                     onChange={date => setEndDate(date.getTime())}
-                    showTimeSelect
+                    showTimeInput
                     timeFormat="HH:mm"
-                    timeIntervals={5}
                     dateFormat="dd.MM.yyyy HH:mm"
+                    withPortal
                 />
                 <input
                     type="text"

@@ -49,9 +49,7 @@ const UserController = props => {
 }
 
 UserController.propTypes = {
-    setNaps: PropTypes.func.isRequired,
-    setRunningNap: PropTypes.func.isRequired,
-    currentUser: PropTypes.objectOf(User).isRequired
+    setCurrentUser: PropTypes.func.isRequired
 }
 
 export default UserController
