@@ -109,6 +109,10 @@ const ChartSleeptime = props => {
             const chart = new GoogleCharts.api.visualization.AreaChart(container);
             const dataTable = new GoogleCharts.api.visualization.DataTable();
 
+            // remove first and last day from data
+            data.pop();
+            data.shift();
+
             dataTable.addColumn("string", "Date");
             dataTable.addColumn("number", "Hours of Sleep");
             dataTable.addRows(data);
