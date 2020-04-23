@@ -28,6 +28,7 @@
                     "date date"
                     "start end"
                     "duration duration"
+                    "elapsed elapsed"
                     "notes notes";
                 
                 .date {
@@ -49,6 +50,11 @@
                 
                 .duration {
                     grid-area: duration;
+                    font-size: 0.8rem;
+                }
+                
+                .elapsed_time {
+                    grid-area: elapsed;
                     font-size: 0.8rem;
                 }
                 
