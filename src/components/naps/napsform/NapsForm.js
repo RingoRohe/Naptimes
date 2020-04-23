@@ -67,7 +67,8 @@ NapsForm.propTypes = {
     start: PropTypes.number,
     end: PropTypes.number,
     notes: PropTypes.string,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    headline: PropTypes.string
 }
 
 export default NapsForm

@@ -63,8 +63,8 @@ const Naps = props => {
             <article className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </article>
-            {props.naps ? <ChartDaily className="chart" naps={props.naps} /> : null}
             {props.naps ? <ChartSleeptime className="chart" naps={props.naps} /> : null}
+            {props.naps ? <ChartDaily className="chart" naps={props.naps} /> : null}
             {props.naps ? (
                 <NaplistWidget
                     className="naplist card"

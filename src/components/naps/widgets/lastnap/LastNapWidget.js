@@ -10,23 +10,20 @@ import Modal from 'react-modal';
 import Nap from 'models/Nap';
 
 // Components
-import NapsForm from 'components/naps/napsform/NapsForm';
 import Confirm from 'components/shared/modal/Confirm';
-import Alert from 'components/shared/modal/Alert';
 
 // Styles
 import "../napswidget.scss";
 import "./lastnap.scss";
 import Duration from 'components/shared/duration/Duration';
+import Timer from 'components/shared/timer/Timer';
+import LinkButton from 'components/shared/LinkButton';
 
 const LastNapWidget = (props) => {
     Modal.setAppElement('body');
 
     let [lastNap, setLastNap] = useState(null);
-    let [editNapModalIsOpen, setEditNapModalIsOpen] = useState(false);
     let [deleteNapPromptIsOpen, setDeleteNapPromptIsOpen] = useState(false);
-    let [alertIsOpen, setAlertIsOpen] = useState(false);
-    let [alertContent, setAlertContent] = useState("");
 
     const deleteNap = () => {
         props.napsFunctions.deleteNap(lastNap);
@@ -40,25 +37,6 @@ const LastNapWidget = (props) => {
     const onDeleteNapButtonClicked = () => {
         setDeleteNapPromptIsOpen(true);
     };
-
-    const editNap = (start, end, notes) => {
-        lastNap.start = start;
-        lastNap.end = end;
-        lastNap.notes = notes;
-        props.napsFunctions.updateNap(lastNap,
-            () => {
-                setAlertContent(<Alert text="Nap updated." onConfirm={() => {
-                    setAlertIsOpen(false);
-                }} />);
-                setAlertIsOpen(true);
-            }
-        );
-        setEditNapModalIsOpen(false);
-    }
-
-    const onEditNapButtonClicked = () => {
-        setEditNapModalIsOpen(true);
-    }
 
     useEffect(() => {
         // console.log('useEffect in LastNapWidget.js');
@@ -116,6 +94,7 @@ const LastNapWidget = (props) => {
                         showSeconds={false}
                     />
                 </span>
+                <span className="elapsed_time"><Timer start={lastNap.end} tick="every minute" /> ago</span>
                 {lastNap.notes ? (
                     <span className="notes">"{lastNap.notes}"</span>
                 ) : null}
@@ -128,51 +107,11 @@ const LastNapWidget = (props) => {
                     ></button>
                 </li>
                 <li>
-                    <button
-                        className="icon fas fa-pen fa-1x"
-                        onClick={onEditNapButtonClicked}
-                    ></button>
+                    <LinkButton className="icon fas fa-pen fa-1x" to={'/naps/edit/' + lastNap.id}>
+                        <span></span>
+                    </LinkButton>
                 </li>
             </ul>
-            <Modal
-                isOpen={alertIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    setEditNapModalIsOpen(false);
-                }}
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed"
-                }}
-                className="modal"
-                closeTimeoutMS={100}
-            >
-                {alertContent}
-            </Modal>
-            <Modal
-                isOpen={editNapModalIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    setEditNapModalIsOpen(false);
-                }}
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed"
-                }}
-                className="modal"
-                closeTimeoutMS={100}
-            >
-                <NapsForm
-                    start={lastNap.start}
-                    end={lastNap.end}
-                    notes={lastNap.notes}
-                    onSubmit={editNap}
-                />
-            </Modal>
             <Modal
                 isOpen={deleteNapPromptIsOpen}
                 shouldCloseOnOverlayClick={true}
