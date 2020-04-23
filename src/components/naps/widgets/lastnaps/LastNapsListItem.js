@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 // Components
 import Confirm from "components/shared/modal/Confirm";
 import Duration from 'components/shared/duration/Duration';
+import Timer from 'components/shared/timer/Timer';
 
 const LastNapsListItem = (props) => {
     Modal.setAppElement("#root");
@@ -51,7 +52,9 @@ const LastNapsListItem = (props) => {
                 })}
             </span>
             <span className="duration">
-                <Duration milliseconds={props.nap.end - props.nap.start} showSeconds={false} />
+                <Duration milliseconds={props.nap.end - props.nap.start} showSeconds={false} /><br />
+                {/* (<Duration milliseconds={Date.now() - props.nap.end} showSeconds={false} /> ago) */}
+                (<Timer start={props.nap.end} tick="every minute" /> ago)
             </span>
             {props.nap.notes ? <span className="notes">{props.nap.notes}</span> : null}
             <ul className="actions">

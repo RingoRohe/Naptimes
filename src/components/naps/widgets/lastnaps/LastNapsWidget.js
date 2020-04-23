@@ -15,10 +15,8 @@ const LastNapsWidget = (props) => {
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
         let tempNaps = [];
-        props.naps.forEach((nap, index) => {
-            if (index < 3) {
-                tempNaps.push(nap);
-            }
+        props.naps.slice(0, 3).forEach((nap, index) => {
+            tempNaps.push(nap);
         });
         setLastNaps(tempNaps);
     }, [props.naps]);
