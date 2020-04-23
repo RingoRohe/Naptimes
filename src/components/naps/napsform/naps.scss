@@ -55,3 +55,23 @@
         }
     }
 }
+
+.dark {
+    .naps_form {
+        legend {
+            color: $light;
+        }
+
+        input {
+            background-color: transparent;
+            color: $white;
+            border-bottom: 1px solid $highlight;
+        }
+
+        input[type=submit] {
+            background-color: $highlight;
+            color: $dark;
+            border: none;
+        }
+    }
+}

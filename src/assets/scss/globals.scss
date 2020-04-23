@@ -27,6 +27,11 @@
         right: -0.3rem;
         color: transparentize($highlight, 0.5);
     }
+
+    &.dark {
+        background-color: $dark;
+        color: $white;
+    }
 }
 
 .menuPoint {
