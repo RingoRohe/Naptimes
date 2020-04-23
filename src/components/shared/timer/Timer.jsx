@@ -35,21 +35,21 @@ const Timer = props => {
                 h < 10 ? (h = `0${h}`) : (h = `${h}`);
                 return h + 'h';
             }
-            return false;
+            return '';
         }
         const getMinutes = () => {
             if (m > 0) {
                 m < 10 ? (m = `0${m}`) : (m = `${m}`);
                 return m + 'm';
             }
-            return false;
+            return '';
         }
         const getSeconds = () => {
             if (s > 0) {
                 s < 10 ? (s = `0${s}`) : (s = `${s}`);
                 return s + 's';
             }
-            return false;
+            return '';
         }
 
         // format digits
