@@ -9,6 +9,10 @@
     padding: 1rem;
     box-shadow: 0 0 5px $black;
 
+    &.nopadding {
+        padding: 0;
+    }
+
     h2 {
         font-size: 1rem;
         font-weight: bold;

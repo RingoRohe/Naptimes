@@ -33,14 +33,14 @@ const LoggedInNav = (props) => {
                     iconClasses="icon fas fa-camera-retro fa-3x"
                     title="Photos"
                 />
-            </li>
+            </li> */}
             <li>
                 <MenuPoint
                     to="/settings"
                     iconClasses="icon fas fa-sliders-h fa-3x"
                     title="Settings"
                 />
-            </li> */}
+            </li>
         </ul>
     );
 }

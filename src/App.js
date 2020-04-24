@@ -17,6 +17,7 @@ import Footer from 'components/footer/Footer';
 import ProfileMenu from 'components/profile/ProfileMenuView';
 import Naps from 'pages/naps/naps/Naps';
 import EditNap from 'pages/naps/edit/EditNap';
+import Settings from 'pages/settings/Settings';
 
 // Controllers
 import NapsController from 'controllers/NapsController';
@@ -29,10 +30,9 @@ function App() {
     */
     let [currentUser, setCurrentUser] = useState(null);
 
-    // eslint-disable-next-line
     const userController = UserController({
-        setCurrentUser,
-        firebase
+        firebase,
+        setCurrentUser
     });
 
     /*
@@ -40,7 +40,7 @@ function App() {
     */
     let [runningNap, setRunningNap] = useState(null);
     let [naps, setNaps] = useState([]);
-
+    
     const napsFunctions = NapsController({
         setNaps,
         firebase,
@@ -73,13 +73,14 @@ function App() {
                             />
                         )}
                     />
-                    <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} naps={naps} />} />
-                    <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} napsFunctions={napsFunctions} />} />
+                <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} naps={naps} />} />
+                <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} napsFunctions={napsFunctions} />} />
                 <Route
                     exact
                     path="/login"
                     render={props => <Login {...props} firebase={firebase} />}
-                />
+                    />
+                    <Route exact path="/settings" render={props => <Settings {...props} currentUser={currentUser} userController={userController} />} />
                 <Footer />
             </div>
             : <div className="wrapper">

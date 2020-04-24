@@ -1,0 +1,54 @@
+@import '../../assets/scss/colors';
+@import '../../assets/scss/breakpoints';
+@import '../../assets/scss/variables';
+
+.page_settings {
+    .child_name {
+        background-color: $dark;
+        color: $white;
+        grid-column-end: span 2;
+
+        input {
+            color: $light;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-size: 2rem;
+            width: 100%;
+            margin: 2rem 0;
+            cursor: pointer;
+
+            &:focus {
+                color: $white;
+                border-color: $highlight;
+                cursor: text;
+            }
+        }
+    }
+    
+    .child_birthday {
+        &>div {
+            text-align: center;
+
+            .react-datepicker {
+                width: 100%;
+
+                .react-datepicker__month-container {
+                    width: 100%;
+
+                    .react-datepicker__day, .react-datepicker__day-name {
+                        width: 12%;
+                    }
+                }
+            }
+        }
+    }
+
+    .save {
+        button {
+            width: 100%;
+            height: 100%;
+            font-size: 2rem;
+        }
+    }
+}

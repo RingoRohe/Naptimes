@@ -14,6 +14,10 @@ const UserController = props => {
         };
         firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
 
+        getUser(user);
+    }
+
+    const getUser = user => {
         // get Userdata
         firebase.firestore().collection('users').doc(user.uid).get()
             .then(doc => {
@@ -45,7 +49,19 @@ const UserController = props => {
     // eslint-disable-next-line
     }, [firebase, setCurrentUser]);
 
-    return {};
+    const saveSettings = (settings, user) => {
+        const newUserData = {
+            settings
+        };
+        console.log(newUserData);
+        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
+
+        getUser(user);
+    }
+
+    return {
+        saveSettings
+    };
 }
 
 UserController.propTypes = {

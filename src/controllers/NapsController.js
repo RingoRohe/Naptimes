@@ -182,7 +182,7 @@ const NapsController = props => {
 
             return () => {
                 unbindFirestore();
-                console.log("NapsController unmounted");
+                // console.log("NapsController unmounted");
             };
         }
     }, [currentUser, firebase, setNaps]);
