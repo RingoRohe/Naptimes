@@ -17,7 +17,7 @@ const RunningNapWidget = (props) => {
     return (
         <article className="naps_widget running card">
             <span className="card_icon fas fa-bed fa-3x"></span>
-            <p>Your Buddy is sleeping...</p>
+            <p>{props.currentUser.settings.childName} is sleeping...</p>
             {props.runningNap
                 ? (<Timer start={props.runningNap.start} />)
                 : null

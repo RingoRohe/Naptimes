@@ -30,6 +30,7 @@ const Settings = props => {
         // props.currentUser.settings.childName = childName;
         // props.currentUser.settings.childBirthday = childBirthday;
         // console.log(props.currentUser);
+        childBirthday = childBirthday || 0;
         const settings = {
             childName,
             childBirthday

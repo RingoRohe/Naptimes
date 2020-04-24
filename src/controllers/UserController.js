@@ -10,7 +10,10 @@ const UserController = props => {
             uid: user.uid,
             email: user.email,
             photoURL: user.photoURL,
-            displayName: user.displayName
+            displayName: user.displayName,
+            settings: {
+                childName: 'your Buddy'
+            }
         };
         firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
 
@@ -23,13 +26,21 @@ const UserController = props => {
             .then(doc => {
                 if (!doc.exists) {
                     console.log("No such User!");
+                    console.log('trying to create User now');
+
+                    createUserIfNotExists(user);
                 } else {
                     let newUser = new User();
                     newUser.fromFirebaseDoc(doc);
                     setCurrentUser(newUser.asObject);
                 }
             })
-            .catch(err => { console.log("Error getting document", err); });
+            .catch(err => {
+                console.log("Error getting document", err);
+                console.log('trying to create User now');
+
+                createUserIfNotExists(user);
+            });
     }
 
     useEffect(() => {
@@ -37,7 +48,7 @@ const UserController = props => {
         const unmountAuth = firebase.auth().onAuthStateChanged(function (authUser) {
             if (authUser) {
                 // User is signed in.
-                createUserIfNotExists(authUser);
+                getUser(authUser);
             } else {
                 setCurrentUser(null);
             }

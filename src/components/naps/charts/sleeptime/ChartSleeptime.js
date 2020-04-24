@@ -113,25 +113,27 @@ const ChartSleeptime = props => {
             data.pop();
             data.shift();
 
-            dataTable.addColumn("string", "Date");
-            dataTable.addColumn("number", "Hours of Sleep");
-            dataTable.addRows(data);
+            if (data.length > 0) {
+                dataTable.addColumn("string", "Date");
+                dataTable.addColumn("number", "Hours of Sleep");
+                dataTable.addRows(data);
 
-            const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;
-            const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 2;
+                const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;
+                const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 2;
 
-            var options = {
-                vAxis: {
-                    title: "Hours",
-                    viewWindow: {
-                        min: min,
-                        max: max
-                    }
-                },
-                colors: [styles.timelineSingleColor]
-            };
+                var options = {
+                    vAxis: {
+                        title: "Hours",
+                        viewWindow: {
+                            min: min,
+                            max: max
+                        }
+                    },
+                    colors: [styles.timelineSingleColor]
+                };
 
-            chart.draw(dataTable, options);
+                chart.draw(dataTable, options);
+            }
         }
     };
 
