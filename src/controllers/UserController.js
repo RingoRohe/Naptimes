@@ -64,7 +64,6 @@ const UserController = props => {
         const newUserData = {
             settings
         };
-        console.log(newUserData);
         firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
 
         getUser(user);

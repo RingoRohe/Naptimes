@@ -69,5 +69,8 @@ nav {
 }
 
 #toggle:checked ~ .main_menu {
-    display: flex;
+    @media screen and (max-width: $breakpoints_m) {
+        display: flex;
+        box-shadow: 0 50px 40px rgba(0, 0, 0, .5);
+    }
 }

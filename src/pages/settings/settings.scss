@@ -3,10 +3,24 @@
 @import '../../assets/scss/variables';
 
 .page_settings {
+    padding: 2rem;
+    background-color: $mid;
+    grid-area: main;
+    display: grid;
+    // grid-template-columns: 1fr;
+    // grid-auto-rows: max-content;
+    gap: 2rem;
+
+    @media (min-width: $breakpoints_m) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .child_name {
         background-color: $dark;
         color: $white;
-        grid-column-end: span 2;
+        @media (min-width: $breakpoints_m) {
+            grid-column-end: span 2;
+        }
 
         input {
             color: $light;

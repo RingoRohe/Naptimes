@@ -40,7 +40,7 @@ const Settings = props => {
     
     return (
         props.currentUser ? (
-            <section className="page_settings main">
+            <section className="page_settings">
                 <article className="card child_name">
                     <h2>Your Baby's Name?</h2>
                     <input type="text" name="child_name" value={childName} onChange={onChildNameInputChanged} />
