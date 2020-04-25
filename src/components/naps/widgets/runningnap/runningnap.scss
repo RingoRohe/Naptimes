@@ -9,9 +9,13 @@
             padding: 1rem;
             text-align: center;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.6rem;
             color: $white;
             background-color: $highlight;
+        }
+
+        button {
+            font-size: 1.6rem;
         }
     }
 }

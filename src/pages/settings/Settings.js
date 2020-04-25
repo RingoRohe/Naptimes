@@ -43,7 +43,7 @@ const Settings = props => {
             <section className="page_settings">
                 <article className="card child_name">
                     <h2>Your Baby's Name?</h2>
-                    <input type="text" name="child_name" value={childName} onChange={onChildNameInputChanged} />
+                    <input type="text" name="child_name" onFocus={e => e.target.select()} value={childName} onChange={onChildNameInputChanged} />
                 </article>
                 <article className="card child_birthday">
                     <h2>Baby's Birthday</h2>
