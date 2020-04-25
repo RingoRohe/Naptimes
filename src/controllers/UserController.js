@@ -32,7 +32,13 @@ const UserController = props => {
                 } else {
                     let newUser = new User();
                     newUser.fromFirebaseDoc(doc);
-                    setCurrentUser(newUser.asObject);
+                    if (newUser.isDelegated()) {
+                        newUser.settings = getSettings(newUser, (user) => {
+                            setCurrentUser(user.asObject);
+                        });
+                    } else {
+                        setCurrentUser(newUser.asObject);
+                    }
                 }
             })
             .catch(err => {
@@ -41,6 +47,35 @@ const UserController = props => {
 
                 createUserIfNotExists(user);
             });
+    }
+
+    const getSettings = (user, cb) => {
+        let id = user.isDelegated ? user.delegateId : user.uid;
+        firebase.firestore().collection('users').doc(id).get()
+            .then(doc => {
+                if (doc.exists) {
+                    let tempUser = new User();
+                    tempUser.fromFirebaseDoc(doc);
+                    if (cb && typeof (cb) === 'function') {
+                        user.settings = tempUser.settings;
+                        cb(user);
+                    } else {
+                        return tempUser.settings;
+                    }
+                } else {
+                    if (cb && typeof (cb) === 'function') {
+                        cb(user);
+                    } else {
+                        return user.settings;
+                    }
+                }
+            })
+            .catch(err => {
+                console.log("Error getting document", err);
+
+                return(user.settings);
+            });
+        return null;
     }
 
     useEffect(() => {

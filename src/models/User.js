@@ -27,6 +27,10 @@ class User {
             settings: this.settings
         });
     }
+
+    isDelegated() {
+        return this.delegateId ? true : false;
+    }
 }
 
 export default User;
