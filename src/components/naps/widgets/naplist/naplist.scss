@@ -3,8 +3,12 @@
 
 .naplist {
     padding: 0;
-    max-height: 29rem;
-    overflow-y: scroll;
+    position: relative;
+
+    .last_naps_list {
+        overflow-y: scroll;
+        max-height: 29rem;
+    }
 
     h2 {
         margin: 1rem;

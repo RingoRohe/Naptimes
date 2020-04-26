@@ -2,10 +2,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// libs
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 // Styles
 import './naps.scss';
 
@@ -27,27 +23,37 @@ const NapsForm = props => {
         props.onSubmit(startDate, endDate, notes);
     }
 
+    const onStartDateTimeChanged = (e) => {
+        if (e.target.value) {
+            setStartDate(new Date(e.target.value).getTime());
+        }
+    }
+    
+    const onEndDateTimeChanged = (e) => {
+        if (e.target.value) {
+            setEndDate(new Date(e.target.value).getTime());
+        }
+    }
+
+    const formatTimestampToInputDateTime = (ts) => {
+        let date = new Date(ts);
+        let dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
+        let MM = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+        let yyyy = date.getFullYear();
+        let hh = (date.getHours() < 10 ? '0' : '') + date.getHours();
+        let mm = (date.getMinutes() < 10 ? '0' : '') +date.getMinutes();
+        let str = `${yyyy}-${MM}-${dd}T${hh}:${mm}`;
+        return str;
+    };
+
     return (
         <form className="naps_form" onSubmit={onSubmit}>
             <fieldset>
                 <legend>{headline}</legend>
-                <DatePicker
-                    selected={startDate}
-                    onChange={date => setStartDate(date.getTime())}
-                    showTimeInput
-                    timeFormat="HH:mm"
-                    dateFormat="dd.MM.yyyy HH:mm"
-                    withPortal
-                />
-                <DatePicker
-                    selected={endDate}
-                    minDate={startDate}
-                    onChange={date => setEndDate(date.getTime())}
-                    showTimeInput
-                    timeFormat="HH:mm"
-                    dateFormat="dd.MM.yyyy HH:mm"
-                    withPortal
-                />
+                <label htmlFor="start">Start</label>
+                <input type="datetime-local" name="start" id="start" value={formatTimestampToInputDateTime(startDate)} onChange={onStartDateTimeChanged} />
+                <label htmlFor="end">End</label>
+                <input type="datetime-local" name="end" id="end" value={formatTimestampToInputDateTime(endDate)} onChange={onEndDateTimeChanged} />
                 <input
                     type="text"
                     className="notes"

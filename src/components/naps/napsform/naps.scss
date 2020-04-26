@@ -3,14 +3,14 @@
 
 .naps_form {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
     grid-template-areas:
-        "legend"
-        "start"
-        "end"
-        "notes"
-        "submit";
+        "legend legend"
+        "startDateLabel endDateLabel"
+        "startDate endDate"
+        "notes notes"
+        "submit submit";
 
     fieldset {
         display: contents;
@@ -21,6 +21,24 @@
             color: $mid;
             font-weight: bold;
             margin-bottom: 1rem;
+        }
+
+        label {
+            font-size: 0.7rem;
+            margin-bottom: -1rem;
+            color: $mid;
+        }
+
+        input[type=date], input[type=time] {
+            font-size: 1.3rem;
+        }
+
+        label[for=start] {
+            grid-area: startDateLabel;
+        }
+
+        input#start {
+            grid-area: startDate;
         }
 
         input {
@@ -35,14 +53,6 @@
             &:focus {
                 border-bottom: 1px solid $highlight;
             }
-        }
-
-        .react-datepicker-wrapper:nth-of-type(1) {
-            grid-area: start;
-        }
-
-        .react-datepicker-wrapper:nth-of-type(2) {
-            grid-area: end;
         }
 
         .notes {

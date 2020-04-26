@@ -9,7 +9,6 @@ import Nap from 'models/Nap';
 import Modal from 'react-modal';
 
 // Tools
-import Timer from 'components/shared/timer/Timer';
 import NapsForm from '../../../components/naps/napsform/NapsForm';
 
 // Components
@@ -25,16 +24,6 @@ import ChartSleeptime from 'components/naps/charts/sleeptime/ChartSleeptime';
 
 const Naps = props => {
     let [napCreatedAlertIsOpen, setNapCreatedAlertIsOpen] = useState(false);
-
-    const onStartNapButtonClick = e => {
-        e.preventDefault();
-        props.napsFunctions.startNap();
-    };
-
-    const onFinishNapButtonClick = e => {
-        e.preventDefault();
-        props.napsFunctions.finishNap();
-    };
 
     const onNapsFormSubmit = (start, end, notes) => {
         const newNap = new Nap(start, end, notes);
