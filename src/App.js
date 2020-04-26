@@ -73,7 +73,7 @@ function App() {
                             />
                         )}
                     />
-                <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} naps={naps} />} />
+                <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} naps={naps} currentUser={currentUser} />} />
                 <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} napsFunctions={napsFunctions} />} />
                 <Route
                     exact

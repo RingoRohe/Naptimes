@@ -16,6 +16,8 @@ import NapsForm from '../../../components/naps/napsform/NapsForm';
 import Alert from 'components/shared/modal/Alert';
 import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
 import ChartDaily from 'components/naps/charts/daily/ChartDaily';
+import StartNapButton from 'components/naps/widgets/startnap/StartNapButton';
+import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
 
 // Styles
 import './naps.scss';
@@ -41,25 +43,10 @@ const Naps = props => {
         });
     }
 
-    const StartStopForm = () => {
-        return props.runningNap ? (
-            <article className="card startstop">
-                <button onClick={onFinishNapButtonClick}>
-                    <Timer start={props.runningNap.start} /><br />
-                    <span className="default">finish Nap?</span>
-                    <span className="hover">finish Nap!</span>
-                </button>
-            </article>
-        ) : (
-            <article className="card startstop">
-                <button onClick={onStartNapButtonClick}>START NAP</button>
-            </article>
-        );
-    };
-
     return (
         <section className="page_naps">
-            <StartStopForm />
+            {props.runningNap ? null : <StartNapButton napsFunctions={props.napsFunctions} />}
+            {props.runningNap ? <RunningNapWidget napsFunctions={props.napsFunctions} runningNap={props.runningNap} currentUser={props.currentUser} /> : null}
             <article className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </article>
