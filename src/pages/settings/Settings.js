@@ -38,33 +38,39 @@ const Settings = props => {
         props.userController.saveSettings(settings, props.currentUser);
     }
     
-    return (
-        props.currentUser ? (
-            <section className="page_settings">
-                <article className="card child_name">
-                    <h2>Your Baby's Name?</h2>
-                    <input type="text" name="child_name" onFocus={e => e.target.select()} value={childName} onChange={onChildNameInputChanged} />
-                </article>
-                <article className="card child_birthday">
-                    <h2>Baby's Birthday</h2>
-                    <DatePicker
-                        className
-                        selected={childBirthday}
-                        onChange={date => setChildBirthday(date.getTime())}
-                        dateFormat="dd.MM.yyyy"
-                        inline
-                    />
-                </article>
-                <article className="card nopadding save">
-                    <button onClick={saveSettings}>Save Settings</button>
-                </article>
-            </section>
-        ) : (
-            <section className="page_settings main">
-                <span>no Settings</span>
-            </section>
-        )
-    )
+    return props.currentUser ? (
+        <section className="page_settings">
+            <article className="card child_name">
+                <h2>Your Baby's Name?</h2>
+                <input
+                    type="text"
+                    name="child_name"
+                    onFocus={(e) => e.target.select()}
+                    value={childName}
+                    onChange={onChildNameInputChanged}
+                />
+            </article>
+            <article className="card child_birthday">
+                <span className="card_icon fas fa-birthday-cake fa-3x"></span>
+                <h2>Baby's Birthday</h2>
+                <DatePicker
+                    className
+                    selected={childBirthday}
+                    onChange={(date) => setChildBirthday(date.getTime())}
+                    dateFormat="dd.MM.yyyy"
+                    showTimeInput
+                    inline
+                />
+            </article>
+            <article className="card nopadding save">
+                <button onClick={saveSettings}>Save Settings</button>
+            </article>
+        </section>
+    ) : (
+        <section className="page_settings main">
+            <span>no Settings</span>
+        </section>
+    );
 }
 
 Settings.propTypes = {

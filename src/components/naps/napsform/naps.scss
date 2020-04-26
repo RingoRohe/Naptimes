@@ -3,14 +3,27 @@
 
 .naps_form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, auto);
     grid-template-areas:
-        "legend legend"
-        "startDateLabel endDateLabel"
-        "startDate endDate"
-        "notes notes"
-        "submit submit";
+        "legend"
+        "startDateLabel"
+        "startDate"
+        "endDateLabel"
+        "endDate"
+        "notes"
+        "submit";
+
+    // @media (min-width: $breakpoints_m) {
+    //     grid-template-columns: 1fr 1fr;
+    //     grid-template-areas:
+    //     "legend legend"
+    //     "startDateLabel endDateLabel"
+    //     "startDate endDate"
+    //     "notes notes"
+    //     "submit submit";
+    // }
 
     fieldset {
         display: contents;
@@ -20,17 +33,12 @@
             font-size: 1.4rem;
             color: $mid;
             font-weight: bold;
-            margin-bottom: 1rem;
         }
 
         label {
             font-size: 0.7rem;
             margin-bottom: -1rem;
             color: $mid;
-        }
-
-        input[type=date], input[type=time] {
-            font-size: 1.3rem;
         }
 
         label[for=start] {
@@ -41,14 +49,21 @@
             grid-area: startDate;
         }
 
+        label[for=end] {
+            grid-area: endDateLabel;
+        }
+
+        input#end {
+            grid-area: endDate;
+        }
+
         input {
             border: none;
             border-bottom: 1px solid $light;
             color: $dark;
             outline: none;
-            margin-bottom: 0.5rem;
             width: 100%;
-            font-size: 1rem;
+            font-size: 1.3rem;
 
             &:focus {
                 border-bottom: 1px solid $highlight;
@@ -62,6 +77,7 @@
         input[type=submit] {
             grid-area: submit;
             border: none;
+            grid-row: 7 / span 2;
         }
     }
 }

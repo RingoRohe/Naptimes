@@ -24,7 +24,6 @@ import NapsController from 'controllers/NapsController';
 import UserController from 'controllers/UserController';
 
 function App() {
-    
     /*
     * ============================== Authentication
     */
