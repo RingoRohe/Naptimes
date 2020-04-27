@@ -10,11 +10,16 @@
     p {
         margin: 0.5rem 2rem;
         display: flex;
+        flex-direction: column;
         text-align: center;
         align-items: center;
         min-height: 7rem;
         font-size: 1.5rem;
         font-weight: bold;
         color: $dark;
+
+        span {
+            width: 100%;
+        }
     }
 }

@@ -2,28 +2,32 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// Libs
-import humanizeDuration from 'humanize-duration';
-
 // Styles
 import './age.scss';
 import { useEffect } from 'react';
 
 const AgeWidget = props => {
-    let [output, setOutput] = useState('');
+    var moment = require("moment");
+    moment().format();
+
+    let [years, setYears] = useState('');
+    let [months, setMonths] = useState('');
+    let [weeks, setWeeks] = useState('');
+    let [days, setDays] = useState('');
 
     useEffect(() => {
         // console.log('useEffect in AgeWidget');
         const createOutput = () => {
-            return humanizeDuration(Date.now() - props.birthday, {
-                units: ["y", "mo", "w", "d", "h", "m"],
-                round: true,
-            });
+            let duration = moment.duration(moment().diff(moment(props.birthday)));
+            setYears(Math.floor(duration.asYears()));
+            setMonths(Math.floor(duration.asMonths()));
+            setWeeks(Math.floor(duration.asWeeks()));
+            setDays(Math.floor(duration.asDays()));
         }
 
-        setOutput(createOutput());
+        createOutput();
         const timeout = setTimeout(() => {
-            setOutput(createOutput());
+            createOutput();
         }, 60000);
 
         return () => {
@@ -37,7 +41,10 @@ const AgeWidget = props => {
             <span className="card_icon fas fa-birthday-cake fa-3x"></span>
             <h2>{props.title ? props.title : "Age"}</h2>
             <p>
-                <span>{output}</span>
+                <span>{years} years</span>
+                <span>{months} months</span>
+                <span>{weeks} weeks</span>
+                <span>{days} days</span>
             </p>
         </article>
     );
