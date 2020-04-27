@@ -7,8 +7,6 @@ import './age.scss';
 import { useEffect } from 'react';
 
 const AgeWidget = props => {
-    var moment = require("moment");
-    moment().format();
 
     let [years, setYears] = useState('');
     let [months, setMonths] = useState('');
@@ -17,6 +15,9 @@ const AgeWidget = props => {
 
     useEffect(() => {
         // console.log('useEffect in AgeWidget');
+        var moment = require("moment");
+        moment().format();
+
         const createOutput = () => {
             let duration = moment.duration(moment().diff(moment(props.birthday)));
             setYears(Math.floor(duration.asYears()));
