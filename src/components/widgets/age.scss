@@ -2,14 +2,18 @@
 
 .age {
     padding: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
 
     h2 {
         margin: 0.5rem;
     }
 
     p {
-        margin: 0.5rem 2rem;
+        margin: 0;
+        padding: 0;
         display: flex;
+        justify-content: center;
         flex-direction: column;
         text-align: center;
         align-items: center;

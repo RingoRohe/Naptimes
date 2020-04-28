@@ -6,6 +6,8 @@ import { useState } from 'react';
 // libs
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // styles
 import './settings.scss';
@@ -13,6 +15,8 @@ import './settings.scss';
 const Settings = props => {
     let [childName, setChildName] = useState('');
     let [childBirthday, setChildBirthday] = useState(0);
+
+    let toastId = null;
 
     useState(() => {
         if (props.currentUser && props.currentUser.settings) {
@@ -27,17 +31,27 @@ const Settings = props => {
     }
 
     const saveSettings = () => {
-        // props.currentUser.settings.childName = childName;
-        // props.currentUser.settings.childBirthday = childBirthday;
-        // console.log(props.currentUser);
+        toastId = toast.info("saving...", { autoClose: false });
         childBirthday = childBirthday || 0;
         const settings = {
             childName,
             childBirthday
         };
-        props.userController.saveSettings(settings, props.currentUser);
+        props.userController.saveSettings(settings, props.currentUser, () => {
+            toast.update(toastId, {
+                render: "saved!",
+                type: toast.TYPE.SUCCESS,
+                autoClose: true
+            });
+        }, () => {
+            toast.update(toastId, {
+                render: "not saved!",
+                type: toast.TYPE.ERROR,
+                autoClose: true,
+            });
+        });
     }
-    
+
     return props.currentUser ? (
         <section className="page_settings">
             <article className="card child_name">

@@ -23,7 +23,16 @@ import Settings from 'pages/settings/Settings';
 import NapsController from 'controllers/NapsController';
 import UserController from 'controllers/UserController';
 
+// Libs
+import { toast } from "react-toastify";
+
 function App() {
+    toast.configure({
+        autoClose: 3000,
+        position: toast.POSITION.TOP_CENTER,
+        closeButton: false,
+    });
+
     /*
     * ============================== Authentication
     */
@@ -50,18 +59,18 @@ function App() {
 
     return (
         <BrowserRouter>
-        {currentUser
-                ? <div className="wrapper">
-                <Header />
-                <NavBar currentUser={currentUser} />
-                <ProfileMenu
-                    currentUser={currentUser}
-                    firebase={firebase}
-                />
-                <Route
+            {currentUser ? (
+                <div className="wrapper">
+                    <Header />
+                    <NavBar currentUser={currentUser} />
+                    <ProfileMenu
+                        currentUser={currentUser}
+                        firebase={firebase}
+                    />
+                    <Route
                         exact
                         path="/"
-                        render={props => (
+                        render={(props) => (
                             <Dashboard
                                 {...props}
                                 firebase={firebase}
@@ -72,32 +81,65 @@ function App() {
                             />
                         )}
                     />
-                <Route exact path="/naps" render={props => <Naps {...props} napsFunctions={napsFunctions} runningNap={runningNap} naps={naps} currentUser={currentUser} />} />
-                <Route exact path="/naps/edit/:id" render={props => <EditNap {...props} napsFunctions={napsFunctions} />} />
-                <Route
-                    exact
-                    path="/login"
-                    render={props => <Login {...props} firebase={firebase} />}
+                    <Route
+                        exact
+                        path="/naps"
+                        render={(props) => (
+                            <Naps
+                                {...props}
+                                napsFunctions={napsFunctions}
+                                runningNap={runningNap}
+                                naps={naps}
+                                currentUser={currentUser}
+                            />
+                        )}
                     />
-                    <Route exact path="/settings" render={props => <Settings {...props} currentUser={currentUser} userController={userController} />} />
-                <Footer />
-            </div>
-            : <div className="wrapper">
-                <Header />
-                <NavBar currentUser={currentUser} />
-                <ProfileMenu
-                    currentUser={currentUser}
-                    firebase={firebase}
-                />
-                <Onboarding />
-                <Route
-                    exact
-                    path="/login"
-                    render={props => <Login {...props} firebase={firebase} />}
-                />
-                <Footer />
-            </div>
-            }
+                    <Route
+                        exact
+                        path="/naps/edit/:id"
+                        render={(props) => (
+                            <EditNap {...props} napsFunctions={napsFunctions} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/login"
+                        render={(props) => (
+                            <Login {...props} firebase={firebase} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/settings"
+                        render={(props) => (
+                            <Settings
+                                {...props}
+                                currentUser={currentUser}
+                                userController={userController}
+                            />
+                        )}
+                    />
+                    <Footer />
+                </div>
+            ) : (
+                <div className="wrapper">
+                    <Header />
+                    <NavBar currentUser={currentUser} />
+                    <ProfileMenu
+                        currentUser={currentUser}
+                        firebase={firebase}
+                    />
+                    <Onboarding />
+                    <Route
+                        exact
+                        path="/login"
+                        render={(props) => (
+                            <Login {...props} firebase={firebase} />
+                        )}
+                    />
+                    <Footer />
+                </div>
+            )}
         </BrowserRouter>
     );
 

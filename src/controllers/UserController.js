@@ -95,13 +95,18 @@ const UserController = props => {
     // eslint-disable-next-line
     }, [firebase, setCurrentUser]);
 
-    const saveSettings = (settings, user) => {
+    const saveSettings = (settings, user, success, error) => {
         const newUserData = {
             settings
         };
-        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
-
-        getUser(user);
+        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true })
+            .then((doc) => {
+                getUser(user);
+                if (success && typeof (success) === 'function') success();
+            })
+            .catch(err => {
+                if (error && typeof error === "function") error();
+            });
     }
 
     return {
