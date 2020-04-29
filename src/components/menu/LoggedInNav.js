@@ -20,14 +20,14 @@ const LoggedInNav = (props) => {
                     title="Naps"
                 />
             </li>
-            {/* <li>
+            <li>
                 <MenuPoint
                     to="/diapers"
                     iconClasses="icon fas fa-baby fa-3x"
                     title="Diapers"
                 />
             </li>
-            <li>
+            {/* <li>
                 <MenuPoint
                     to="/photos"
                     iconClasses="icon fas fa-camera-retro fa-3x"

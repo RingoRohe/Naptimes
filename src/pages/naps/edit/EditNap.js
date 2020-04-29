@@ -4,26 +4,22 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 // Libs
-import Modal from 'react-modal';
+import { toast } from "react-toastify";
 
 // Models
 import Nap from 'models/Nap';
 
 // Components
 import NapsForm from 'components/naps/napsform/NapsForm';
-import Alert from 'components/shared/modal/Alert';
 
 // Styles
 import './edit_nap.scss';
 
 const EditNap = props => {
-    Modal.setAppElement('#root');
-
     let [nap, setNap] = useState(null);
-    let [alertIsOpen, setAlertIsOpen] = useState(false);
 
     const history = useHistory();
-
+    
     useEffect(() => {
         props.napsFunctions.getNapById(
             props.match.params.id,
@@ -33,10 +29,15 @@ const EditNap = props => {
                 setNap(nap);
             },
             () => {
-                setAlertIsOpen(true);
+                toast.error("Nap not found.", {
+                    onClose: () => {
+                        goBack();
+                    },
+                });
             }
         );
-    }, [props.napsFunctions, props.match.params.id]);
+        // eslint-disable-next-line
+    }, []);
 
     const goBack = () => {
         history.push('/');
@@ -63,23 +64,6 @@ const EditNap = props => {
             ) : (
                 <p>Nap not found.</p>
             )}
-            <Modal
-                isOpen={alertIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    goBack();
-                }}
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed"
-                }}
-                className="modal"
-                closeTimeoutMS={100}
-            >
-                <Alert text="Nap not found." onConfirm={goBack} />
-            </Modal>
         </section>
     );
 }

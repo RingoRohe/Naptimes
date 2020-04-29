@@ -1,18 +1,17 @@
 // React
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // Models
 import Nap from 'models/Nap';
 
 // Libs
-import Modal from 'react-modal';
+import { toast } from "react-toastify";
 
 // Tools
 import NapsForm from '../../../components/naps/napsform/NapsForm';
 
 // Components
-import Alert from 'components/shared/modal/Alert';
 import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
 import ChartDaily from 'components/naps/charts/daily/ChartDaily';
 import StartNapButton from 'components/naps/widgets/startnap/StartNapButton';
@@ -23,12 +22,10 @@ import './naps.scss';
 import ChartSleeptime from 'components/naps/charts/sleeptime/ChartSleeptime';
 
 const Naps = props => {
-    let [napCreatedAlertIsOpen, setNapCreatedAlertIsOpen] = useState(false);
-
     const onNapsFormSubmit = (start, end, notes) => {
         const newNap = new Nap(start, end, notes);
         props.napsFunctions.createNap(newNap, () => {
-            setNapCreatedAlertIsOpen(true);
+            toast.success("Nap created");
         });
     }
 
@@ -48,28 +45,6 @@ const Naps = props => {
                     naps={props.naps}
                 />
             ) : null}
-            <Modal
-                isOpen={napCreatedAlertIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    setNapCreatedAlertIsOpen(false);
-                }}
-                className="modal"
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed",
-                }}
-                closeTimeoutMS={100}
-            >
-                <Alert
-                    text="Nap created"
-                    onConfirm={() => {
-                        setNapCreatedAlertIsOpen(false);
-                    }}
-                />
-            </Modal>
         </section>
     );
 }

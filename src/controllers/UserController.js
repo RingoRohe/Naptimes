@@ -53,6 +53,7 @@ const UserController = props => {
             })
             .catch(err => {
                 console.log("Error getting document", err);
+                setToast('Error getting User!', toast.TYPE.ERROR);
             });
     }
 

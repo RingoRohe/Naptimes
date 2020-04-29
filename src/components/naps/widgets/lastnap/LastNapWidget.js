@@ -3,14 +3,14 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-// Libs
-import Modal from 'react-modal';
-
 // Models
 import Nap from 'models/Nap';
 
 // Components
 import Confirm from 'components/shared/modal/Confirm';
+
+// Libs
+import { toast } from 'react-toastify';
 
 // Styles
 import "../napswidget.scss";
@@ -20,22 +20,24 @@ import Timer from 'components/shared/timer/Timer';
 import LinkButton from 'components/shared/LinkButton';
 
 const LastNapWidget = (props) => {
-    Modal.setAppElement('body');
-
     let [lastNap, setLastNap] = useState(null);
-    let [deleteNapPromptIsOpen, setDeleteNapPromptIsOpen] = useState(false);
 
     const deleteNap = () => {
         props.napsFunctions.deleteNap(lastNap);
-        setDeleteNapPromptIsOpen(false);
-    }
-
-    const cancelDeletion = () => {
-        setDeleteNapPromptIsOpen(false);
+        toast.success("Deleted", { delay: 500 });
     }
 
     const onDeleteNapButtonClicked = () => {
-        setDeleteNapPromptIsOpen(true);
+        toast(
+            <Confirm
+                headline="Delete?"
+                text="Do you really want to delete this Nap?"
+                onConfirm={deleteNap}
+            />,
+            {
+                autoClose: false,
+            }
+        );
     };
 
     useEffect(() => {
@@ -112,28 +114,6 @@ const LastNapWidget = (props) => {
                     </LinkButton>
                 </li>
             </ul>
-            <Modal
-                isOpen={deleteNapPromptIsOpen}
-                shouldCloseOnOverlayClick={true}
-                shouldCloseOnEsc={true}
-                onRequestClose={() => {
-                    setDeleteNapPromptIsOpen(false);
-                }}
-                className="modal"
-                overlayClassName={{
-                    base: "backdrop",
-                    afterOpen: "open",
-                    beforeClose: "closed"
-                }}
-                closeTimeoutMS={100}
-            >
-                <Confirm
-                    headline="Delete?"
-                    text="Do you really want to delete this Nap?"
-                    onConfirm={deleteNap}
-                    onCancel={cancelDeletion}
-                />
-            </Modal>
         </article>
     ) : null;
 }

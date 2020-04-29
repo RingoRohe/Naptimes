@@ -17,6 +17,7 @@ import Footer from 'components/footer/Footer';
 import ProfileMenu from 'components/profile/ProfileMenuView';
 import Naps from 'pages/naps/naps/Naps';
 import EditNap from 'pages/naps/edit/EditNap';
+import Diapers from 'pages/diapers/Diapers';
 import Settings from 'pages/settings/Settings';
 
 // Controllers
@@ -106,6 +107,16 @@ function App() {
                         path="/login"
                         render={(props) => (
                             <Login {...props} firebase={firebase} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/diapers"
+                        render={(props) => (
+                            <Diapers
+                                {...props}
+                                currentUser={currentUser}
+                            />
                         )}
                     />
                     <Route
