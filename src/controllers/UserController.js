@@ -1,9 +1,17 @@
+// React
 import PropTypes from 'prop-types'
 import { useEffect } from 'react';
+
+// Models
 import User from 'models/User';
+
+// Libs
+import { toast } from "react-toastify";
 
 const UserController = props => {
     const { setCurrentUser, firebase } = props;
+
+    let toastId = null;
 
     const createUserIfNotExists = (user) => {
         const newUserData = {
@@ -22,6 +30,7 @@ const UserController = props => {
 
     const getUser = user => {
         // get Userdata
+        setToast("load Userdata...");
         firebase.firestore().collection('users').doc(user.uid).get()
             .then(doc => {
                 if (!doc.exists) {
@@ -39,13 +48,11 @@ const UserController = props => {
                     } else {
                         setCurrentUser(newUser.asObject);
                     }
+                    toast.dismiss(toastId);
                 }
             })
             .catch(err => {
                 console.log("Error getting document", err);
-                console.log('trying to create User now');
-
-                createUserIfNotExists(user);
             });
     }
 
@@ -80,17 +87,20 @@ const UserController = props => {
 
     useEffect(() => {
         // console.log('UseEffect Hook in UserController called');
+        setToast("logging in...", toast.TYPE.INFO);
         const unmountAuth = firebase.auth().onAuthStateChanged(function (authUser) {
             if (authUser) {
                 // User is signed in.
                 getUser(authUser);
             } else {
                 setCurrentUser(null);
+                toast.dismiss(toastId);
             }
         });
 
         return () => {
             unmountAuth();
+            toast.dismiss(toastId);
         };
     // eslint-disable-next-line
     }, [firebase, setCurrentUser]);
@@ -107,6 +117,20 @@ const UserController = props => {
             .catch(err => {
                 if (error && typeof error === "function") error();
             });
+    }
+
+    const setToast = (text, type) => {
+        if (toastId === null) {
+            toastId = toast(text, {
+                autoClose: false,
+                type: type || toast.TYPE.INFO
+            });
+        } else {
+            toast.update(toastId, {
+                render: text,
+                type: type || toast.TYPE.INFO
+            });
+        }
     }
 
     return {
