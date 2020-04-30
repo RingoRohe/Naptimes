@@ -7,6 +7,7 @@ import User from 'models/User';
 
 // Libs
 import { toast } from "react-toastify";
+import Settings from 'models/Settings';
 
 const UserController = props => {
     const { setCurrentUser, firebase } = props;
@@ -15,18 +16,29 @@ const UserController = props => {
 
     const createUserIfNotExists = (user) => {
         const newUserData = {
-            uid: user.uid,
             email: user.email,
             photoURL: user.photoURL,
-            displayName: user.displayName,
-            settings: {
-                childName: 'your Buddy'
-            }
+            displayName: user.displayName
         };
-        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true });
-
-        getUser(user);
+        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true })
+            .then(() => {
+                getUser(user);
+            });
     }
+
+    const createSettingsIfNotExists = (user, cb) => {
+        const newSettingsData = {
+            childName: 'your Buddy'
+        };
+        firebase
+            .firestore()
+            .collection("usersettings")
+            .doc(user.uid)
+            .set(newSettingsData, { merge: true })
+            .then(() => {
+                getSettings(user, cb);
+            });
+    };
 
     const getUser = user => {
         // get Userdata
@@ -41,13 +53,10 @@ const UserController = props => {
                 } else {
                     let newUser = new User();
                     newUser.fromFirebaseDoc(doc);
-                    if (newUser.isDelegated()) {
-                        newUser.settings = getSettings(newUser, (user) => {
-                            setCurrentUser(user.asObject);
-                        });
-                    } else {
+                    getSettings(newUser.asObject, (settings) => {
+                        newUser.setSettings(settings);
                         setCurrentUser(newUser.asObject);
-                    }
+                    });
                     toast.dismiss(toastId);
                 }
             })
@@ -58,33 +67,42 @@ const UserController = props => {
     }
 
     const getSettings = (user, cb) => {
-        let id = user.isDelegated ? user.delegateId : user.uid;
-        firebase.firestore().collection('users').doc(id).get()
+        let id = user.uid;
+        firebase.firestore().collection('usersettings').doc(id).get()
             .then(doc => {
                 if (doc.exists) {
-                    let tempUser = new User();
-                    tempUser.fromFirebaseDoc(doc);
+                    let tempSettings = new Settings();
+                    tempSettings.fromFirebaseDoc(doc);
                     if (cb && typeof (cb) === 'function') {
-                        user.settings = tempUser.settings;
-                        cb(user);
+                        cb(tempSettings.asObject);
                     } else {
-                        return tempUser.settings;
+                        return tempSettings.asObject;
                     }
                 } else {
-                    if (cb && typeof (cb) === 'function') {
-                        cb(user);
-                    } else {
-                        return user.settings;
-                    }
+                    createSettingsIfNotExists(user, cb);
                 }
             })
             .catch(err => {
                 console.log("Error getting document", err);
-
-                return(user.settings);
+                return({});
             });
-        return null;
+        return {};
     }
+
+    const saveSettings = (settings, user, success, error) => {
+        firebase
+            .firestore()
+            .collection("usersettings")
+            .doc(user.uid)
+            .set(settings, { merge: true })
+            .then(() => {
+                getUser(user);
+                if (success && typeof success === "function") success();
+            })
+            .catch((err) => {
+                if (error && typeof error === "function") error();
+            });
+    };
 
     useEffect(() => {
         // console.log('UseEffect Hook in UserController called');
@@ -105,20 +123,6 @@ const UserController = props => {
         };
     // eslint-disable-next-line
     }, [firebase, setCurrentUser]);
-
-    const saveSettings = (settings, user, success, error) => {
-        const newUserData = {
-            settings
-        };
-        firebase.firestore().collection('users').doc(user.uid).set(newUserData, { merge: true })
-            .then((doc) => {
-                getUser(user);
-                if (success && typeof (success) === 'function') success();
-            })
-            .catch(err => {
-                if (error && typeof error === "function") error();
-            });
-    }
 
     const setToast = (text, type) => {
         if (toastId === null) {

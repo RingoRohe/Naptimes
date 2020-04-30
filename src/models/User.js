@@ -13,8 +13,13 @@ class User {
         this.email = object.data().email;
         this.photoURL = object.data().photoURL;
         this.displayName = object.data().displayName;
-        this.settings = object.data().settings;
         this.delegateId = object.data().delegateId ? object.data().delegateId : null;
+    }
+
+    setSettings(settings) {
+        if (settings && typeof (settings) === 'object') {
+            this.settings = settings;
+        }
     }
 
     get asObject() {
