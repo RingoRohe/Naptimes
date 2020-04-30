@@ -32,6 +32,7 @@ function App() {
         autoClose: 3000,
         position: toast.POSITION.TOP_CENTER,
         closeButton: false,
+        draggablePercent: 60,
     });
 
     /*

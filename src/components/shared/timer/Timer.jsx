@@ -60,6 +60,8 @@ const Timer = props => {
         timeString += !hideMinutes && !hideSeconds ? ' ' : '';
         timeString += !hideSeconds ? getSeconds() : '';
 
+        if (timeString.trim() === '') { timeString = '00';}
+
         setTimeString(timeString);
     }
 

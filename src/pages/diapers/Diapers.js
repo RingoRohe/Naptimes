@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Confirm from 'components/shared/modal/Confirm';
 
 // Models
-import Nap from 'models/Nap';
+import Diaper from 'models/Diaper';
 
 // Libs
 import { toast } from "react-toastify";
