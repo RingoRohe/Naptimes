@@ -26,10 +26,11 @@ const LastNapsWidget = (props) => {
             <span className="card_icon fas fa-list fa-3x"></span>
             <h2>last Naps</h2>
             <ul className="last_naps_list">
-                {lastNaps.map((item) => (
+                {lastNaps.map((item, index) => (
                     <LastNapsListItem
                         key={item.id}
                         nap={item}
+                        index={index}
                         naps={props.napsFunctions}
                     />
                 ))}

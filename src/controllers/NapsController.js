@@ -154,7 +154,7 @@ const NapsController = props => {
         // console.log("NapsController mounted");
 
         if (currentUser && currentUser.uid) {
-            let dateOffset = 24 * 60 * 60 * 1000 * 7; // 7 days
+            let dateOffset = 24 * 60 * 60 * 1000 * 14; // 14 days
             let firstDayStart = new Date();
             firstDayStart.setHours(0, 0, 0, 0);
             firstDayStart.setTime(firstDayStart.getTime() - dateOffset);

@@ -33,6 +33,7 @@ function App() {
         position: toast.POSITION.TOP_CENTER,
         closeButton: false,
         draggablePercent: 60,
+        hideProgressBar: true
     });
 
     /*

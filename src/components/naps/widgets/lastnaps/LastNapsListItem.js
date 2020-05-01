@@ -52,8 +52,10 @@ const LastNapsListItem = (props) => {
                 })}
             </span>
             <span className="duration">
-                <Duration milliseconds={props.nap.end - props.nap.start} showSeconds={false} /><br />
-                (<Timer start={props.nap.end} tick="every minute" /> ago)
+                <Duration milliseconds={props.nap.end - props.nap.start} showSeconds={false} />
+                {props.index === 0 ? (
+                    <span> (<Timer start={props.nap.end} tick="every minute" /> ago)</span>
+                ) : (null)}
             </span>
             {props.nap.notes ? <span className="notes">{props.nap.notes}</span> : null}
             <ul className="actions">

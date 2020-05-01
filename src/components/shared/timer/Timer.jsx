@@ -55,12 +55,12 @@ const Timer = props => {
         // format digits
         let timeString = '';
         timeString += !hideHours ? getHours() : '';
-        timeString += !hideHours && !hideMinutes ? ' ' : '';
+        timeString += !hideHours && !hideMinutes && timeString.length > 0 ? ' ' : '';
         timeString += !hideMinutes ? getMinutes() : '';
-        timeString += !hideMinutes && !hideSeconds ? ' ' : '';
+        timeString += !hideMinutes && !hideSeconds && timeString.length > 0 ? ' ' : '';
         timeString += !hideSeconds ? getSeconds() : '';
 
-        if (timeString.trim() === '') { timeString = '00';}
+        if (timeString.trim() === '') { timeString = '00m';}
 
         setTimeString(timeString);
     }

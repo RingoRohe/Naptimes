@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 // Libs
 import { toast } from 'react-toastify';
-import LongPressable from "react-longpressable";
 
 // Styles
 import './startnapbutton.scss';
@@ -16,6 +15,7 @@ const StartNapMultiButton = props => {
     };
     
     const onStartNapLongPress = e => {
+        e.preventDefault();
         toast(<NapStartTimePrompt onButtonClicked={(ms) => {
             let startDate = new Date(Date.now() - ms);
             props.napsFunctions.startNap(startDate);
@@ -41,6 +41,8 @@ const StartNapMultiButton = props => {
                 <button onClick={() => { startNapDelayed(5*60*1000) }}>5 Minutes ago</button>
                 <button onClick={() => { startNapDelayed(10*60*1000) }}>10 Minutes ago</button>
                 <button onClick={() => { startNapDelayed(15*60*1000) }}>15 Minutes ago</button>
+                <button onClick={() => { startNapDelayed(20*60*1000) }}>20 Minutes ago</button>
+                <button onClick={() => { startNapDelayed(30*60*1000) }}>30 Minutes ago</button>
                 <button onClick={onCancelClicked}>cancel</button>
             </div>
         );
@@ -48,13 +50,7 @@ const StartNapMultiButton = props => {
 
     return (
         <article className="card startstopmulti">
-            <LongPressable className="button_wrapper"
-                onShortPress={onStartNapButtonClick}
-                onLongPress={onStartNapLongPress}
-                longPressTime={500}
-            >
-                <button>Start Nap</button>
-            </LongPressable>
+                <button onClick={onStartNapButtonClick} onContextMenu={onStartNapLongPress}>Start Nap</button>
         </article>
     );
 }

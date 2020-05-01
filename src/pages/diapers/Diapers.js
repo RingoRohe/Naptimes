@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import Confirm from 'components/shared/modal/Confirm';
 
 // Models
 import Diaper from 'models/Diaper';
