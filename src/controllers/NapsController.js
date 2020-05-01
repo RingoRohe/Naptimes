@@ -10,8 +10,13 @@ const NapsController = props => {
         return props.runningNap ? true : false;
     }
 
-    const startNap = () => {
-        let newNap = new Nap(Date.now());
+    const startNap = (startDate) => {
+        let newNap = null;
+        if (startDate && startDate instanceof Date) {
+            newNap = new Nap(startDate.getTime());
+        } else {
+            newNap = new Nap(Date.now());
+        }
         const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
         ref.add(newNap.toObject())
             .then(function() {})

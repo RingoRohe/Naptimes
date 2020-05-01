@@ -9,14 +9,14 @@ import Nap from 'models/Nap';
 import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
 import LastNapsWidget from 'components/naps/widgets/lastnaps/LastNapsWidget';
 import LastNapWidget from 'components/naps/widgets/lastnap/LastNapWidget';
-import StartNapButton from 'components/naps/widgets/startnap/StartNapButton';
+import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
 import AgeWidget from 'components/widgets/AgeWidget';
 
 const Dashboard = (props) => {
     return (
         <section className="main">
             {props.runningNap ? null : (
-                <StartNapButton napsFunctions={props.napsFunctions} />
+                <StartNapMultiButton napsFunctions={props.napsFunctions} />
             )}
             {props.runningNap ? (
                 <RunningNapWidget
