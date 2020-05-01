@@ -38,6 +38,7 @@ const Dashboard = (props) => {
                 className="naps_widget last card"
                 napsFunctions={props.napsFunctions}
                 naps={props.naps}
+                runningNap={props.runningNap}
             />
         </section>
     );

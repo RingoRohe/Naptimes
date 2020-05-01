@@ -2,6 +2,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
+// Models
+import Awake from 'models/Awake';
+
 // Components
 import LastNapsListItem from './LastNapsListItem';
 
@@ -15,11 +18,31 @@ const LastNapsWidget = (props) => {
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
         let tempNaps = [];
-        props.naps.slice(0, 3).forEach((nap, index) => {
+        let napsToUse = props.naps.slice(0, 3);
+        napsToUse.forEach((nap, index) => {
+            // if this is the last nap, add time from end until now
+            if (index === 0 && !props.runningNap) {
+                const currentAwake = new Awake(
+                    napsToUse[index].end,
+                    Date.now(),
+                    nap.id + '_'
+                );
+                tempNaps.push(currentAwake);
+            }
+            // add Nap
             tempNaps.push(nap);
+            // add awake time between current nap and the one before
+            if (index+1 < napsToUse.length) {
+                const awake = new Awake(
+                    napsToUse[index + 1].end,
+                    napsToUse[index].start,
+                    napsToUse[index].id + napsToUse[index+1].id
+                );
+                tempNaps.push(awake);
+            }
         });
         setLastNaps(tempNaps);
-    }, [props.naps]);
+    }, [props.naps, props.runningNap]);
 
     return (
         <article className={props.className}>

@@ -16,7 +16,7 @@
 
     ul.last_naps_list {
         
-        &>li {
+        &>li.nap {
             overflow: hidden;
             position: relative;
             display: flex;
@@ -105,6 +105,13 @@
                     transform: scaleX(1);
                 }
             }
+        }
+
+        &>li.awake {
+            background-color: $lighter;
+            text-align: center;
+            font-size: 0.8rem;
+            padding: 0.3rem;
         }
     }
 }

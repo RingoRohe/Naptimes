@@ -14,12 +14,12 @@ import NapsForm from '../../../components/naps/napsform/NapsForm';
 // Components
 import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
 import ChartDaily from 'components/naps/charts/daily/ChartDaily';
-import StartNapButton from 'components/naps/widgets/startnap/StartNapButton';
 import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
 
 // Styles
 import './naps.scss';
 import ChartSleeptime from 'components/naps/charts/sleeptime/ChartSleeptime';
+import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
 
 const Naps = props => {
     const onNapsFormSubmit = (start, end, notes) => {
@@ -31,18 +31,31 @@ const Naps = props => {
 
     return (
         <section className="page_naps">
-            {props.runningNap ? null : <StartNapButton napsFunctions={props.napsFunctions} />}
-            {props.runningNap ? <RunningNapWidget napsFunctions={props.napsFunctions} runningNap={props.runningNap} currentUser={props.currentUser} /> : null}
+            {props.runningNap ? null : (
+                <StartNapMultiButton napsFunctions={props.napsFunctions} />
+            )}
+            {props.runningNap ? (
+                <RunningNapWidget
+                    napsFunctions={props.napsFunctions}
+                    runningNap={props.runningNap}
+                    currentUser={props.currentUser}
+                />
+            ) : null}
             <article className="card">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </article>
-            {props.naps ? <ChartSleeptime className="chart" naps={props.naps} /> : null}
-            {props.naps ? <ChartDaily className="chart" naps={props.naps} /> : null}
+            {props.naps ? (
+                <ChartSleeptime className="chart" naps={props.naps} />
+            ) : null}
+            {props.naps ? (
+                <ChartDaily className="chart" naps={props.naps} />
+            ) : null}
             {props.naps ? (
                 <NaplistWidget
                     className="naplist card"
                     napsFunctions={props.napsFunctions}
                     naps={props.naps}
+                    runningNap={props.runningNap}
                 />
             ) : null}
         </section>
