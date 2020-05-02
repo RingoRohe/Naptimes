@@ -1,0 +1,30 @@
+@import '../../assets/scss/colors';
+
+.birthday {
+    padding: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    h2 {
+        margin: 0.5rem;
+    }
+
+    p {
+        margin: 1rem;
+        margin-top: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        min-height: 7rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $dark;
+
+        span {
+            width: 100%;
+        }
+    }
+}

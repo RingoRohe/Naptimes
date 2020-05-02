@@ -11,10 +11,12 @@ import LastNapsWidget from 'components/naps/widgets/lastnaps/LastNapsWidget';
 import LastNapWidget from 'components/naps/widgets/lastnap/LastNapWidget';
 import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
 import AgeWidget from 'components/widgets/AgeWidget';
+import BirthdayWidget from 'components/widgets/BirthdayWidget';
 
 const Dashboard = (props) => {
     return (
         <section className="main">
+            <BirthdayWidget currentUser={props.currentUser} />
             {props.runningNap ? null : (
                 <StartNapMultiButton napsFunctions={props.napsFunctions} />
             )}
