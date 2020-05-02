@@ -12,6 +12,7 @@ import LastNapWidget from 'components/naps/widgets/lastnap/LastNapWidget';
 import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
 import AgeWidget from 'components/widgets/AgeWidget';
 import BirthdayWidget from 'components/widgets/BirthdayWidget';
+import LastDiaperWidget from 'components/diapers/widgets/lastdiaper/LastDiaperWidget';
 
 const Dashboard = (props) => {
     return (
@@ -31,6 +32,10 @@ const Dashboard = (props) => {
                 firebase={props.firebase}
                 currentUser={props.currentUser}
                 napsFunctions={props.napsFunctions}
+            />
+            <LastDiaperWidget
+                diapers={props.diapers}
+                diapersController={props.diapersController}
             />
             {props.currentUser.settings.childBirthday > 0 ? (
                 <AgeWidget

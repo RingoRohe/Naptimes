@@ -23,6 +23,7 @@ import Settings from 'pages/settings/Settings';
 // Controllers
 import NapsController from 'controllers/NapsController';
 import UserController from 'controllers/UserController';
+import DiapersController from 'controllers/DiapersController';
 
 // Libs
 import { toast } from "react-toastify";
@@ -60,6 +61,17 @@ function App() {
         setRunningNap
     });
 
+    /*
+    * ============================== Diapers
+    */
+    let [diapers, setDiapers] = useState([]);
+
+    const diapersController = DiapersController({
+        setDiapers,
+        firebase,
+        currentUser
+    });
+
     return (
         <BrowserRouter>
             {currentUser ? (
@@ -79,8 +91,10 @@ function App() {
                                 firebase={firebase}
                                 currentUser={currentUser}
                                 napsFunctions={napsFunctions}
+                                diapersController={diapersController}
                                 runningNap={runningNap}
                                 naps={naps}
+                                diapers={diapers}
                             />
                         )}
                     />
@@ -118,6 +132,7 @@ function App() {
                             <Diapers
                                 {...props}
                                 currentUser={currentUser}
+                                diapersController={diapersController}
                             />
                         )}
                     />

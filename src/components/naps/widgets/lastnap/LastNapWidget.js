@@ -40,6 +40,7 @@ const LastNapWidget = (props) => {
         );
     };
 
+    // TODO: get rid of useEffect Hook and use stored Naps in App.js
     useEffect(() => {
         // console.log('useEffect in LastNapWidget.js');
         if (props.currentUser && props.currentUser.uid) {

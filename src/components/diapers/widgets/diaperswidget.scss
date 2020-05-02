@@ -1,0 +1,25 @@
+@import '../../../assets/scss/breakpoints';
+@import '../../../assets/scss/colors';
+
+.diapers_widget {
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    h2 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: $light;
+        margin: 0.5rem;
+    }
+
+    p {
+        padding: 0.5rem 1rem;
+        flex-grow: 1;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+}

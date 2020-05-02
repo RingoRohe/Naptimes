@@ -104,36 +104,34 @@ const ChartSleeptime = props => {
     }
 
     function drawCharts() {
+        // remove first and last day from data
+        data.pop();
+        data.shift();
+
         if (data.length > 0) {
             const container = document.getElementById("sleeptimechart");
             const chart = new GoogleCharts.api.visualization.AreaChart(container);
             const dataTable = new GoogleCharts.api.visualization.DataTable();
 
-            // remove first and last day from data
-            data.pop();
-            data.shift();
+            dataTable.addColumn("string", "Date");
+            dataTable.addColumn("number", "Hours of Sleep");
+            dataTable.addRows(data);
 
-            if (data.length > 0) {
-                dataTable.addColumn("string", "Date");
-                dataTable.addColumn("number", "Hours of Sleep");
-                dataTable.addRows(data);
+            const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;
+            const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 2;
 
-                const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;
-                const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 2;
+            var options = {
+                vAxis: {
+                    title: "Hours",
+                    viewWindow: {
+                        min: min,
+                        max: max
+                    }
+                },
+                colors: [styles.timelineSingleColor]
+            };
 
-                var options = {
-                    vAxis: {
-                        title: "Hours",
-                        viewWindow: {
-                            min: min,
-                            max: max
-                        }
-                    },
-                    colors: [styles.timelineSingleColor]
-                };
-
-                chart.draw(dataTable, options);
-            }
+            chart.draw(dataTable, options);
         }
     };
 
@@ -161,7 +159,7 @@ const ChartSleeptime = props => {
     return (
         <article className={props.className + " card"}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>
-            <ChartContainer />
+            <ChartContainer><p>Still gathering Data...</p></ChartContainer>
         </article>
     );
 }

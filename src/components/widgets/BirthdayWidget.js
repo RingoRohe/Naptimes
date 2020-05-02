@@ -15,7 +15,7 @@ const BirthdayWidget = props => {
     if ((todayString === childBirthdayString && years > 0)) {
         return (
             <article className="card birthday">
-                <span class="background fas fa-birthday-cake"></span>
+                <span className="background fas fa-birthday-cake"></span>
                 <h2>Happy Birthday</h2>
                 <p>
                     {props.currentUser.settings.childName} turns {yearsString}{" "}
