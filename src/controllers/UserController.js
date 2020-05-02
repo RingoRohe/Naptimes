@@ -16,6 +16,7 @@ const UserController = props => {
 
     const createUserIfNotExists = (user) => {
         const newUserData = {
+            uid: user.uid,
             email: user.email,
             photoURL: user.photoURL,
             displayName: user.displayName

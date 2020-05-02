@@ -30,10 +30,12 @@ const Dashboard = (props) => {
                 currentUser={props.currentUser}
                 napsFunctions={props.napsFunctions}
             />
-            <AgeWidget
-                birthday={props.currentUser.settings.childBirthday}
-                title={"Age of " + props.currentUser.settings.childName}
-            />
+            {props.currentUser.settings.childBirthday > 0 ? (
+                <AgeWidget
+                    birthday={props.currentUser.settings.childBirthday}
+                    title={"Age of " + props.currentUser.settings.childName}
+                />
+            ) : null}
             <LastNapsWidget
                 className="naps_widget last card"
                 napsFunctions={props.napsFunctions}
