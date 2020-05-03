@@ -11,15 +11,31 @@ import LastNapsListItem from './NaplistListItem';
 
 // Styles
 import './naplist.scss';
+import Headline from 'models/Headline';
 
 const NaplistWidget = (props) => {
     let [lastNaps, setLastNaps] = useState([]);
+
+    const formatDate = (date) => {
+        return date.toLocaleDateString([], {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
+    };
 
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
         let tempNaps = [];
         let napsToUse = props.naps;
+        let lastDate = "";
         napsToUse.forEach((nap, index) => {
+            const napDate = formatDate(new Date(nap.start));
+            if (napDate !== lastDate) {
+                lastDate = napDate;
+                let headline = new Headline(napDate, napDate);
+                tempNaps.push(headline);
+            }
             // if this is the last nap, add time from end until now
             if (index === 0 && !props.runningNap) {
                 const currentAwake = new Awake(

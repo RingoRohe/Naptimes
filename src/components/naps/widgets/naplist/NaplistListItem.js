@@ -13,6 +13,7 @@ import Awake from 'models/Awake';
 import Confirm from "components/shared/modal/Confirm";
 import Duration from 'components/shared/duration/Duration';
 import Timer from 'components/shared/timer/Timer';
+import Headline from 'models/Headline';
 
 const LastNapsListItem = (props) => {
     const history = useHistory();
@@ -39,7 +40,13 @@ const LastNapsListItem = (props) => {
         history.push(`/naps/edit/${props.nap.id}`);
     };
 
-    if (props.index === 0 && props.nap instanceof Awake) {
+    if (props.nap instanceof Headline) {
+        return (
+            <li className="headline">
+                <h3>{props.nap.text}</h3>
+            </li>
+        );
+    } else if (props.index === 0 && props.nap instanceof Awake) {
         return (
             <li className="awake">
                 <span className="elapsed_time">
@@ -51,13 +58,6 @@ const LastNapsListItem = (props) => {
         return (
             <li className="nap">
                 <div className="info">
-                    <span className="date">
-                        {new Date(props.nap.start).toLocaleDateString([], {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                        })}
-                    </span>
                     <span className="time_start">
                         {new Date(props.nap.start).toLocaleTimeString([], {
                             hour: "2-digit",

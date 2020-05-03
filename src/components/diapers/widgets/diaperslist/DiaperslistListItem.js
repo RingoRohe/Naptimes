@@ -44,8 +44,7 @@ const LastDiapersListItem = (props) => {
                 <h3>{props.diaper.text}</h3>
             </li>
         );
-    }
-    if (props.diaper instanceof Diaper) {
+    } else if (props.diaper instanceof Diaper) {
         return (
             <li className="diaper">
                 <div className="info">
