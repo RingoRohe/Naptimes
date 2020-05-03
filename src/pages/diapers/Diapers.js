@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 // Styles
 import './diapers.scss';
 import DiapersForm from 'components/diapers/diapersform/DiapersForm';
+import DiaperslistWidget from 'components/diapers/widgets/diaperslist/DiaperslistWidget';
 
 const Diapers = props => {
     const onDiaperSave = (diaper) => {
@@ -21,8 +22,8 @@ const Diapers = props => {
             <article className="card">
                 <DiapersForm onSubmit={onDiaperSave} />
             </article>
-            <article className="card">
-                <h2>Test</h2>
+            <article className="card diaperslist">
+                <DiaperslistWidget diapers={props.diapers} diapersController={props.diapersController} />
             </article>
         </section>
     );

@@ -61,7 +61,7 @@ const DiapersForm = props => {
                     type="checkbox"
                     name="pee"
                     id="pee"
-                    value={pee}
+                    checked={pee}
                     onChange={(e) => {
                         setPee(e.target.checked);
                     }}
@@ -71,7 +71,7 @@ const DiapersForm = props => {
                     type="checkbox"
                     name="poo"
                     id="poo"
-                    value={poo}
+                    checked={poo}
                     onChange={(e) => {
                         setPoo(e.target.checked);
                     }}

@@ -133,6 +133,7 @@ function App() {
                                 {...props}
                                 currentUser={currentUser}
                                 diapersController={diapersController}
+                                diapers={diapers}
                             />
                         )}
                     />
