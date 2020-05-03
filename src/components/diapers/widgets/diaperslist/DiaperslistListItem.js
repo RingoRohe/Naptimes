@@ -89,19 +89,6 @@ const LastDiapersListItem = (props) => {
             </li>
         );
     }
-    // } else if (props.diaper instanceof Awake) {
-    //     return (
-    //         <li className="awake">
-    //             <span className="duration">
-    //                 <Duration
-    //                     milliseconds={props.diaper.end - props.diaper.start}
-    //                     showSeconds={false}
-    //                 />{" "}
-    //                 awake
-    //             </span>
-    //         </li>
-    //     );
-    // }
 }
 
 export default LastDiapersListItem;

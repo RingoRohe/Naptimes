@@ -38,6 +38,7 @@ const LastDiaperWidget = (props) => {
         );
     };
 
+    // TODO: add edit Page
     return lastDiaper ? (
         <article className="diapers_widget single card">
             <h2>last Diaper</h2>

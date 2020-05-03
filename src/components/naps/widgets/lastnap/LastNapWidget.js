@@ -1,10 +1,5 @@
 // React
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-
-// Models
-import Nap from 'models/Nap';
 
 // Components
 import Confirm from 'components/shared/modal/Confirm';
@@ -20,10 +15,14 @@ import Timer from 'components/shared/timer/Timer';
 import LinkButton from 'components/shared/LinkButton';
 
 const LastNapWidget = (props) => {
-    let [lastNap, setLastNap] = useState(null);
+    let { naps, napsFunctions } = props;
+    let lastNap = null;
+    if (naps.length > 0) {
+        lastNap = naps[0];
+    }
 
     const deleteNap = () => {
-        props.napsFunctions.deleteNap(lastNap);
+        napsFunctions.deleteNap(lastNap);
         toast.success("Deleted", { delay: 500 });
     }
 
@@ -39,29 +38,6 @@ const LastNapWidget = (props) => {
             }
         );
     };
-
-    // TODO: get rid of useEffect Hook and use stored Naps in App.js
-    useEffect(() => {
-        // console.log('useEffect in LastNapWidget.js');
-        if (props.currentUser && props.currentUser.uid) {
-            let unbindFirestore = props.napsFunctions.getNaps(1)
-                .onSnapshot(snapshot => {
-                    if (!snapshot.empty) {
-                        if (snapshot.docs[0].data().end > 0) {
-                            let nap = new Nap();
-                            nap.fromFirebaseDoc(snapshot.docs[0]);
-                            setLastNap(nap);
-                        }
-                    } else {
-                        setLastNap(null);
-                    }
-                });
-            
-            return () => {
-                unbindFirestore();
-            };
-        }
-    }, [props.currentUser, props.napsFunctions]);
 
     return lastNap ? (
         <article className="naps_widget single card">

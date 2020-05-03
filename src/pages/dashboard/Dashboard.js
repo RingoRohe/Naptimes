@@ -31,6 +31,7 @@ const Dashboard = (props) => {
             <LastNapWidget
                 firebase={props.firebase}
                 currentUser={props.currentUser}
+                naps={props.naps}
                 napsFunctions={props.napsFunctions}
             />
             <LastDiaperWidget
