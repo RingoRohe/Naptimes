@@ -9,13 +9,15 @@ import Diaper from 'models/Diaper';
 
 const DiapersForm = props => {
     const time = props.time ? props.time : Date.now();
+    const propspee = props.pee ? props.pee : false;
+    const propspoo = props.poo ? props.poo : false;
     const propnotes = props.notes ? props.notes : "";
     const headline = props.headline ? props.headline : "new Diaper";
     const submitText = props.submitText ? props.submitText : "save";
 
     let [changedDate, setChangedDate] = useState(time);
-    let [pee, setPee] = useState(false);
-    let [poo, setPoo] = useState(false);
+    let [pee, setPee] = useState(propspee);
+    let [poo, setPoo] = useState(propspoo);
     let [notes, setNotes] = useState(propnotes);
 
     const onSubmit = (e) => {

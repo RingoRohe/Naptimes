@@ -38,7 +38,6 @@ const LastDiaperWidget = (props) => {
         );
     };
 
-    // TODO: add edit Page
     return lastDiaper ? (
         <article className="diapers_widget single card">
             <h2>last Diaper</h2>
@@ -50,7 +49,7 @@ const LastDiaperWidget = (props) => {
                         year: "numeric",
                     })}
                 </span>
-                <span className="times">
+                <span className="time">
                     {new Date(lastDiaper.time).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
@@ -62,6 +61,16 @@ const LastDiaperWidget = (props) => {
                 {lastDiaper.notes ? (
                     <span className="notes">"{lastDiaper.notes}"</span>
                 ) : null}
+                {lastDiaper.pee ? (
+                    <span className="pee fas fa-tint active"></span>
+                ) : (
+                    <span className="pee fas fa-tint"></span>
+                )}
+                {lastDiaper.poo ? (
+                    <span className="poo fas fa-poop active"></span>
+                ) : (
+                    <span className="poo fas fa-poop"></span>
+                )}
             </p>
             <ul className="actions">
                 <li>
@@ -70,14 +79,14 @@ const LastDiaperWidget = (props) => {
                         onClick={onDeleteDiaperButtonClicked}
                     ></button>
                 </li>
-                {/* <li>
+                <li>
                     <LinkButton
                         className="icon fas fa-pen fa-1x"
                         to={"/diapers/edit/" + lastDiaper.id}
                     >
                         <span></span>
                     </LinkButton>
-                </li> */}
+                </li>
             </ul>
         </article>
     ) : null;

@@ -11,10 +11,14 @@
             color: $mid;
             text-align: center;
             flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: inherit;
+            display: grid;
+            grid-template-areas: 
+                "date date"
+                "time time"
+                "elapsed elapsed"
+                "notes notes"
+                "pee poo"
+                ;
 
             &>span {
                 display: block;
@@ -25,15 +29,46 @@
                 font-weight: bold;
                 color: $mid;
                 text-align: center;
+                grid-area: date;
             }
     
-            .times {
+            .time {
                 font-size: 2rem;
+                grid-area: time;
+            }
+
+            .elapsed_time {
+                grid-area: elapsed;
             }
 
             .notes {
                 font-size: 1rem;
                 padding-top: .5rem;
+                grid-area: notes;
+            }
+
+            .pee {
+                font-size: 2rem;
+                opacity: .2;
+                grid-area: pee;
+                margin-top: 0.5rem;
+                color: $yellow;
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+
+            .poo {
+                font-size: 2rem;
+                opacity: .2;
+                grid-area: poo;
+                margin-top: 0.5rem;
+                color: $brown;
+
+                &.active {
+                    opacity: 1;
+                }
             }
         }
 

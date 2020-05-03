@@ -27,6 +27,7 @@ import DiapersController from 'controllers/DiapersController';
 
 // Libs
 import { toast } from "react-toastify";
+import EditDiaper from 'pages/diapers/edit/EditDiaper';
 
 function App() {
     toast.configure({
@@ -135,6 +136,13 @@ function App() {
                                 diapersController={diapersController}
                                 diapers={diapers}
                             />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/diapers/edit/:id"
+                        render={(props) => (
+                            <EditDiaper {...props} diapersController={diapersController} />
                         )}
                     />
                     <Route
