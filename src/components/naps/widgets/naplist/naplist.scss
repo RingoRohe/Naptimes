@@ -26,14 +26,12 @@
             .info {
                 padding: 0.5rem 1rem;
                 display: inline-grid;
-                grid-template-columns: auto auto;
+                grid-template-columns: auto;
                 grid-template-rows: auto auto auto 1fr;
                 grid-template-areas:
-                    "date date"
-                    "start end"
-                    "duration duration"
-                    "elapsed elapsed"
-                    "notes notes";
+                    "times"
+                    "duration"
+                    "notes";
                 
                 .date {
                     grid-area: date;
@@ -42,23 +40,13 @@
                     color: $mid;
                 }
                 
-                .time_start {
-                    grid-area: start;
+                .times {
+                    grid-area: times;
                     margin-right: .2rem;
-                }
-                
-                .time_end {
-                    grid-area: end;
-                    margin-right: 2rem;
                 }
                 
                 .duration {
                     grid-area: duration;
-                    font-size: 0.8rem;
-                }
-                
-                .elapsed_time {
-                    grid-area: elapsed;
                     font-size: 0.8rem;
                 }
                 
@@ -69,10 +57,10 @@
             }
 
             .actions {
-                // position: absolute;
-                // top: 0;
-                // right: -1rem;
-                // bottom: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
                 opacity: 1;
                 pointer-events: none;
                 display: flex;

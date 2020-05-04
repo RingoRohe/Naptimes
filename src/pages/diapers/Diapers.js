@@ -19,7 +19,7 @@ const Diapers = props => {
     }
     return (
         <section className="page_diapers">
-            <article className="card">
+            <article className="card diaperform">
                 <DiapersForm onSubmit={onDiaperSave} />
             </article>
             <article className="card diaperslist">

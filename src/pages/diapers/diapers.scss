@@ -6,12 +6,45 @@ section.page_diapers {
     background-color: $mid;
     grid-area: main;
     display: grid;
-    // grid-template-columns: 1fr;
-    // grid-auto-rows: max-content;
     gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
 
     @media (min-width: $breakpoints_m) {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $breakpoints_l) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .diaperform {
+        grid-column: 1;
+        grid-row: 1;
+
+        @media (min-width: $breakpoints_m) {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        @media (min-width: $breakpoints_l) {
+            grid-column: 1 / span 2;
+            grid-row: 1;
+        }
+    }
+
+    .diaperslist {
+        grid-column: 1;
+        grid-row: 2;
+
+        @media (min-width: $breakpoints_m) {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        @media (min-width: $breakpoints_l) {
+            grid-column: 3;
+            grid-row: 1;
+        }
     }
 
 }

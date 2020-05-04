@@ -13,6 +13,7 @@ import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiB
 import AgeWidget from 'components/widgets/AgeWidget';
 import BirthdayWidget from 'components/widgets/BirthdayWidget';
 import LastDiaperWidget from 'components/diapers/widgets/lastdiaper/LastDiaperWidget';
+import AddDiaperButton from 'components/diapers/widgets/adddiaper/AddDiaperButton';
 
 const Dashboard = (props) => {
     return (
@@ -21,6 +22,7 @@ const Dashboard = (props) => {
             {props.runningNap ? null : (
                 <StartNapMultiButton napsFunctions={props.napsFunctions} />
             )}
+            <AddDiaperButton diapersController={props.diapersController} />
             {props.runningNap ? (
                 <RunningNapWidget
                     napsFunctions={props.napsFunctions}

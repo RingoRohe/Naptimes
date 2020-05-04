@@ -6,14 +6,15 @@ import User from 'models/User';
 const DiapersController = props => {
     const { currentUser, firebase, setDiapers } = props;
 
-    const createDiaper = (diaper, success) => {
+    const createDiaper = (diaper, successCb, errorCb) => {
         const ref = props.firebase
             .firestore()
             .collection(`users/${props.currentUser.uid}/diapers`);
         ref.add(diaper.toObject())
-            .then(function () { if (success) { success(); } })
+            .then(function () { if (successCb) { successCb(); } })
             .catch(function(error) {
                 console.error("Error writing document: ", error);
+                if (errorCb) { errorCb(); }
             });
     };
 

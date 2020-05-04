@@ -41,7 +41,7 @@ const Naps = props => {
                     currentUser={props.currentUser}
                 />
             ) : null}
-            <article className="card">
+            <article className="card napsform">
                 <NapsForm onSubmit={onNapsFormSubmit} />
             </article>
             {props.naps ? (

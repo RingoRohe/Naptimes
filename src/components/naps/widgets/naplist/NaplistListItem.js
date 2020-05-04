@@ -58,14 +58,12 @@ const LastNapsListItem = (props) => {
         return (
             <li className="nap">
                 <div className="info">
-                    <span className="time_start">
+                    <span className="times">
                         {new Date(props.nap.start).toLocaleTimeString([], {
                             hour: "2-digit",
                             minute: "2-digit",
                         })}{" "}
                         -
-                    </span>
-                    <span className="time_end">
                         {new Date(props.nap.end).toLocaleTimeString([], {
                             hour: "2-digit",
                             minute: "2-digit",
