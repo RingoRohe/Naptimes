@@ -14,6 +14,7 @@ import AgeWidget from 'components/widgets/AgeWidget';
 import BirthdayWidget from 'components/widgets/BirthdayWidget';
 import LastDiaperWidget from 'components/diapers/widgets/lastdiaper/LastDiaperWidget';
 import AddDiaperButton from 'components/diapers/widgets/adddiaper/AddDiaperButton';
+import ChartDaily from 'components/diapers/widgets/dailychart/ChartDaily';
 
 const Dashboard = (props) => {
     return (
@@ -40,6 +41,9 @@ const Dashboard = (props) => {
                 diapers={props.diapers}
                 diapersController={props.diapersController}
             />
+            <article className="card">
+                <ChartDaily diapers={props.diapers} maxDays={4} />
+            </article>
             {props.currentUser.settings.childBirthday > 0 ? (
                 <AgeWidget
                     birthday={props.currentUser.settings.childBirthday}

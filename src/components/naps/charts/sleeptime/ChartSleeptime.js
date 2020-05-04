@@ -156,6 +156,7 @@ const ChartSleeptime = props => {
         );
     }
 
+    // TODO: add annotations with sleeptime to datapoints
     return (
         <article className={props.className + " card"}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>
