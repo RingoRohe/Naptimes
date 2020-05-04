@@ -19,3 +19,17 @@
         }
     }
 }
+
+.nap_finish_time_prompt {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+}
+
+.no_padding {
+    padding: 0 !important;
+}

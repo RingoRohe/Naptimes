@@ -22,7 +22,6 @@ const Dashboard = (props) => {
             {props.runningNap ? null : (
                 <StartNapMultiButton napsFunctions={props.napsFunctions} />
             )}
-            <AddDiaperButton diapersController={props.diapersController} />
             {props.runningNap ? (
                 <RunningNapWidget
                     napsFunctions={props.napsFunctions}
@@ -30,6 +29,7 @@ const Dashboard = (props) => {
                     currentUser={props.currentUser}
                 />
             ) : null}
+            <AddDiaperButton diapersController={props.diapersController} />
             <LastNapWidget
                 firebase={props.firebase}
                 currentUser={props.currentUser}

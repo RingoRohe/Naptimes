@@ -10,7 +10,7 @@ const NapsController = props => {
         return props.runningNap ? true : false;
     }
 
-    const startNap = (startDate) => {
+    const startNap = (startDate, successCb, failureCb) => {
         let newNap = null;
         if (startDate && startDate instanceof Date) {
             newNap = new Nap(startDate.getTime());
@@ -19,51 +19,97 @@ const NapsController = props => {
         }
         const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
         ref.add(newNap.toObject())
-            .then(function() {})
+            .then(function () {
+                if (successCb && typeof (successCb) == 'function') {
+                    successCb();
+                }
+            })
             .catch(function(error) {
                 console.error("Error writing document: ", error);
+                if (failureCb && typeof failureCb == "function") {
+                    failureCb();
+                }
             });
     };
 
-    const finishNap = () => {
-        const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
-        ref.doc(props.runningNap.id).update({ end: Date.now() });
+    const finishNap = (finishDate, successCb, failureCb) => {
+        let finishTime = 0;
+        if (finishDate && finishDate instanceof Date) {
+            finishTime = finishDate.getTime();
+        } else {
+            finishTime = Date.now();
+        }
+        const ref = props.firebase
+            .firestore()
+            .collection(`users/${props.currentUser.uid}/naps`);
+        ref.doc(props.runningNap.id)
+            .update({ end: finishTime })
+            .then(function () {
+                if (successCb && typeof successCb == "function") {
+                    successCb();
+                }
+            })
+            .catch(function (error) {
+                console.error("Error writing document: ", error);
+                if (failureCb && typeof failureCb == "function") {
+                    failureCb();
+                }
+            });
     };
 
-    const createNap = (nap, success) => {
+    const createNap = (nap, successCb, failureCb) => {
         const ref = props.firebase
             .firestore()
             .collection(`users/${props.currentUser.uid}/naps`);
         ref.add(nap.toObject())
-            .then(function () { if (success) { success(); } })
-            .catch(function(error) {
+            .then(function () {
+                if (successCb && typeof successCb == "function") {
+                    successCb();
+                }
+            })
+            .catch(function (error) {
                 console.error("Error writing document: ", error);
+                if (failureCb && typeof failureCb == "function") {
+                    failureCb();
+                }
             });
     };
 
-    const updateNap = (nap, success, error) => {
+    const updateNap = (nap, successCb, failureCb) => {
         const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
         ref.doc(nap.id)
             .update(nap.toObject())
             .then(function() {
-                if (success) {
-                    success();
+                if (successCb) {
+                    successCb();
                 }
             })
             .catch(function(error) {
                 console.error("Error updating document: ", error);
-                if (error) {
-                    error();
+                if (failureCb && typeof failureCb == "function") {
+                    failureCb();
                 }
             });
     };
 
-    const deleteNap = nap => {
+    const deleteNap = (nap, successCb, failureCb) => {
         const ref = props.firebase.firestore().collection(`users/${props.currentUser.uid}/naps`);
-        ref.doc(nap.id).delete();
+        ref.doc(nap.id)
+            .delete()
+            .then(function () {
+                if (successCb) {
+                    successCb();
+                }
+            })
+            .catch(function (error) {
+                console.error("Error updating document: ", error);
+                if (failureCb && typeof failureCb == "function") {
+                    failureCb();
+                }
+            });;
     };
 
-    const getNapById = (id, success, error) => {
+    const getNapById = (id, successCb, failureCb) => {
         const doc = props.firebase
             .firestore()
             .collection(`users/${props.currentUser.uid}/naps/`)
@@ -72,19 +118,19 @@ const NapsController = props => {
             .then(doc => {
                 if (!doc.exists) {
                     console.log("No such document!");
-                    if (error) {
-                        error();
+                    if (failureCb) {
+                        failureCb();
                     }
                 } else {
-                    if (success) {
-                        success(doc);
+                    if (successCb) {
+                        successCb(doc);
                     }
                 }
             })
             .catch(err => {
                 console.log("Error getting document", err);
-                if (error) {
-                    error();
+                if (failureCb) {
+                    failureCb();
                 }
             });
         return (doc);

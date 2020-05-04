@@ -24,6 +24,7 @@ const LastNapsWidget = (props) => {
         });
     };
 
+    // TODO: find Bug with "awake" text over last Nap
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
         let tempNaps = [];
