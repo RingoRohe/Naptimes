@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from "prop-types";
 
 // libs
@@ -11,6 +11,7 @@ import Duration from 'components/shared/duration/Duration';
 
 const ChartDaily = props => {
     let data = [];
+    let timeout = null;
 
     const tooltip = (nap) => {
         let startDate = new Date(nap.start);
@@ -123,8 +124,22 @@ const ChartDaily = props => {
         });
     };
 
-    prepareChartData();
-    GoogleCharts.load(drawCharts, { packages: ["timeline"] });
+    const drawChart = () => {
+        if (props.naps && props.naps.length > 0) {
+            data = [];
+            prepareChartData();
+            GoogleCharts.load(drawCharts, { packages: ["timeline"] });
+        }
+    }
+
+    const _handleWindowResize = () => {
+        window.clearTimeout(timeout);
+        timeout = window.setTimeout(() => {
+            drawChart();
+        }, 1000);
+    };
+
+    drawChart();
 
     const ChartContainer = (props) => {
         
@@ -166,6 +181,15 @@ const ChartDaily = props => {
         );
     }
 
+    useEffect(() => {
+        window.addEventListener("resize", _handleWindowResize);
+
+        return () => {
+            window.removeEventListener("resize", _handleWindowResize);
+        };
+        // eslint-disable-next-line
+    }, [props.naps]);
+
     return (
         <article className={props.className + " card"}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>
@@ -177,7 +201,7 @@ const ChartDaily = props => {
 }
 
 ChartDaily.propTypes = {
-    naps: PropTypes.array
+    naps: PropTypes.array.isRequired
 };
 
 export default ChartDaily

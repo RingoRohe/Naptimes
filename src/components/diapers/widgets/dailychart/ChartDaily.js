@@ -75,10 +75,7 @@ const ChartDaily = props => {
         }
     }
 
-    if (diapers && diapers.length > 0) {
-        prepareData();
-        GoogleCharts.load(prepareChart, { packages: ["corechart", "bar"] });
-    }
+    drawChart();
 
     const _handleWindowResize = () => {
         window.clearTimeout(timeout);
@@ -99,6 +96,7 @@ const ChartDaily = props => {
         return (() => {
             window.removeEventListener("resize", _handleWindowResize);
         })
+        // eslint-disable-next-line
     }, [diapers]);
 
     return (
@@ -110,7 +108,8 @@ const ChartDaily = props => {
 }
 
 ChartDaily.propTypes = {
-
+    diapers: PropTypes.array.isRequired,
+    maxDays: PropTypes.number
 }
 
 export default ChartDaily

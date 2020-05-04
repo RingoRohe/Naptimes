@@ -6,9 +6,11 @@ import { GoogleCharts } from 'google-charts';
 
 // Styles
 import styles from './chartSleeptime.scss';
+import { useEffect } from 'react';
 
 const ChartSleeptime = props => {
     let data = [];
+    let timeout = null;
 
     const sortNapsIntoDays = (naps) => {
         let sortedNaps = [];
@@ -144,8 +146,22 @@ const ChartSleeptime = props => {
         );
     };
 
-    prepareChartData();
-    GoogleCharts.load(drawCharts, { packages: ['corechart'] });
+    const drawChart = () => {
+        if (props.naps && props.naps.length > 0) {
+            data = [];
+            prepareChartData();
+            GoogleCharts.load(drawCharts, { packages: ["corechart"] });
+        }
+    };
+
+    const _handleWindowResize = () => {
+        window.clearTimeout(timeout);
+        timeout = window.setTimeout(() => {
+            drawChart();
+        }, 1000);
+    };
+
+    drawChart();
 
     const ChartContainer = () => {
         return (
@@ -155,6 +171,15 @@ const ChartSleeptime = props => {
             </div>
         );
     }
+
+    useEffect(() => {
+        window.addEventListener("resize", _handleWindowResize);
+
+        return () => {
+            window.removeEventListener("resize", _handleWindowResize);
+        };
+        // eslint-disable-next-line
+    }, [props.naps]);
 
     // TODO: add annotations with sleeptime to datapoints
     return (
