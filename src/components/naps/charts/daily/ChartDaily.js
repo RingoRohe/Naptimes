@@ -107,16 +107,21 @@ const ChartDaily = props => {
                 var options = {
                     timeline: {
                         showRowLabels: false,
-                        singleColor: styles.timelineSingleColor
+                        singleColor: styles.timelineSingleColor,
                     },
                     tooltip: { isHtml: true },
                     // tooltip: { trigger: "selection" },
                     hAxis: {
                         minValue: data[i]["startDate"],
                         maxValue: data[i]["endDate"],
-                        format: "HH:MM"
+                        format: "HH:MM",
                     },
-                    height: 100
+                    height: 100,
+                    chartArea: {
+                        left: 20,
+                        top: 30,
+                        bottom: 10,
+                    },
                 };
 
                 chart.draw(dataTable, options);

@@ -30,13 +30,13 @@ const Dashboard = (props) => {
                     currentUser={props.currentUser}
                 />
             ) : null}
-            <AddDiaperButton diapersController={props.diapersController} />
             <LastNapWidget
                 firebase={props.firebase}
                 currentUser={props.currentUser}
                 naps={props.naps}
                 napsFunctions={props.napsFunctions}
             />
+            <AddDiaperButton diapersController={props.diapersController} />
             <LastDiaperWidget
                 diapers={props.diapers}
                 diapersController={props.diapersController}
