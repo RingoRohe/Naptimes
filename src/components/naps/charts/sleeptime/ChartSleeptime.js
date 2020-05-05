@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 const ChartSleeptime = props => {
     let data = [];
     let timeout = null;
+    const { maxDays = 5 } = props;
 
     const sortNapsIntoDays = (naps) => {
         let sortedNaps = [];
@@ -19,7 +20,7 @@ const ChartSleeptime = props => {
         *   Walk through all naps und sort them to its belonging Day.
         *   If a Nap reaches over two Days, split it.
         */
-        
+
         naps.forEach((nap) => {
             let offset = 24 * 60 * 60 * 1000; // 1 day
             let day = null;
@@ -41,7 +42,7 @@ const ChartSleeptime = props => {
             } else {
                 // nap was overnight so split it into two days
                 // part one: start until midnight (startdate stays untouched)
-                
+            
                 // change end Date to 23:59:59 of start Day
                 let endOfFirstPart = new Date(endDate);
                 endOfFirstPart.setHours(23, 59, 59, 999);
@@ -84,6 +85,7 @@ const ChartSleeptime = props => {
         sortedNaps.sort((a, b) => a.day - b.day);
         
         let dates = {};
+        sortedNaps.reverse();
         sortedNaps.forEach((napObject) => {
             const date = new Date(napObject.day);
             
@@ -94,14 +96,18 @@ const ChartSleeptime = props => {
         });
 
         for (let date in dates) {
-            let h, m;
-            h = Math.floor(dates[date] / 1000 / 60 / 60);
-            m = Math.floor((dates[date] / 1000 / 60 / 60 - h) * 60);
+            if (data.length < (maxDays + 2)) {
+                let h, m;
+                h = Math.floor(dates[date] / 1000 / 60 / 60);
+                m = Math.floor((dates[date] / 1000 / 60 / 60 - h) * 60);
 
-            data.push([
-                date,
-                timeToDecimal(`${h}:${m}`)
-            ]);
+                const decimalTime = timeToDecimal(`${h}:${m}`);
+                data.push([
+                    date,
+                    decimalTime,
+                    decimalTime
+                ]);
+            }
         }
     }
 
@@ -109,6 +115,7 @@ const ChartSleeptime = props => {
         // remove first and last day from data
         data.pop();
         data.shift();
+        data.reverse();
 
         if (data.length > 0) {
             const container = document.getElementById("sleeptimechart");
@@ -117,6 +124,7 @@ const ChartSleeptime = props => {
 
             dataTable.addColumn("string", "Date");
             dataTable.addColumn("number", "Hours of Sleep");
+            dataTable.addColumn({ type: "number", role: "annotation" });
             dataTable.addRows(data);
 
             const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;
@@ -126,11 +134,16 @@ const ChartSleeptime = props => {
                 vAxis: {
                     title: "Hours",
                     viewWindow: {
-                        min: min,
-                        max: max
-                    }
+                        min: min<0 ? 0 : min,
+                        max: max,
+                    },
                 },
-                colors: [styles.timelineSingleColor]
+                colors: [styles.timelineSingleColor],
+                chartArea: {
+                    left: 40,
+                    top: 30,
+                    bottom: 10,
+                }
             };
 
             chart.draw(dataTable, options);

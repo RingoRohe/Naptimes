@@ -72,9 +72,7 @@ const ChartDaily = props => {
             chartArea: {
                 left: 20,
                 top: 30,
-                right: 30,
-                bottom: 10,
-                // height: "80%"
+                bottom: 10
             },
         };
 
