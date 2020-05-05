@@ -26,7 +26,13 @@ const ChartDaily = props => {
                 if (tempDate !== date) {
                     // add last day to data array if not null
                     if (date !== '') {
-                        data.push([date, numDiapers, numPee, numPoo]);
+                        data.push([
+                            date,
+                            numDiapers,
+                            numDiapers,
+                            numPee,
+                            numPoo,
+                        ]);
                     }
                     date = tempDate;
                     numPee = 0;
@@ -40,7 +46,7 @@ const ChartDaily = props => {
             }
         });
         if (data.length < maxDays) {
-            data.push([date, numDiapers, numPee, numPoo]);
+            data.push([date, numDiapers, numDiapers, numPee, numPoo]);
         }
     }
 
@@ -48,6 +54,7 @@ const ChartDaily = props => {
         var dataTable = new GoogleCharts.api.visualization.DataTable();
         dataTable.addColumn("string", "Date");
         dataTable.addColumn("number", "Diapers");
+        dataTable.addColumn({ type: "number", role: "annotation" });
         dataTable.addColumn("number", "Pee");
         dataTable.addColumn("number", "Poo");
 
@@ -62,6 +69,13 @@ const ChartDaily = props => {
             series: { 0: { type: "area" } },
             backgroundColor: "transparent",
             // displayAnnotations: true,
+            chartArea: {
+                left: 20,
+                top: 30,
+                right: 30,
+                bottom: 10,
+                // height: "80%"
+            },
         };
 
         var chart = new GoogleCharts.api.visualization.ComboChart(

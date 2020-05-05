@@ -34,7 +34,7 @@ section.page_diapers {
 
     .diaperslist {
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 3;
 
         @media (min-width: $breakpoints_m) {
             grid-column: 2;
