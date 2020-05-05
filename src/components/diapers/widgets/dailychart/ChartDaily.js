@@ -115,7 +115,6 @@ const ChartDaily = props => {
         // eslint-disable-next-line
     }, [diapers]);
 
-    // TODO: add annotations with sumed up numbers
     return (
         <article className={props.className}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>

@@ -10,29 +10,26 @@ import '../tooltip.scss';
 import Duration from 'components/shared/duration/Duration';
 
 const ChartDaily = props => {
+    var moment = require("moment");
+    moment().format();
+
     let data = [];
     let timeout = null;
 
     const tooltip = (nap) => {
-        let startDate = new Date(nap.start);
-        let endDate = new Date(nap.end);
+        let startDate = moment(nap.start);
+        let endDate = moment(nap.end);
+        let duration = moment.duration(endDate.diff(startDate));
         return `<div class="tootltip">
             <h3>${nap.notes ? nap.notes : "no notes"}</h3>
-            <p class="duration">${startDate.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    })} - ${endDate.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    })}</p>
+            <p class="duration">${startDate.format('HH:mm')} - ${endDate.format('HH:mm')}</p>
+            <p class="duration">${duration.humanize()}</p>
             </div>`;
     }
 
-    function prepareChartData() {
+    const prepareChartData = () => {
         Array.from(Array(7)).forEach((x, i) => {
-            // console.log('cycle ' + i);
             data[i] = [];
-
             data[i]["containerName"] = 'day_chart_' + (i + 1);
 
             // create dates
@@ -68,12 +65,16 @@ const ChartDaily = props => {
                     newEndDate.setTime(newEndDate.getTime() - offset);
                 }
 
+                let duration = moment.duration(
+                    moment(newEndDate).diff(newStartDate)
+                );
+
                 return [
                     "naps",
-                    nap.notes ? nap.notes : "",
+                    duration.humanize(),
                     tooltip(nap),
                     newStartDate,
-                    newEndDate
+                    newEndDate,
                 ];
             });
         });

@@ -194,7 +194,6 @@ const ChartSleeptime = props => {
         // eslint-disable-next-line
     }, [props.naps]);
 
-    // TODO: add annotations with sleeptime to datapoints
     return (
         <article className={props.className + " card"}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>
