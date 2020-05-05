@@ -17,7 +17,7 @@ const ChartDaily = props => {
         let date = '';
         let numPee = 0;
         let numPoo = 0;
-        let numUndef = 0;
+        let numDiapers = 0;
 
         diapers.forEach(diaper => {
             if (data.length < maxDays) {
@@ -26,28 +26,28 @@ const ChartDaily = props => {
                 if (tempDate !== date) {
                     // add last day to data array if not null
                     if (date !== '') {
-                        data.push([date, numUndef, numPee, numPoo]);
+                        data.push([date, numDiapers, numPee, numPoo]);
                     }
                     date = tempDate;
                     numPee = 0;
                     numPoo = 0;
-                    numUndef = 0;
+                    numDiapers = 0;
                 }
                 // increment Pee and Poo
                 numPee += diaper.pee ? 1 : 0;
                 numPoo += diaper.poo ? 1 : 0;
-                numUndef += !diaper.poo && !diaper.pee ? 1 : 0;
+                numDiapers += 1;
             }
         });
         if (data.length < maxDays) {
-            data.push([date, numUndef, numPee, numPoo]);
+            data.push([date, numDiapers, numPee, numPoo]);
         }
     }
 
     function prepareChart() {
         var dataTable = new GoogleCharts.api.visualization.DataTable();
         dataTable.addColumn("string", "Date");
-        dataTable.addColumn("number", "Not set");
+        dataTable.addColumn("number", "Diapers");
         dataTable.addColumn("number", "Pee");
         dataTable.addColumn("number", "Poo");
 
@@ -56,11 +56,15 @@ const ChartDaily = props => {
 
         var options = {
             title: "Diapers per Day",
-            isStacked: true,
-            colors: ['grey', styles.yellow, styles.brown],
+            isStacked: false,
+            colors: [styles.timelineSingleColor, styles.yellow, styles.brown],
+            seriesType: "bars",
+            series: { 0: { type: "area" } },
+            backgroundColor: "transparent",
+            // displayAnnotations: true,
         };
 
-        var chart = new GoogleCharts.api.visualization.ColumnChart(
+        var chart = new GoogleCharts.api.visualization.ComboChart(
             document.getElementById("diaperschart")
         );
 
@@ -99,6 +103,7 @@ const ChartDaily = props => {
         // eslint-disable-next-line
     }, [diapers]);
 
+    // TODO: add annotations with sumed up numbers
     return (
         <article className={props.className}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>

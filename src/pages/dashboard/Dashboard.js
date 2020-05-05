@@ -42,7 +42,7 @@ const Dashboard = (props) => {
                 diapersController={props.diapersController}
             />
             <article className="card">
-                <ChartDaily diapers={props.diapers} maxDays={4} />
+                <ChartDaily diapers={props.diapers} maxDays={3} />
             </article>
             {props.currentUser.settings.childBirthday > 0 ? (
                 <AgeWidget
