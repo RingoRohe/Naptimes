@@ -12,6 +12,7 @@ import LastNapsListItem from './LastNapsListItem';
 import '../napswidget.scss';
 import './lastnaps.scss';
 import Headline from 'models/Headline';
+import Nap from 'models/Nap';
 
 const LastNapsWidget = (props) => {
     let [lastNaps, setLastNaps] = useState([]);
@@ -24,25 +25,42 @@ const LastNapsWidget = (props) => {
         });
     };
 
-    // TODO: find Bug with "awake" text over last Nap
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
         let tempNaps = [];
         let napsToUse = props.naps.slice(0, 3);
         let lastDate = '';
         napsToUse.forEach((nap, index) => {
+            // if new Cycle (new Day) add Headline
             const napDate = formatDate(new Date(nap.start));
             if (napDate !== lastDate) {
                 lastDate = napDate;
                 let headline = new Headline(napDate, napDate);
                 tempNaps.push(headline);
             }
+            // if this is the last nap and nap is running, add time from end until running nap
+            if (index === 0 && props.runningNap) {
+                const newNap = new Nap(
+                    props.runningNap.start,
+                    props.runningNap.end,
+                    props.runningNap.notes,
+                    props.runningNap.id+'2'
+                );
+                tempNaps.push(newNap);
+                const currentAwake = new Awake(
+                    napsToUse[index].end,
+                    props.runningNap.start,
+                    nap.id + "_" + props.runningNap.id
+                );
+                tempNaps.push(currentAwake);
+            }
             // if this is the last nap, add time from end until now
             if (index === 0 && !props.runningNap) {
                 const currentAwake = new Awake(
                     napsToUse[index].end,
                     Date.now(),
-                    nap.id + '_'
+                    nap.id + '_',
+                    true
                 );
                 tempNaps.push(currentAwake);
             }

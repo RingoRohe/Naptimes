@@ -62,26 +62,20 @@ const LastNapsListItem = (props) => {
                         minute: "2-digit",
                     })}{" "}
                     -{" "}
-                    {new Date(props.nap.end).toLocaleTimeString([], {
+                    {props.nap.end > 0 ? (
+                        new Date(props.nap.end).toLocaleTimeString([], {
                         hour: "2-digit",
-                        minute: "2-digit",
-                    })}
+                        minute: "2-digit"
+                    })) :('running')}
                 </span>
                 <span className="duration">
+                    {props.nap.end > 0 ? (
                     <Duration
                         milliseconds={props.nap.end - props.nap.start}
                         showSeconds={false}
-                    />
-                    {props.index === 0 ? (
-                        <span>
-                            {" "}
-                            (<Timer
-                                start={props.nap.end}
-                                tick="every minute"
-                            />{" "}
-                            ago)
-                        </span>
-                    ) : null}
+                    />) : (
+                        <Timer start={props.nap.start} showSeconds={false} tick="every minute" />
+                    )}
                 </span>
                 {props.nap.notes ? (
                     <span className="notes">{props.nap.notes}</span>
@@ -106,11 +100,13 @@ const LastNapsListItem = (props) => {
         return (
             <li className="awake">
                 <span className="duration">
+                    {props.nap.timer ? (
+                        <Timer start={props.nap.start} hideSeconds={true} />
+                    ) : (
                     <Duration
                         milliseconds={props.nap.end - props.nap.start}
-                        showSeconds={false}
-                    />{" "}
-                    awake
+                        showSeconds={false} />
+                    )} awake
                 </span>
             </li>
         );
