@@ -7,7 +7,7 @@ import Nap from 'models/Nap';
 
 // components
 import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
-import LastNapsWidget from 'components/naps/widgets/lastnaps/LastNapsWidget';
+import NapListWidget from 'components/naps/widgets/lastnaps/NapListWidget';
 import LastNapWidget from 'components/naps/widgets/lastnap/LastNapWidget';
 import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
 import AgeWidget from 'components/widgets/AgeWidget';
@@ -15,6 +15,9 @@ import BirthdayWidget from 'components/widgets/BirthdayWidget';
 import LastDiaperWidget from 'components/diapers/widgets/lastdiaper/LastDiaperWidget';
 import AddDiaperButton from 'components/diapers/widgets/adddiaper/AddDiaperButton';
 import ChartDaily from 'components/diapers/widgets/dailychart/ChartDaily';
+
+// Styles
+import './dashboard.scss';
 
 const Dashboard = (props) => {
     return (
@@ -50,11 +53,12 @@ const Dashboard = (props) => {
                     title={"Age of " + props.currentUser.settings.childName}
                 />
             ) : null}
-            <LastNapsWidget
-                className="naps_widget last card"
+            <NapListWidget
+                className="naps_widget naplist last card"
                 napsFunctions={props.napsFunctions}
                 naps={props.naps}
                 runningNap={props.runningNap}
+                maxNaps={3}
             />
         </section>
     );

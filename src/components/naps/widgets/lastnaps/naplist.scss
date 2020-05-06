@@ -2,73 +2,46 @@
 @import '../../../../assets/scss/colors';
 
 .naplist {
-    padding: 0;
-    position: relative;
-
-    .last_naps_list {
-        overflow-y: scroll;
-        max-height: 29rem;
-    }
-
-    h2 {
-        margin: 1rem;
-    }
-
-    ul.last_naps_list {
+    ul.naps_list {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
         
         &>li.nap {
-            overflow: hidden;
             position: relative;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
+            flex: 1;
+            padding: .5rem;
             
-            .info {
-                padding: 0.5rem 1rem;
-                display: inline-grid;
-                grid-template-columns: auto;
-                grid-template-rows: auto auto auto 1fr;
-                grid-template-areas:
-                    "times"
-                    "duration"
-                    "notes";
-                
-                .date {
-                    grid-area: date;
-                    font-size: 0.8rem;
-                    font-weight: bold;
-                    color: $mid;
-                }
-                
-                .times {
-                    grid-area: times;
-                    margin-right: .2rem;
-                }
-                
-                .duration {
-                    grid-area: duration;
-                    font-size: 0.8rem;
-                }
-                
-                .notes {
-                    grid-area: notes;
-                    font-size: 0.8rem;
-                }
+            .date {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: $mid;
+                display: block;
+            }
+
+            .times {
+                display: block;
+            }
+            
+            .duration {
+                font-size: 0.8rem;
+                display: block;
             }
 
             .actions {
                 position: absolute;
-                right: 0;
                 top: 0;
+                right: 0;
                 bottom: 0;
-                opacity: 1;
+                grid-area: actions;
+                opacity: 0;
                 pointer-events: none;
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
                 flex-direction: row-reverse;
-                transition: all 200ms;
                 transform: scaleX(0);
+                transition: all 200ms;
                 transform-origin: right;
 
                 li {
@@ -97,10 +70,10 @@
 
         &>li.headline {
             background-color: none;
-            padding: 0.3rem 1rem;
+            padding: 0.3rem 0.5rem;
 
             h3 {
-                font-size: 1rem;
+                font-size: 0.8rem;
                 font-weight: bold;
             }
         }

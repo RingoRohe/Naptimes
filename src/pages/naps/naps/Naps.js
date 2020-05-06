@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import NapsForm from '../../../components/naps/napsform/NapsForm';
 
 // Components
-import NaplistWidget from 'components/naps/widgets/naplist/NaplistWidget';
 import ChartDaily from 'components/naps/charts/daily/ChartDaily';
 import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
 
@@ -20,6 +19,7 @@ import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidge
 import './naps.scss';
 import ChartSleeptime from 'components/naps/charts/sleeptime/ChartSleeptime';
 import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
+import NapListWidget from 'components/naps/widgets/lastnaps/NapListWidget';
 
 const Naps = props => {
     const onNapsFormSubmit = (start, end, notes) => {
@@ -51,11 +51,18 @@ const Naps = props => {
                 <ChartDaily className="chart" naps={props.naps} />
             ) : null}
             {props.naps ? (
-                <NaplistWidget
-                    className="naplist card"
+                // <NaplistWidget
+                //     className="naplist card"
+                //     napsFunctions={props.napsFunctions}
+                //     naps={props.naps}
+                //     runningNap={props.runningNap}
+                // />
+                <NapListWidget
+                    className="naps_widget naplist card"
                     napsFunctions={props.napsFunctions}
                     naps={props.naps}
                     runningNap={props.runningNap}
+                    maxNaps={0}
                 />
             ) : null}
         </section>

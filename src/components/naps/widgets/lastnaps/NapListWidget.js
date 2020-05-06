@@ -6,16 +6,17 @@ import { useEffect, useState } from 'react';
 import Awake from 'models/Awake';
 
 // Components
-import LastNapsListItem from './LastNapsListItem';
+import LastNapsListItem from './NapListItem';
 
 // Styles
 import '../napswidget.scss';
-import './lastnaps.scss';
+import './naplist.scss';
 import Headline from 'models/Headline';
 import Nap from 'models/Nap';
 
 const LastNapsWidget = (props) => {
     let [lastNaps, setLastNaps] = useState([]);
+    let { maxNaps = 0 } = props;
 
     const formatDate = (date) => {
         return date.toLocaleDateString([], {
@@ -28,7 +29,10 @@ const LastNapsWidget = (props) => {
     useEffect(() => {
         // console.log('useEffect in LastNapsWidget.js');
         let tempNaps = [];
-        let napsToUse = props.naps.slice(0, 3);
+        let napsToUse = props.naps;
+        if (maxNaps > 0) {
+            napsToUse = napsToUse.slice(0, maxNaps);
+        }
         let lastDate = '';
         napsToUse.forEach((nap, index) => {
             // if new Cycle (new Day) add Headline
@@ -77,13 +81,13 @@ const LastNapsWidget = (props) => {
             }
         });
         setLastNaps(tempNaps);
-    }, [props.naps, props.runningNap]);
+    }, [props.naps, props.runningNap, maxNaps]);
 
     return (
         <article className={props.className}>
             <span className="card_icon fas fa-list fa-3x"></span>
             <h2>last Naps</h2>
-            <ul className="last_naps_list">
+            <ul className="naps_list">
                 {lastNaps.map((item, index) => (
                     <LastNapsListItem
                         key={item.id}

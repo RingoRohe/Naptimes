@@ -41,6 +41,21 @@ section.page_naps {
 
     .naplist {
         grid-row: 0;
+        grid-column: 1;
+
+        h2 {
+            margin: 1rem;
+        }
+
+        ul {
+            max-height: 25rem;
+            overflow: scroll;
+
+            @media (max-width: $breakpoints_m) {
+                max-height: none;
+            }
+        }
+
 
         @media (min-width: $breakpoints_m) {
             grid-row: 1 / span 2;
