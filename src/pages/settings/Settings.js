@@ -52,6 +52,21 @@ const Settings = props => {
         });
     }
 
+    const copyText = (e) => {
+        /* Get the text field */
+        var copyText = e.target;
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        toast.success('copied to clipboard');
+    }
+
+    // TODO: add managable List of Delegate Users
     return props.currentUser ? (
         <section className="page_settings">
             <article className="card child_name">
@@ -75,6 +90,11 @@ const Settings = props => {
                     showTimeInput
                     inline
                 />
+            </article>
+            <article className="card userid">
+                <span className="card_icon far fa-copy fa-3x"></span>
+                <h2>your UserID</h2>
+                <input type="text" value={props.currentUser.realUid} readOnly onClick={copyText} />
             </article>
             <article className="card nopadding save">
                 <button onClick={saveSettings}>Save Settings</button>
