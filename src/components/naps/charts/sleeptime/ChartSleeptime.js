@@ -9,6 +9,9 @@ import styles from './chartSleeptime.scss';
 import { useEffect } from 'react';
 
 const ChartSleeptime = props => {
+    const moment = require("moment");
+    moment().format();
+
     let data = [];
     let timeout = null;
     const { maxDays = 5 } = props;
@@ -105,7 +108,7 @@ const ChartSleeptime = props => {
                 data.push([
                     date,
                     decimalTime,
-                    decimalTime
+                    moment(dates[date]).utc().format('HH:mm')
                 ]);
             }
         }
@@ -124,7 +127,7 @@ const ChartSleeptime = props => {
 
             dataTable.addColumn("string", "Date");
             dataTable.addColumn("number", "Hours of Sleep");
-            dataTable.addColumn({ type: "number", role: "annotation" });
+            dataTable.addColumn({ type: "string", role: "annotation" });
             dataTable.addRows(data);
 
             const min = Math.floor(data.reduce((a, b) => a[1] < b[1] ? a : b)[1]) - 2;

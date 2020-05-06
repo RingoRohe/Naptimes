@@ -10,7 +10,7 @@ import '../tooltip.scss';
 import Duration from 'components/shared/duration/Duration';
 
 const ChartDaily = props => {
-    var moment = require("moment");
+    const moment = require("moment");
     moment().format();
 
     let data = [];
@@ -19,11 +19,11 @@ const ChartDaily = props => {
     const tooltip = (nap) => {
         let startDate = moment(nap.start);
         let endDate = moment(nap.end);
-        let duration = moment.duration(endDate.diff(startDate));
+        let duration = moment(moment.duration(endDate.diff(startDate)).asMilliseconds()).utc();
         return `<div class="tootltip">
             <h3>${nap.notes ? nap.notes : "no notes"}</h3>
             <p class="duration">${startDate.format('HH:mm')} - ${endDate.format('HH:mm')}</p>
-            <p class="duration">${duration.humanize()}</p>
+            <p class="duration">${duration.format('HH:mm')}</p>
             </div>`;
     }
 
@@ -65,13 +65,13 @@ const ChartDaily = props => {
                     newEndDate.setTime(newEndDate.getTime() - offset);
                 }
 
-                let duration = moment.duration(
-                    moment(newEndDate).diff(newStartDate)
-                );
+                let duration = moment(
+                    moment.duration(moment(newEndDate).diff(newStartDate)).asMilliseconds()
+                ).utc();
 
                 return [
                     "naps",
-                    duration.humanize(),
+                    duration.format('HH:mm'),
                     tooltip(nap),
                     newStartDate,
                     newEndDate,
