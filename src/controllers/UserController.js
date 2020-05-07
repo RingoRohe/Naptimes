@@ -67,6 +67,36 @@ const UserController = props => {
             });
     }
 
+    const getDelegateUsers = (user, successCb, failureCb) => {
+        firebase.firestore().collection('users')
+            .where('delegateId', '==', user.uid)
+            .get()
+            .then(snapshot => {
+                if (snapshot.empty) {
+                    if (successCb && typeof (successCb) === 'function') {
+                        successCb([]);
+                    }
+                    return;
+                }
+
+                let delegateUsers = [];
+                snapshot.forEach(doc => {
+                    let newUser = new User();
+                    newUser.fromFirebaseDoc(doc);
+                    delegateUsers.push(newUser);
+                });
+                if (successCb && typeof (successCb) === 'function') {
+                    successCb(delegateUsers);
+                }
+            })
+            .catch(err => {
+                console.log("Error getting document", err);
+                if (failureCb && typeof (failureCb) === 'function') {
+                    failureCb(err);
+                }
+            });
+    }
+
     const getSettings = (user, cb) => {
         let id = user.uid;
         firebase.firestore().collection('usersettings').doc(id).get()
@@ -140,7 +170,8 @@ const UserController = props => {
     }
 
     return {
-        saveSettings
+        saveSettings,
+        getDelegateUsers
     };
 }
 

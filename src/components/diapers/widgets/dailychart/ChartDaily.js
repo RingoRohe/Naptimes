@@ -61,6 +61,9 @@ const ChartDaily = props => {
         data.reverse();
         dataTable.addRows(data);
 
+        const min = 0;
+        const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 1;
+
         var options = {
             title: "Diapers per Day",
             isStacked: false,
@@ -72,7 +75,14 @@ const ChartDaily = props => {
             chartArea: {
                 left: 20,
                 top: 30,
-                bottom: 10
+                bottom: 30
+            },
+            vAxis: {
+                title: "amount",
+                viewWindow: {
+                    min: min < 0 ? 0 : min,
+                    max: max,
+                },
             },
         };
 

@@ -1,5 +1,5 @@
 // React
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
 
@@ -15,16 +15,27 @@ import './settings.scss';
 const Settings = props => {
     let [childName, setChildName] = useState('');
     let [childBirthday, setChildBirthday] = useState(0);
+    let [delegateUsers, setDelegateUsers] = useState([]);
 
     let toastId = null;
 
-    useState(() => {
+    useEffect(() => {
         if (props.currentUser && props.currentUser.settings) {
             let sttngs = props.currentUser.settings;
             setChildName(sttngs.childName);
             setChildBirthday(sttngs.childBirthday);
         }
     }, [props.currentUser]);
+
+    useEffect(() => {
+        if (props.currentUser && props.currentUser.uid && delegateUsers.length === 0) {
+            props.userController.getDelegateUsers(
+                props.currentUser,
+                (users) => setDelegateUsers(users),
+                (err) => { toast.error('error'); });
+        }
+        // eslint-disable-next-line
+    }, [props.currentUser, props.userController]);
 
     const onChildNameInputChanged = e => {
         setChildName(e.target.value);
@@ -95,6 +106,14 @@ const Settings = props => {
                 <span className="card_icon far fa-copy fa-3x"></span>
                 <h2>your UserID</h2>
                 <input type="text" value={props.currentUser.realUid} readOnly onClick={copyText} />
+            </article>
+            <article className="card delegates">
+                <h2>{delegateUsers.length} delegated Users</h2>
+                <ul>
+                    {delegateUsers.map(user => (
+                        <li key={user.uid}>{user.displayName}</li>
+                    ))}
+                </ul>
             </article>
             <article className="card nopadding save">
                 <button onClick={saveSettings}>Save Settings</button>

@@ -106,7 +106,7 @@ const NapsController = props => {
                 if (failureCb && typeof failureCb == "function") {
                     failureCb();
                 }
-            });;
+            });
     };
 
     const getNapById = (id, successCb, failureCb) => {
