@@ -66,7 +66,7 @@ const LastNapsListItem = (props) => {
                         new Date(props.nap.end).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit"
-                    })) :('running')}
+                    })) :('sleeping...')}
                 </span>
                 <span className="duration">
                     {props.nap.end > 0 ? (

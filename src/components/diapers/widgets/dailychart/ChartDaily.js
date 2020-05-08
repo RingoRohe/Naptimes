@@ -62,7 +62,7 @@ const ChartDaily = props => {
         dataTable.addRows(data);
 
         const min = 0;
-        const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 1;
+        const max = Math.floor(data.reduce((a, b) => a[1] > b[1] ? a : b)[1]) + 2;
 
         var options = {
             title: "Diapers per Day",
@@ -71,7 +71,6 @@ const ChartDaily = props => {
             seriesType: "bars",
             series: { 0: { type: "area" } },
             backgroundColor: "transparent",
-            // displayAnnotations: true,
             chartArea: {
                 left: 20,
                 top: 30,

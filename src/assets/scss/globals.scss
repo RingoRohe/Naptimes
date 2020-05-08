@@ -98,7 +98,7 @@ button, .button {
     }
 
     &:hover, &:focus {
-        color: $dark;
+        color: $white !important;
         background-color: $highlight;
         
         .default {

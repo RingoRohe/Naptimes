@@ -145,7 +145,7 @@ const ChartSleeptime = props => {
                 chartArea: {
                     left: 40,
                     top: 30,
-                    bottom: 10,
+                    bottom: 30,
                 }
             };
 
