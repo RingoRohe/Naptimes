@@ -21,7 +21,11 @@ const ChartDaily = props => {
 
         diapers.forEach(diaper => {
             if (data.length < maxDays) {
-                let tempDate = new Date(diaper.time).toLocaleDateString();
+                let tempDate = new Date(diaper.time).toLocaleDateString([], {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                });
                 // check if we have reached the next day
                 if (tempDate !== date) {
                     // add last day to data array if not null
@@ -51,7 +55,7 @@ const ChartDaily = props => {
     }
 
     function prepareChart() {
-        var dataTable = new GoogleCharts.api.visualization.DataTable();
+        const dataTable = new GoogleCharts.api.visualization.DataTable();
         dataTable.addColumn("string", "Date");
         dataTable.addColumn("number", "Diapers");
         dataTable.addColumn({ type: "number", role: "annotation" });

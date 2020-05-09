@@ -95,8 +95,9 @@ const DiapersForm = props => {
 }
 
 DiapersForm.propTypes = {
-    start: PropTypes.number,
-    end: PropTypes.number,
+    time: PropTypes.number,
+    pee: PropTypes.bool,
+    poo: PropTypes.bool,
     notes: PropTypes.string,
     onSubmit: PropTypes.func,
     headline: PropTypes.string,

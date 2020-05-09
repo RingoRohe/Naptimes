@@ -18,6 +18,7 @@ import ProfileMenu from 'components/profile/ProfileMenuView';
 import Naps from 'pages/naps/naps/Naps';
 import EditNap from 'pages/naps/edit/EditNap';
 import Diapers from 'pages/diapers/Diapers';
+import Bodydata from 'pages/bodydata/Bodydata';
 import Settings from 'pages/settings/Settings';
 
 // Controllers
@@ -28,6 +29,7 @@ import DiapersController from 'controllers/DiapersController';
 // Libs
 import { toast } from "react-toastify";
 import EditDiaper from 'pages/diapers/edit/EditDiaper';
+import BodydataController from 'controllers/BodydataController';
 
 function App() {
     toast.configure({
@@ -72,6 +74,19 @@ function App() {
         firebase,
         currentUser
     });
+
+    /*
+    * ============================== Bodydata
+    */
+    let [measurements, setMeasurements] = useState([]);
+
+    const bodydataController = BodydataController({
+        setMeasurements,
+        firebase,
+        currentUser
+    });
+
+    console.log('Measurements', measurements);
 
     return (
         <BrowserRouter>
@@ -143,6 +158,17 @@ function App() {
                         path="/diapers/edit/:id"
                         render={(props) => (
                             <EditDiaper {...props} diapersController={diapersController} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/bodydata"
+                        render={(props) => (
+                            <Bodydata
+                                {...props}
+                                currentUser={currentUser}
+                                bodydataController={bodydataController}
+                            />
                         )}
                     />
                     <Route

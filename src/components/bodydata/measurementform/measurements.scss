@@ -1,0 +1,102 @@
+@import '../../../assets/scss/breakpoints';
+@import '../../../assets/scss/colors';
+
+.measurement_form {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+        "legend legend"
+        "timelabel timelabel"
+        "time time"
+        "weightlabel weightlabel"
+        "weight weight"
+        "bodysizelabel bodysizelabel"
+        "bodysize bodysize"
+        "headcircumferencelabel headcircumferencelabel"
+        "headcircumference headcircumference"
+        "submit submit";
+
+    fieldset {
+        display: contents;
+
+        legend {
+            grid-area: legend;
+            font-size: 1.4rem;
+            color: $mid;
+            font-weight: bold;
+        }
+        
+        input {
+            border: none;
+            border-bottom: 1px solid $light;
+            color: $dark;
+            outline: none;
+            width: 100%;
+            font-size: 1.3rem;
+            
+            &:focus {
+                border-bottom: 1px solid $highlight;
+            }
+        }
+
+        label[for=time] {
+            grid-area: timelabel;
+        }
+
+        input#time {
+            grid-area: time;
+        }
+
+        label[for=weight] {
+            grid-area: weightlabel;
+        }
+
+        .weight {
+            grid-area: weight;
+        }
+
+        label[for=bodySize] {
+            grid-area: bodysizelabel;
+        }
+
+        .bodySize {
+            grid-area: bodysize;
+        }
+
+        label[for=headCircumference] {
+            grid-area: headcircumferencelabel;
+        }
+
+        .headCircumference {
+            grid-area: headcircumference;
+        }
+
+        input[type=submit] {
+            grid-area: submit;
+            border: none;
+            grid-row: 0 / span 2;
+        }
+    }
+}
+
+.dark {
+    .naps_form {
+        legend {
+            color: $light;
+        }
+
+        input {
+            background-color: transparent;
+            color: $white;
+            border-bottom: 1px solid $highlight;
+        }
+
+        input[type=submit] {
+            background-color: $highlight;
+            color: $dark;
+            border: none;
+        }
+    }
+}
