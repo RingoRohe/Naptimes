@@ -86,8 +86,6 @@ function App() {
         currentUser
     });
 
-    console.log('Measurements', measurements);
-
     return (
         <BrowserRouter>
             {currentUser ? (
@@ -167,6 +165,7 @@ function App() {
                             <Bodydata
                                 {...props}
                                 currentUser={currentUser}
+                                measurements={measurements}
                                 bodydataController={bodydataController}
                             />
                         )}

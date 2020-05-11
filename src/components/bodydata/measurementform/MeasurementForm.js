@@ -27,6 +27,9 @@ const MeasurementForm = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
         const measurement = new Measurement(time, weight, bodySize, headCircumference);
+        if (measurement.weight === '') measurement.weight = null;
+        if (measurement.bodySize === '') measurement.bodySize = null;
+        if (measurement.headCircumference === '') measurement.headCircumference = null;
 
         setTime(Date.now());
         setWeight("");
@@ -76,7 +79,7 @@ const MeasurementForm = (props) => {
                         setWeight(e.target.value);
                     }}
                 />
-                <label htmlFor="bodySize">Body Size (cm)</label>
+                <label htmlFor="bodySize">Body (cm)</label>
                 <input
                     type="number"
                     className="bodySize"
@@ -87,7 +90,7 @@ const MeasurementForm = (props) => {
                         setBodySize(e.target.value);
                     }}
                 />
-                <label htmlFor="headCircumference">Head Circumference (cm)</label>
+                <label htmlFor="headCircumference">Head (cm)</label>
                 <input
                     type="number"
                     className="headCircumference"

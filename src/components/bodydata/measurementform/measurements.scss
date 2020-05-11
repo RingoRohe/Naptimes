@@ -4,18 +4,25 @@
 .measurement_form {
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(7, auto);
+    grid-template-columns: auto 1fr;
+    // grid-template-areas:
+    //     "legend legend"
+    //     "timelabel timelabel"
+    //     "time time"
+    //     "weightlabel weightlabel"
+    //     "weight weight"
+    //     "bodysizelabel bodysizelabel"
+    //     "bodysize bodysize"
+    //     "headcircumferencelabel headcircumferencelabel"
+    //     "headcircumference headcircumference"
+    //     "submit submit";
     grid-template-areas:
         "legend legend"
         "timelabel timelabel"
         "time time"
-        "weightlabel weightlabel"
-        "weight weight"
-        "bodysizelabel bodysizelabel"
-        "bodysize bodysize"
-        "headcircumferencelabel headcircumferencelabel"
-        "headcircumference headcircumference"
+        "weightlabel weight"
+        "bodysizelabel bodysize"
+        "headcircumferencelabel headcircumference"
         "submit submit";
 
     fieldset {
@@ -43,10 +50,14 @@
 
         label[for=time] {
             grid-area: timelabel;
+            text-align: center;
         }
 
         input#time {
             grid-area: time;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid $mid;
         }
 
         label[for=weight] {

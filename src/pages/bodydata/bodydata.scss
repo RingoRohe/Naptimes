@@ -32,13 +32,18 @@ section.page_bodydata {
         }
     }
 
-    .list {
+    .measurementslist {
         grid-column: 1;
-        grid-row: 3;
+        grid-row: 2;
 
         @media (min-width: $breakpoints_m) {
             grid-column: 2;
             grid-row: 1;
+
+            ul {
+                max-height: 20rem;
+                overflow: scroll;
+            }
         }
 
         @media (min-width: $breakpoints_l) {

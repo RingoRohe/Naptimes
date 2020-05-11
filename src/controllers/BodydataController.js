@@ -119,19 +119,10 @@ const BodydataController = props => {
         // console.log("MeasurementsController mounted");
 
         if (currentUser && currentUser.uid) {
-            let dateOffset = 24 * 60 * 60 * 1000 * 14; // 14 days
-            let firstDayStart = new Date();
-            firstDayStart.setHours(0, 0, 0, 0);
-            firstDayStart.setTime(firstDayStart.getTime() - dateOffset);
-            let lastDayEnd = new Date();
-            lastDayEnd.setHours(23, 59, 59, 999);
-
             let ref = firebase
                 .firestore()
                 .collection(`users/${currentUser.uid}/measurements`);
             let unbindFirestore = ref
-                .where("time", ">=", firstDayStart.getTime())
-                .where("time", "<=", lastDayEnd.getTime())
                 .orderBy("time", "desc")
                 .onSnapshot((snapshot) => {
                     let measurements = [];
