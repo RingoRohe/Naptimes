@@ -25,9 +25,7 @@ const Diapers = props => {
             <article className="card diaperslist">
                 <DiaperslistWidget diapers={props.diapers} diapersController={props.diapersController} />
             </article>
-            <article className="card dailychart">
-                <ChartDaily diapers={props.diapers} />
-            </article>
+            <ChartDaily className="card dailychart" diapers={props.diapers} />
         </section>
     );
 }

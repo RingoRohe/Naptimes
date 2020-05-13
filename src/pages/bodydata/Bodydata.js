@@ -12,9 +12,10 @@ import MeasurementslistWidget from 'components/bodydata/widgets/measurementslist
 import './bodydata.scss';
 import MeasurementForm from 'components/bodydata/measurementform/MeasurementForm';
 import Measurement from 'models/Measurement';
+import BodydataChart from 'components/bodydata/widgets/chart/BodydataChart';
 
 const Bodydata = props => {
-    const { bodydataController } = props;
+    const { bodydataController, measurements } = props;
     const onMeasurementFormSubmitted = (measurement) => {
         if (measurement.hasWeight()) {
             const weightMeasurement = new Measurement(measurement.time, measurement.weight);
@@ -48,10 +49,11 @@ const Bodydata = props => {
             </article>
             <article className="card measurementslist">
                 <MeasurementslistWidget
-                    measurements={props.measurements}
-                    bodydataController={props.bodydataController}
+                    measurements={measurements}
+                    bodydataController={bodydataController}
                 />
             </article>
+            <BodydataChart className="card bodydatachart" measurements={measurements} />
         </section>
     );
 }

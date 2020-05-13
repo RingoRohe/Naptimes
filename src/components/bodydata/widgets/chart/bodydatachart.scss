@@ -1,0 +1,9 @@
+@import '../../../../assets/scss/colors';
+
+#bodydatachart {
+    height: 100%;
+}
+
+:export {
+    timelineSingleColor: $highlight;
+}

@@ -7,17 +7,17 @@ import Nap from 'models/Nap';
 
 // components
 import RunningNapWidget from 'components/naps/widgets/runningnap/RunningNapWidget';
-import NapListWidget from 'components/naps/widgets/lastnaps/NapListWidget';
 import LastNapWidget from 'components/naps/widgets/lastnap/LastNapWidget';
 import StartNapMultiButton from 'components/naps/widgets/startnap/StartNapMultiButton';
 import AgeWidget from 'components/widgets/AgeWidget';
 import BirthdayWidget from 'components/widgets/BirthdayWidget';
 import LastDiaperWidget from 'components/diapers/widgets/lastdiaper/LastDiaperWidget';
 import AddDiaperButton from 'components/diapers/widgets/adddiaper/AddDiaperButton';
-import ChartDaily from 'components/diapers/widgets/dailychart/ChartDaily';
+import DiaperChartDaily from 'components/diapers/widgets/dailychart/ChartDaily';
 
 // Styles
 import './dashboard.scss';
+import BodydataChart from 'components/bodydata/widgets/chart/BodydataChart';
 
 const Dashboard = (props) => {
     return (
@@ -44,22 +44,14 @@ const Dashboard = (props) => {
                 diapers={props.diapers}
                 diapersController={props.diapersController}
             />
-            <article className="card">
-                <ChartDaily diapers={props.diapers} maxDays={3} />
-            </article>
+            <DiaperChartDaily className='card' diapers={props.diapers} maxDays={3} />
+            <BodydataChart className="card bodydatachart" measurements={props.measurements} />
             {props.currentUser.settings.childBirthday > 0 ? (
                 <AgeWidget
                     birthday={props.currentUser.settings.childBirthday}
                     title={"Age of " + props.currentUser.settings.childName}
                 />
             ) : null}
-            <NapListWidget
-                className="naps_widget naplist last card"
-                napsFunctions={props.napsFunctions}
-                naps={props.naps}
-                runningNap={props.runningNap}
-                maxNaps={3}
-            />
         </section>
     );
 }

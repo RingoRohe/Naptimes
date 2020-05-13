@@ -18,18 +18,19 @@ import ProfileMenu from 'components/profile/ProfileMenuView';
 import Naps from 'pages/naps/naps/Naps';
 import EditNap from 'pages/naps/edit/EditNap';
 import Diapers from 'pages/diapers/Diapers';
+import EditDiaper from 'pages/diapers/edit/EditDiaper';
 import Bodydata from 'pages/bodydata/Bodydata';
+import EditMeasurement from 'pages/bodydata/edit/EditMeasurement';
 import Settings from 'pages/settings/Settings';
 
 // Controllers
 import NapsController from 'controllers/NapsController';
 import UserController from 'controllers/UserController';
 import DiapersController from 'controllers/DiapersController';
+import BodydataController from 'controllers/BodydataController';
 
 // Libs
 import { toast } from "react-toastify";
-import EditDiaper from 'pages/diapers/edit/EditDiaper';
-import BodydataController from 'controllers/BodydataController';
 
 function App() {
     toast.configure({
@@ -109,6 +110,7 @@ function App() {
                                 runningNap={runningNap}
                                 naps={naps}
                                 diapers={diapers}
+                                measurements={measurements}
                             />
                         )}
                     />
@@ -155,7 +157,10 @@ function App() {
                         exact
                         path="/diapers/edit/:id"
                         render={(props) => (
-                            <EditDiaper {...props} diapersController={diapersController} />
+                            <EditDiaper
+                                {...props}
+                                diapersController={diapersController}
+                            />
                         )}
                     />
                     <Route
@@ -166,6 +171,16 @@ function App() {
                                 {...props}
                                 currentUser={currentUser}
                                 measurements={measurements}
+                                bodydataController={bodydataController}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/bodydata/edit-measurement/:id"
+                        render={(props) => (
+                            <EditMeasurement
+                                {...props}
                                 bodydataController={bodydataController}
                             />
                         )}

@@ -34,7 +34,7 @@ const LastMeasurementsListItem = (props) => {
     };
 
     const onEditMeasurementButtonClicked = () => {
-        history.push(`/measurements/edit/${props.measurement.id}`);
+        history.push(`/bodydata/edit-measurement/${props.measurement.id}`);
     };
 
     if (props.measurement instanceof Headline) {

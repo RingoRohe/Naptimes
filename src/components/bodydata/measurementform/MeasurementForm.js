@@ -11,13 +11,20 @@ import "./measurements.scss";
 
 const MeasurementForm = (props) => {
     const {
-        propstime = Date.now(),
-        propsweight = "",
-        propsbodysize = "",
-        propsheadcircumference = "",
         headline = 'new Measurement',
         submitText = 'save'
     } = props;
+
+    let propstime = Date.now();
+    let propsweight = "";
+    let propsbodysize = "";
+    let propsheadcircumference = "";
+    if (props.measurement) {
+        propstime = props.measurement.time || Date.now();
+        propsweight = props.measurement.weight || "";
+        propsbodysize = props.measurement.bodySize || "";
+        propsheadcircumference = props.measurement.headCircumference || "";
+    }
 
     let [time, setTime] = useState(propstime);
     let [weight, setWeight] = useState(propsweight);

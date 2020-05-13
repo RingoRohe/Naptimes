@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react';
 
 // libs
 import { GoogleCharts } from 'google-charts';
 
 // Styles
 import styles from "./chartDaily.scss";
-import { useEffect } from 'react';
 
 const ChartDaily = props => {
     let { diapers, maxDays = 7 } = props;
@@ -110,7 +110,7 @@ const ChartDaily = props => {
         window.clearTimeout(timeout);
         timeout = window.setTimeout(() => {
             drawChart();
-        }, 1000);
+        }, 400);
     }
 
     const ChartContainer = () => {

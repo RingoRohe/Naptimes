@@ -19,16 +19,16 @@ section.page_diapers {
 
     .diaperform {
         grid-column: 1;
-        grid-row: 1;
+        grid-row: 2;
 
         @media (min-width: $breakpoints_m) {
             grid-column: 1;
-            grid-row: 1;
+            grid-row: 2;
         }
 
         @media (min-width: $breakpoints_l) {
             grid-column: 1 / span 2;
-            grid-row: 1;
+            grid-row: 2;
         }
     }
 
@@ -38,27 +38,27 @@ section.page_diapers {
 
         @media (min-width: $breakpoints_m) {
             grid-column: 2;
-            grid-row: 1;
+            grid-row: 2;
         }
 
         @media (min-width: $breakpoints_l) {
             grid-column: 3;
-            grid-row: 1;
+            grid-row: 2;
         }
     }
 
     .dailychart {
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 1;
 
         @media (min-width: $breakpoints_m) {
             grid-column: 1 / span 2;
-            grid-row: 2;
+            grid-row: 1;
         }
 
         @media (min-width: $breakpoints_l) {
             grid-column: 1 / span 3;
-            grid-row: 2;
+            grid-row: 1;
         }
     }
 
