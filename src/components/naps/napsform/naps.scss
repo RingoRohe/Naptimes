@@ -1,0 +1,103 @@
+@import '../../../assets/scss/breakpoints';
+@import '../../../assets/scss/colors';
+
+.naps_form {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+        "legend"
+        "startDateLabel"
+        "startDate"
+        "endDateLabel"
+        "endDate"
+        "notes"
+        "submit";
+
+    // @media (min-width: $breakpoints_m) {
+    //     grid-template-columns: 1fr 1fr;
+    //     grid-template-areas:
+    //     "legend legend"
+    //     "startDateLabel endDateLabel"
+    //     "startDate endDate"
+    //     "notes notes"
+    //     "submit submit";
+    // }
+
+    fieldset {
+        display: contents;
+
+        legend {
+            grid-area: legend;
+            font-size: 1.4rem;
+            color: $mid;
+            font-weight: bold;
+        }
+
+        label {
+            font-size: 0.7rem;
+            margin-bottom: -1rem;
+            color: $mid;
+        }
+
+        label[for=start] {
+            grid-area: startDateLabel;
+        }
+
+        input#start {
+            grid-area: startDate;
+        }
+
+        label[for=end] {
+            grid-area: endDateLabel;
+        }
+
+        input#end {
+            grid-area: endDate;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px solid $light;
+            color: $dark;
+            outline: none;
+            width: 100%;
+            font-size: 1.3rem;
+
+            &:focus {
+                border-bottom: 1px solid $highlight;
+            }
+        }
+
+        .notes {
+            grid-area: notes;
+        }
+
+        input[type=submit] {
+            grid-area: submit;
+            border: none;
+            grid-row: 7 / span 2;
+        }
+    }
+}
+
+.dark {
+    .naps_form {
+        legend {
+            color: $light;
+        }
+
+        input {
+            background-color: transparent;
+            color: $white;
+            border-bottom: 1px solid $highlight;
+        }
+
+        input[type=submit] {
+            background-color: $highlight;
+            color: $dark;
+            border: none;
+        }
+    }
+}

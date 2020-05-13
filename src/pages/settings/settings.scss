@@ -1,0 +1,93 @@
+@import '../../assets/scss/colors';
+@import '../../assets/scss/breakpoints';
+@import '../../assets/scss/variables';
+
+.page_settings {
+    padding: 2rem;
+    background-color: $mid;
+    grid-area: main;
+    display: grid;
+    // grid-template-columns: 1fr;
+    // grid-auto-rows: max-content;
+    gap: 2rem;
+
+    @media (min-width: $breakpoints_m) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .child_name {
+        background-color: $dark;
+        color: $white;
+        @media (min-width: $breakpoints_m) {
+            grid-column-end: span 2;
+        }
+
+        input {
+            color: $light;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-size: 2rem;
+            width: 100%;
+            margin: 1rem 0;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            font-size: 7vw;
+
+            &:focus {
+                color: $white;
+                border-color: $highlight;
+                cursor: text;
+            }
+        }
+    }
+    
+    .child_birthday {
+        grid-row: 2 / span 2;
+
+        &>div {
+            text-align: center;
+
+            .react-datepicker {
+                width: 100%;
+
+                .react-datepicker__month-container {
+                    width: 100%;
+
+                    .react-datepicker__day, .react-datepicker__day-name {
+                        width: 12%;
+                    }
+                }
+            }
+        }
+    }
+
+    .userid {
+        input {
+            display: block;
+            min-height: 3rem;
+            width: 100%;
+            height: 80%;
+            text-align: center;
+            font-size: 1rem;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            cursor: pointer;
+
+            @media (max-width: $breakpoints_m) {
+                font-size: .8rem;
+            }
+        }
+    }
+
+    .save {
+        grid-column: 1 / span 2;
+        button {
+            width: 100%;
+            height: 100%;
+            font-size: 2rem;
+        }
+    }
+}

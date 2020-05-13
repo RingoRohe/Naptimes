@@ -1,0 +1,65 @@
+@import '../../assets/scss/breakpoints';
+@import '../../assets/scss/colors';
+
+section.page_diapers {
+    padding: 2rem;
+    background-color: $mid;
+    grid-area: main;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+
+    @media (min-width: $breakpoints_m) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $breakpoints_l) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .diaperform {
+        grid-column: 1;
+        grid-row: 2;
+
+        @media (min-width: $breakpoints_m) {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        @media (min-width: $breakpoints_l) {
+            grid-column: 1 / span 2;
+            grid-row: 2;
+        }
+    }
+
+    .diaperslist {
+        grid-column: 1;
+        grid-row: 3;
+
+        @media (min-width: $breakpoints_m) {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        @media (min-width: $breakpoints_l) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+    }
+
+    .dailychart {
+        grid-column: 1;
+        grid-row: 1;
+
+        @media (min-width: $breakpoints_m) {
+            grid-column: 1 / span 2;
+            grid-row: 1;
+        }
+
+        @media (min-width: $breakpoints_l) {
+            grid-column: 1 / span 3;
+            grid-row: 1;
+        }
+    }
+
+}

@@ -1,0 +1,61 @@
+@import '../../../../assets/scss/breakpoints';
+@import '../../../../assets/scss/colors';
+
+.naps_widget {
+    &.single {
+        justify-content: flex-start;
+
+        p {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            color: $mid;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: inherit;
+
+            &>span {
+                display: block;
+            }
+
+            .date {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: $mid;
+                text-align: center;
+            }
+            
+            .duration {
+                font-size: 1.8rem;
+                color: $dark;
+                font-weight: bold;
+                margin-top: 1rem;
+            }
+    
+            .times {
+                font-size: 0.8rem;
+            }
+
+            .notes {
+                font-size: 1rem;
+                padding-top: .5rem;
+            }
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+
+            li {
+                flex-grow: 1;
+
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

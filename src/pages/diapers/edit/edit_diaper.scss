@@ -1,0 +1,19 @@
+@import '../../../assets/scss/breakpoints';
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/variables';
+
+section.page_diaper_edit {
+    padding: 2rem;
+    background-color: $mid;
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    grid-auto-rows: max-content;
+
+    &>* {
+        padding: 2rem;
+        background-color: $white;
+        box-shadow: $baseShadow;
+    }
+}

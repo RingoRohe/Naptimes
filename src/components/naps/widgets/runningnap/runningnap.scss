@@ -1,0 +1,35 @@
+@import '../../../../assets/scss/breakpoints';
+@import '../../../../assets/scss/colors';
+
+.naps_widget {
+    &.running {
+        padding-top: 1rem;
+
+        .timer {
+            padding: 2rem 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: $white;
+            background-color: $highlight;
+        }
+
+        button {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+.nap_finish_time_prompt {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+}
+
+.no_padding {
+    padding: 0 !important;
+}

@@ -3,19 +3,67 @@
 }
 
 .card {
+    position: relative;
+    overflow: hidden;
     background-color: $white;
     padding: 1rem;
     box-shadow: 0 0 5px $black;
+
+    &.nopadding {
+        padding: 0;
+    }
+
+    h2 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: $light;
+        margin: 0.5rem 0;
+    }
+
+    p {
+        padding: 0.5rem 0;
+    }
+
+    .card_icon {
+        position: absolute;
+        // transform: rotate(25deg);
+        top: -0.3rem;
+        right: -0.3rem;
+        color: transparentize($highlight, 0.5);
+    }
+
+    .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        font-size: 7em;
+        opacity: .1;
+        color: $highlight;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    &.dark {
+        background-color: $dark;
+        color: $white;
+    }
 }
 
 .menuPoint {
+    height: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     cursor: pointer;
-    padding: 1rem;
-    min-width: 4rem;
+    padding: 1rem !important;
+    min-width: 6rem;
+    text-decoration: none;
+    border-radius: 0;
 
     .icon {
         color: $highlight;
@@ -28,15 +76,15 @@
         color: $white;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus, &.active {
         background: $mid;
         color: $white;
     }
 }
 
-button {
+button, .button {
     background-color: $dark;
-    color: $light;
+    color: $light !important;
     border: none;
     padding: .5em 1em;
     cursor: pointer;
@@ -50,7 +98,7 @@ button {
     }
 
     &:hover, &:focus {
-        color: $dark;
+        color: $white !important;
         background-color: $highlight;
         
         .default {

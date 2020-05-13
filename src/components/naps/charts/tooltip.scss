@@ -1,0 +1,21 @@
+@import '../../../assets/scss/colors';
+
+div.google-visualization-tooltip {
+    background-color: $dark;
+    padding: 1rem;
+    color: $white;
+    box-shadow: none;
+    border: 1px solid $white;
+
+    h3 {
+        font-size: 1.2rem;
+        color: $light;
+        margin-bottom: .5rem;
+    }
+    
+    p {
+        margin: 0;
+        padding: 0;
+        margin-bottom: .5rem;
+    }
+}

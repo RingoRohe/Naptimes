@@ -1,0 +1,68 @@
+@import '../../assets/scss/breakpoints';
+@import '../../assets/scss/colors';
+
+.profileMenu {
+    position: relative;
+    grid-area: profile;
+    min-width: 8rem;
+
+    .picture {
+        width: 4rem;
+        border: 2px solid $white;
+        border-radius: 50%;
+    }
+
+    .username {
+        font-size: 0.8rem;
+    }
+
+    .profileSubmenu {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        min-height: 100%;
+        overflow: hidden;
+        
+        a {
+            display: block;
+            background-color: $dark;
+            color: $light;
+            padding: .5rem 1rem;
+            text-decoration: none;
+            text-align: center;
+            transition: all 200ms;
+            transform: translateY(100%);
+
+            &:hover, &:focus {
+                cursor: pointer;
+                color: $dark;
+                background-color: $highlight;
+                border-top: 1px solid $dark;
+            }
+        }
+
+        button {
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            font-size: inherit;
+            transition: all 200ms;
+            transform: translateY(100%);
+        }
+    }
+
+    &:hover, &:focus {
+        box-shadow: none;
+
+        .profileSubmenu {
+
+            a, button {
+                transform: translateY(0);
+            }
+        }
+    }
+}

@@ -1,18 +1,40 @@
 class User {
-    constructor(uid, displayName) {
-        uid ? this.uid = uid : this.uid = 0;
-        displayName ? this.displayName = displayName : this.displayName = 0;
+    constructor(uid, email, photoURL, displayName) {
+        this.uid = uid ? uid : "";
+        this.email = email ? email : "";
+        this.photoURL = photoURL ? photoURL : "";
+        this.displayName = displayName ? displayName : "";
+        this.delegateId = null;
+        this.settings = {};
     }
 
-    fromObject(object) {
-        object.uid ? this.uid = object.uid : this.uid = false;
-        object.displayName ? this.displayName = object.displayName : this.displayName = "";
+    fromFirebaseDoc(object) {
+        this.uid = object.data().uid;
+        this.email = object.data().email;
+        this.photoURL = object.data().photoURL;
+        this.displayName = object.data().displayName;
+        this.delegateId = object.data().delegateId ? object.data().delegateId : null;
     }
 
-    toObject() {
+    setSettings(settings) {
+        if (settings && typeof (settings) === 'object') {
+            this.settings = settings;
+        }
+    }
+
+    get asObject() {
         return ({
-            displayName: this.displayName
+            uid: this.delegateId ? this.delegateId : this.uid,
+            realUid: this.uid,
+            email: this.email,
+            photoURL: this.photoURL,
+            displayName: this.displayName,
+            settings: this.settings
         });
+    }
+
+    isDelegated() {
+        return this.delegateId ? true : false;
     }
 }
 

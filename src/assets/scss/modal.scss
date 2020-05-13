@@ -1,3 +1,6 @@
+@import './colors';
+@import './variables';
+
 .backdrop {
     position: fixed;
     top: 0;
@@ -8,8 +11,8 @@
     justify-content: center;
     align-items: center;
     background-color: transparentize($black, 0.5);
-    opacity: 1;
-    pointer-events: all;
+    opacity: 0;
+    pointer-events: none;
     transition: all 0.3s ease-out;
     
     .modal {
@@ -17,16 +20,78 @@
         z-index: 500;
         width: auto;
         padding: 2rem;
-        transform: scale(1);
-        transition: all 0.2s ease-out;
+        transform: scale(0) rotate(-400deg);
+        transition: all 0.4s ease-out;
+        background-color: $white;
+        box-shadow: $baseShadow;
+        outline: none;
     }
 
-    &.hidden {
+    &.open {
+        opacity: 1;
+        pointer-events: all;
+
+        .modal {
+            transform: scale(1) rotate(0);
+        }
+    }
+
+    &.closed {
         opacity: 0;
         pointer-events: none;
 
         .modal {
-            transform: scale(0);
+            transform: scale(0) rotate(-400deg);
+        }
+    }
+}
+
+.alert {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    p {
+        margin-bottom: 1rem;;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+
+        li {
+            width: 45%;
+
+            button {
+                width: 100%;
+                outline: none;
+            }
+        }
+    }
+}
+
+.confirm {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    p {
+        margin-bottom: 1rem;;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+
+        li {
+            width: 45%;
+
+            button {
+                width: 100%;
+                outline: none;
+            }
         }
     }
 }
