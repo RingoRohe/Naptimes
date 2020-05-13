@@ -4,8 +4,6 @@ A React JS Project to track Data of your Toddler/Baby/Child. Basically meant for
 
 ![Screenshot](https://ringorohe.github.io/Naptimes/screen.png)
 
-![Screenshot](https://ringorohe.github.io/Naptimes/screen.png)
-
 ## Setup
 
 This Webapp uses Firebase Cloud Firestore. Add your Data to the `.env.local.example` File and remove the `.example` from the Filename.
