@@ -5,6 +5,9 @@ import { useEffect } from 'react';
 // libs
 import { GoogleCharts } from 'google-charts';
 
+// Components
+import NoData from 'components/shared/nodata/NoData';
+
 // Styles
 import styles from "./chartDaily.scss";
 
@@ -131,7 +134,9 @@ const ChartDaily = props => {
     return (
         <article className={props.className}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>
-            <ChartContainer><p>Still gathering Data...</p></ChartContainer>
+            {diapers.length > 0 ? (
+                <ChartContainer><p>Still gathering Data...</p></ChartContainer>
+            ) : (<NoData headline="Diapers Chart" text="Not enough Data to show." />)}
         </article>
     );
 }

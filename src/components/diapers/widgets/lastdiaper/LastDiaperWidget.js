@@ -12,6 +12,7 @@ import "../diaperswidget.scss";
 import "./lastdiaper.scss";
 import Timer from 'components/shared/timer/Timer';
 import LinkButton from 'components/shared/LinkButton';
+import NoData from 'components/shared/nodata/NoData';
 
 const LastDiaperWidget = (props) => {
     let { diapers, diapersController } = props;
@@ -89,7 +90,9 @@ const LastDiaperWidget = (props) => {
                 </li>
             </ul>
         </article>
-    ) : null;
+    ) : (
+        <NoData className="diapers_widget single card" headline="Last Diaper" text="Not enough Data to show" />
+    );
 }
 
 export default LastDiaperWidget;

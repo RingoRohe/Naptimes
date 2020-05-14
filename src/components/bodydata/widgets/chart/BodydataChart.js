@@ -6,6 +6,9 @@ import { useEffect } from "react";
 // libs
 import { GoogleCharts } from "google-charts";
 
+// Components
+import NoData from 'components/shared/nodata/NoData';
+
 const BodydataChart = props => {
     let { measurements = 0 } = props;
     let timeout = null;
@@ -137,9 +140,11 @@ const BodydataChart = props => {
     return (
         <article className={props.className}>
             <span className="card_icon fas fa-chart-line fa-3x"></span>
-            <ChartContainer>
-                <p>Still gathering Data...</p>
-            </ChartContainer>
+            {measurements.length > 0 ? (
+                <ChartContainer>
+                    <p>Still gathering Data...</p>
+                </ChartContainer>
+            ) : (<NoData headline="Body Data Chart" text="Not enough Data to show." />)}
         </article>
     );
 }

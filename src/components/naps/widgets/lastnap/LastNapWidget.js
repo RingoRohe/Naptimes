@@ -13,6 +13,7 @@ import "./lastnap.scss";
 import Duration from 'components/shared/duration/Duration';
 import Timer from 'components/shared/timer/Timer';
 import LinkButton from 'components/shared/LinkButton';
+import NoData from 'components/shared/nodata/NoData';
 
 const LastNapWidget = (props) => {
     let { naps, napsFunctions } = props;
@@ -92,7 +93,9 @@ const LastNapWidget = (props) => {
                 </li>
             </ul>
         </article>
-    ) : null;
+    ) : (
+        <NoData className="naps_widget single card" headline="Last Nap" text="Not enough Data to show" />
+    );
 }
 
 export default LastNapWidget;
