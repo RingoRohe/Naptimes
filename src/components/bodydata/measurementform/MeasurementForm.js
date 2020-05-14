@@ -52,14 +52,12 @@ const MeasurementForm = (props) => {
         }
     };
 
-    const formatTimestampToInputDateTime = (ts) => {
+    const formatTimestampToInputDate = (ts) => {
         let date = new Date(ts);
         let dd = (date.getDate() < 10 ? "0" : "") + date.getDate();
         let MM = (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
         let yyyy = date.getFullYear();
-        let hh = (date.getHours() < 10 ? "0" : "") + date.getHours();
-        let mm = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-        let str = `${yyyy}-${MM}-${dd}T${hh}:${mm}`;
+        let str = `${yyyy}-${MM}-${dd}`;
         return str;
     };
 
@@ -69,10 +67,10 @@ const MeasurementForm = (props) => {
                 <legend>{headline}</legend>
                 <label htmlFor="time">Time of Measurement</label>
                 <input
-                    type="datetime-local"
+                    type="date"
                     name="time"
                     id="time"
-                    value={formatTimestampToInputDateTime(time)}
+                    value={formatTimestampToInputDate(time)}
                     onChange={onDateTimeChanged}
                 />
                 <label htmlFor="weight">Weight (g)</label>
