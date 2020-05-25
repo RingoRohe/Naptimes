@@ -7,7 +7,8 @@ header {
     padding: 1rem;
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.2rem;
+        margin: 0;
         color: $light;
         font-weight: 900;
         text-transform: uppercase;
@@ -15,7 +16,7 @@ header {
         cursor: pointer;
 
         @media (min-width: $breakpoints_m) {
-            font-size: 3rem;
+            font-size: 1.8rem;
         }
     }
 }
