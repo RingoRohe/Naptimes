@@ -20,6 +20,7 @@ const LastNapsWidget = (props) => {
 
     const formatDate = (date) => {
         return date.toLocaleDateString([], {
+            weekday: 'short',
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
