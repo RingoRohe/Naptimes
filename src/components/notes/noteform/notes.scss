@@ -1,0 +1,115 @@
+@import '../../../assets/scss/breakpoints';
+@import '../../../assets/scss/colors';
+
+.diapers_form {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+        "legend legend"
+        "changedDate changedDate"
+        "pee poo"
+        "notes notes"
+        "submit submit";
+
+    // @media (min-width: $breakpoints_m) {
+    //     grid-template-columns: 1fr 1fr;
+    //     grid-template-areas:
+    //     "legend legend"
+    //     "changedDateLabel endDateLabel"
+    //     "changedDate endDate"
+    //     "notes notes"
+    //     "submit submit";
+    // }
+
+    fieldset {
+        display: contents;
+
+        legend {
+            grid-area: legend;
+            font-size: 1.4rem;
+            color: $mid;
+            font-weight: bold;
+        }
+
+        input#changedDate {
+            grid-area: changedDate;
+        }
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        label[for=pee], label[for=poo] {
+            display: block;
+            width: auto;
+            padding: 1rem;
+            text-align: center;
+            background-color: $light;
+            color: $mid;
+            cursor: pointer;
+        }
+
+        label[for=pee] {
+            grid-area: pee;
+        }
+
+        #pee:checked ~ label[for=pee] {
+            background-color: $highlight;
+            color: $dark;
+        }
+        
+        label[for=poo] {
+            grid-area: poo;
+        }
+        
+        #poo:checked ~ label[for=poo] {
+            background-color: $highlight;
+            color: $dark;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px solid $light;
+            color: $dark;
+            outline: none;
+            width: 100%;
+            font-size: 1.3rem;
+
+            &:focus {
+                border-bottom: 1px solid $highlight;
+            }
+        }
+
+        .notes {
+            grid-area: notes;
+        }
+
+        input[type=submit] {
+            grid-area: submit;
+            border: none;
+            grid-row: 7 / span 2;
+        }
+    }
+}
+
+.dark {
+    .naps_form {
+        legend {
+            color: $light;
+        }
+
+        input {
+            background-color: transparent;
+            color: $white;
+            border-bottom: 1px solid $highlight;
+        }
+
+        input[type=submit] {
+            background-color: $highlight;
+            color: $dark;
+            border: none;
+        }
+    }
+}

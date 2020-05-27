@@ -21,6 +21,8 @@ import Diapers from 'pages/diapers/Diapers';
 import EditDiaper from 'pages/diapers/edit/EditDiaper';
 import Bodydata from 'pages/bodydata/Bodydata';
 import EditMeasurement from 'pages/bodydata/edit/EditMeasurement';
+import Notes from 'pages/notes/Notes';
+import EditNote from 'pages/notes/edit/EditNote';
 import Settings from 'pages/settings/Settings';
 
 // Controllers
@@ -28,6 +30,7 @@ import NapsController from 'controllers/NapsController';
 import UserController from 'controllers/UserController';
 import DiapersController from 'controllers/DiapersController';
 import BodydataController from 'controllers/BodydataController';
+import NotesController from 'controllers/NotesController';
 
 // Libs
 import { toast } from "react-toastify";
@@ -83,6 +86,17 @@ function App() {
 
     const bodydataController = BodydataController({
         setMeasurements,
+        firebase,
+        currentUser
+    });
+
+    /*
+    * ============================== Notes
+    */
+    let [notes, setNotes] = useState([]);
+
+    const notesController = NotesController({
+        setNotes,
         firebase,
         currentUser
     });
@@ -182,6 +196,28 @@ function App() {
                             <EditMeasurement
                                 {...props}
                                 bodydataController={bodydataController}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/notes"
+                        render={(props) => (
+                            <Notes
+                                {...props}
+                                currentUser={currentUser}
+                                notesController={notesController}
+                                notes={notes}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/notes/edit/:id"
+                        render={(props) => (
+                            <EditNote
+                                {...props}
+                                notesController={notesController}
                             />
                         )}
                     />

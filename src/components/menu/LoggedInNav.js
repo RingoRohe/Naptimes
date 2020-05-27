@@ -34,6 +34,13 @@ const LoggedInNav = (props) => {
                     title="Body"
                 />
             </li>
+            <li>
+                <MenuPoint
+                    to="/notes"
+                    iconClasses="icon fas fa-sticky-note fa-3x"
+                    title="Notes"
+                />
+            </li>
             {/* <li>
                 <MenuPoint
                     to="/photos"

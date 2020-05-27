@@ -1,0 +1,103 @@
+@import '../../../../assets/scss/breakpoints';
+@import '../../../../assets/scss/colors';
+
+.noteslist {
+    padding: 0;
+    position: relative;
+
+    .last_notes_list {
+        overflow-y: scroll;
+        max-height: 29rem;
+    }
+
+    h2 {
+        margin: 1rem;
+    }
+
+    ul.last_notes_list {
+        
+        &>li.note {
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            
+            .info {
+                padding: 0.5rem 1rem;
+                display: inline-grid;
+                grid-template-columns: auto;
+                grid-template-rows: auto auto auto;
+                grid-template-areas:
+                    "time"
+                    "elapsed"
+                    "notes"
+                    ;
+                
+                .time {
+                    grid-area: time;
+                    margin-right: .2rem;
+                }
+                
+                .elapsed_time {
+                    grid-area: elapsed;
+                    font-size: 0.8rem;
+                }
+                
+                .text {
+                    grid-area: notes;
+                    font-size: 0.8rem;
+                }
+            }
+
+            .actions {
+                overflow: hidden;
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                opacity: 1;
+                pointer-events: none;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                flex-direction: row-reverse;
+                transition: all 200ms;
+                transform: scaleX(0);
+                transform-origin: right;
+
+                li {
+                    height: 100%;
+
+                    button {
+                        height: 100%;
+                        color: $highlight;
+                        &:hover, &:focus {
+                            color: $dark;
+                        }
+                    }
+                }
+
+            }
+
+            &:hover, &:focus {
+                background-color: $light;
+                .actions {
+                    opacity: 1;
+                    pointer-events: all;
+                    transform: scaleX(1);
+                }
+            }
+        }
+
+        &>li.headline {
+            background-color: $lighter;
+            padding: 0.3rem 1rem;
+
+            h3 {
+                font-size: 1rem;
+                font-weight: bold;
+            }
+        }
+    }
+}
