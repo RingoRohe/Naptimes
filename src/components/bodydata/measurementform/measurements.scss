@@ -23,6 +23,7 @@
         "weightlabel weight"
         "bodysizelabel bodysize"
         "headcircumferencelabel headcircumference"
+        "temperaturelabel temperature"
         "submit submit";
 
     fieldset {
@@ -82,6 +83,14 @@
 
         .headCircumference {
             grid-area: headcircumference;
+        }
+
+        label[for=temperature] {
+            grid-area: temperaturelabel;
+        }
+
+        .temperature {
+            grid-area: temperature;
         }
 
         input[type=submit] {

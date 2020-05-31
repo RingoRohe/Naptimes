@@ -19,29 +19,34 @@ const MeasurementForm = (props) => {
     let propsweight = "";
     let propsbodysize = "";
     let propsheadcircumference = "";
+    let propstemperature = "";
     if (props.measurement) {
         propstime = props.measurement.time || Date.now();
         propsweight = props.measurement.weight || "";
         propsbodysize = props.measurement.bodySize || "";
         propsheadcircumference = props.measurement.headCircumference || "";
+        propstemperature = props.measurement.temperature || "";
     }
 
     let [time, setTime] = useState(propstime);
     let [weight, setWeight] = useState(propsweight);
     let [bodySize, setBodySize] = useState(propsbodysize);
     let [headCircumference, setHeadCircumference] = useState(propsheadcircumference);
+    let [temperature, setTemperature] = useState(propstemperature);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const measurement = new Measurement(time, weight, bodySize, headCircumference);
+        const measurement = new Measurement(time, weight, bodySize, headCircumference, temperature);
         if (measurement.weight === '') measurement.weight = null;
         if (measurement.bodySize === '') measurement.bodySize = null;
         if (measurement.headCircumference === '') measurement.headCircumference = null;
+        if (measurement.temperature === '') measurement.temperature = null;
 
         setTime(Date.now());
         setWeight("");
         setBodySize("");
         setHeadCircumference("");
+        setTemperature("");
 
         props.onSubmit(measurement);
     };
@@ -104,6 +109,17 @@ const MeasurementForm = (props) => {
                     value={headCircumference}
                     onChange={(e) => {
                         setHeadCircumference(e.target.value);
+                    }}
+                />
+                <label htmlFor="temperature">Temperature (°C)</label>
+                <input
+                    type="number"
+                    className="temperature"
+                    id="temperature"
+                    placeholder="Temperature (°C)"
+                    value={temperature}
+                    onChange={(e) => {
+                        setTemperature(e.target.value);
                     }}
                 />
                 <input type="submit" value={submitText} className="button" />

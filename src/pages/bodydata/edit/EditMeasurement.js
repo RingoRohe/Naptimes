@@ -68,6 +68,14 @@ const EditMeasurement = props => {
                 () => { toast.error('Head Size not saved'); }
             );
         }
+        if (newMeasurement.hasTemperature()) {
+            const temperature = new Measurement(newMeasurement.time, null, null, null, newMeasurement.temperature);
+            props.bodydataController.createMeasurement(
+                temperature,
+                () => { toast.success('Temperaturesaved'); },
+                () => { toast.error('Temperaturenot saved'); }
+            );
+        }
         history.goBack();
     }
 

@@ -41,6 +41,14 @@ const Bodydata = props => {
                 () => {toast.error('Head Size not saved');}
             );
         }
+        if (measurement.hasTemperature()) {
+            const temperature = new Measurement(measurement.time, null, null, null, measurement.temperature);
+            bodydataController.createMeasurement(
+                temperature,
+                () => {toast.success('Temperature saved');},
+                () => {toast.error('Temperature not saved');}
+            );
+        }
     }
     return (
         <section className="page_bodydata">

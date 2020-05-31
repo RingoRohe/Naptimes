@@ -28,8 +28,8 @@ const Notes = props => {
     }
 
     return (
-        <section className="page_bodydata">
-            <article className="card noteform">
+        <section className="page_notes">
+            <article className="postit noteform">
                 <NoteForm onSubmit={onNoteFormSubmitted} />
             </article>
             <article className="card noteslist">

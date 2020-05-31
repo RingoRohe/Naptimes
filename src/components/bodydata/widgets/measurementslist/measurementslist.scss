@@ -45,9 +45,22 @@
                 align-self: center;
                 transition: all 100ms;
                 transition-delay: 0ms;
+
+                &.low {
+                    color: $temp-low;
+                }
+
+                &.medium {
+                    color: $temp-medium;
+                }
+
+                &.high {
+                    color: $temp-high;
+                }
             }
 
             .actions {
+                overflow: hidden;
                 position: absolute;
                 right: 0;
                 top: 0;

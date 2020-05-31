@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import './notes.scss';
 import Note from 'models/Note';
 
-const NotesForm = props => {
+const NoteForm = props => {
     const note = props.note ? props.note : new Note(Date.now());
     const headline = props.headline ? props.headline : "new Note";
     const submitText = props.submitText ? props.submitText : "save";
@@ -67,10 +67,10 @@ const NotesForm = props => {
     );
 }
 
-NotesForm.propTypes = {
+NoteForm.propTypes = {
     note: PropTypes.objectOf(Note),
     onSubmit: PropTypes.func,
     headline: PropTypes.string,
 };
 
-export default NotesForm
+export default NoteForm

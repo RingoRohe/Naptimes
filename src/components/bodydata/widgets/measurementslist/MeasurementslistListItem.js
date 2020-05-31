@@ -63,6 +63,30 @@ const LastMeasurementsListItem = (props) => {
             data = parseFloat(props.measurement.headCircumference);
             unit = 'cm';
         }
+        if (props.measurement.hasTemperature()) {
+            icon = 'thermometer-three-quarters';
+            className = 'temperature'
+            const temperature = parseFloat(props.measurement.temperature);
+            
+            if (temperature < 35) {
+                icon = 'thermometer-empty low';
+            }
+            else if (temperature < 37) {
+                icon = 'thermometer-quarter';
+            }
+            else if (temperature < 38) {
+                icon = 'thermometer-half medium';
+            }
+            else if (temperature < 39) {
+                icon = 'thermometer-three-quarters medium';
+            }
+            else {
+                icon = 'thermometer-full high';
+            }
+
+            data = parseFloat(temperature);
+            unit = '°C';
+        }
         return (
             <li key={props.measurement.id} className="measurement">
                 <span className="time">
