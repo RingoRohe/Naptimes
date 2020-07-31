@@ -42,7 +42,7 @@ const NotesListItem = (props) => {
 
     if (note instanceof Headline) {
         return (
-            <li className="headline">
+            <li className="headline listsection_headline">
                 <h3>{note.text}</h3>
             </li>
         );

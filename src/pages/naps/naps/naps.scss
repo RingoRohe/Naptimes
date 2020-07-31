@@ -49,7 +49,7 @@ section.page_naps {
 
         ul {
             max-height: 25rem;
-            overflow: scroll;
+            overflow: auto;
 
             @media (max-width: $breakpoints_m) {
                 max-height: none;

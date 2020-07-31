@@ -23,7 +23,11 @@ const RunningNapWidget = (props) => {
             <FinishNapTimePrompt
                 onButtonClicked={(ms) => {
                     let finishDate = new Date(Date.now() - ms);
-                    props.napsFunctions.finishNap(finishDate);
+                    props.napsFunctions.finishNap(finishDate, null, (msg) => {
+                        setTimeout(() => {
+                            toast.error(msg);
+                        }, 200);
+                    });
                 }}
             />,
             {

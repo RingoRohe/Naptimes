@@ -110,3 +110,11 @@ button, .button {
         }
     }
 }
+
+.listsection_headline {
+    background-color: $light;
+    h3 {
+        font-size: 0.6rem !important;
+        text-align: right;
+    }
+}

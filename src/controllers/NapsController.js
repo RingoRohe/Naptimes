@@ -39,6 +39,12 @@ const NapsController = props => {
         } else {
             finishTime = Date.now();
         }
+
+        if (finishTime <= props.runningNap.start) {
+            failureCb('Nap cannot end earlier than started.');
+            return;
+        }
+
         const ref = props.firebase
             .firestore()
             .collection(`users/${props.currentUser.uid}/naps`);

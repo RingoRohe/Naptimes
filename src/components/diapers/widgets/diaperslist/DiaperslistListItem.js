@@ -40,7 +40,7 @@ const LastDiapersListItem = (props) => {
 
     if (props.diaper instanceof Headline) {
         return (
-            <li className="headline">
+            <li className="headline listsection_headline">
                 <h3>{props.diaper.text}</h3>
             </li>
         );

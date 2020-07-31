@@ -39,7 +39,7 @@ const LastMeasurementsListItem = (props) => {
 
     if (props.measurement instanceof Headline) {
         return (
-            <li className="headline">
+            <li className="headline  listsection_headline">
                 <h3>{props.measurement.text}</h3>
             </li>
         );
